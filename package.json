@@ -1,0 +1,22 @@
+{
+  "name": "unnamed_comic_frontend",
+  "version": "0.0.1",
+  "description": "暫未命名的漫畫前端",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://a9650615@github.com/BGPSekai/unnamedComicFrontEnd.git"
+  },
+  "keywords": [
+    "comic"
+  ],
+  "author": "菜鳥祐",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BGPSekai/unnamedComicFrontEnd/issues"
+  },
+  "homepage": "https://github.com/BGPSekai/unnamedComicFrontEnd#readme"
+}
