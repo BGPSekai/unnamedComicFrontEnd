@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 import AppBar from 'material-ui/lib/app-bar';
 import LeftNav from 'material-ui/lib/left-nav';
 import MenuItem from 'material-ui/lib/menus/menu-item';
+import IconMenu from 'material-ui/lib/menus/icon-menu';
 import Avatar from 'material-ui/lib/avatar';
 import Paper from 'material-ui/lib/paper';
 import IconButton from 'material-ui/lib/icon-button';
 import MenuIcon from 'material-ui/lib/svg-icons/navigation/menu';
 import FileUploadIcon from 'material-ui/lib/svg-icons/file/file-upload';
-import MenuResource from 'res/menu.json';
+import MenuResource from './res/menu.json';
+import Styles from './AppStyles';
+import Footer from './components/footer';
 
 export default class App extends Component {
   constructor(props) {
@@ -28,69 +32,45 @@ export default class App extends Component {
     
   }
 
+  handlePageChange(page) {
+    //this.props.history.push(page); //deprecated
+    browserHistory.push(page);
+  }
+
   render() {
-    let styles = {
-      root: {
-        color: '#424242'
-      },
-      navLeft: {
-        zIndex: 500,
-        padding: '100px 0 0 0'
-      },
-      header: {
-        background: '#D81B60',
-        padding: '10px 5px',
-        position: 'relative',
-        zIndex: 1000
-      },
-      title: {
-        color: '#424242',
-        fontSize: '1.2rem',
-        lineHeight: '60px'
-      },
-      iconLeft: {
-        color: '#424242'
-      },
-      appBarOuter: {
-        display: 'flex',
-        width: '75%',
-        maxWidth: '1080px',
-        margin: 'auto',  
-      },
-      appBar: {
-        flex: 2,
-        background: '#fff',
-        padding: '0px 20px',
-        minHeight: 'auto'
-      },
-      userButton: {
-        flex: 1,
-      },
-      avatarPaper: {
-        width: '40px',
-        height: '40px',
-        margin: 'auto 2%'
-      },
-      avatar: {
-      }
+    let MenuElement = [
+      <div>Title</div>
+    ];
+    
+    for(let i in MenuResource) {
+      MenuElement.push(
+      <MenuItem onTouchTap={this.handlePageChange.bind( this, i)}>
+        {MenuResource[i].text}
+      </MenuItem>);
     };
 
     return (
-      <div style={styles.root}>
-        <LeftNav style={styles.navLeft} open={this.state.navOpen}>
-          
+      <div style={Styles.root}>
+        <LeftNav style={Styles.navLeft} open={this.state.navOpen}>
+          {MenuElement}
         </LeftNav>
-        <div id="header" style={styles.header}>
-          <div style={styles.appBarOuter}>
+        <div id="header" style={Styles.header}>
+          <div style={Styles.appBarOuter}>
             {/* Grid */}
             <AppBar
               title={process.env.WEBSITE_TITLE}
-              iconElementLeft={<IconButton onTouchTap={this.handleNavToggle.bind(this)}><MenuIcon color={styles.iconLeft.color}/></IconButton>}
-              iconElementRight={<IconButton><FileUploadIcon color={styles.iconLeft.color}/></IconButton>}
-              style={styles.appBar}
-              titleStyle={styles.title}
+              iconElementLeft={
+                <IconButton tooltip="切換選單" onTouchTap={this.handleNavToggle.bind(this)}>
+                  <MenuIcon color={Styles.iconLeft.color}/>
+                </IconButton>}
+              iconElementRight={
+                <IconButton tooltip="發布漫畫" onTouchTap={this.handlePageChange.bind( this, 'upload')}>
+                  <FileUploadIcon color={Styles.iconLeft.color}/>
+                </IconButton>}
+              style={Styles.appBar}
+              titleStyle={Styles.title}
             />
-            <Paper style={styles.avatarPaper} zDepth={1} circle={true}>
+            <Paper style={Styles.avatarPaper} zDepth={1} circle={true}>
               <Avatar>
                 鳥
               </Avatar>
@@ -100,6 +80,7 @@ export default class App extends Component {
         <div id="main" onTouchTap={this.handleNeedCloseNav.bind(this)}>
           {this.props.children}
         </div>
+        <Footer />
       </div>
     )
   }
