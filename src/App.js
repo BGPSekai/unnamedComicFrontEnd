@@ -21,8 +21,7 @@ export default class App extends Component {
     super(props);
     this.state = {
       navOpen: false,
-      hasAuth: false,
-
+      hasAuth: false
     }
 
   }
@@ -34,7 +33,7 @@ export default class App extends Component {
     
     if(window.innerWidth*widthPersent<256)
       this.setState({navOpen: false});
-    
+
   }
 
   handlePageChange(page) {
@@ -47,7 +46,7 @@ export default class App extends Component {
     
     for(let i in MenuResource) {
       MenuElement.push(
-      <ListItem onTouchTap={this.handlePageChange.bind( this, i)}>
+      <ListItem key={i} onTouchTap={this.handlePageChange.bind( this, i)}>
         {MenuResource[i].text}
       </ListItem>);
     };
@@ -102,5 +101,5 @@ export default class App extends Component {
       </div>
     )
   }
-
+  
 }

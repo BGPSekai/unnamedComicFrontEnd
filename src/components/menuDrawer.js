@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 export default class MenuDrawer extends Component {
     render() {
-
+    
         let Styles = {
             drawer: {
                 position: 'relative',

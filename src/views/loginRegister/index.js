@@ -13,12 +13,12 @@ export default class loginRegister extends Component {
         this.state = {
             tabIndex: 0
         };
-        switch(this.props.location.pathname){
+        switch(this.props.location.pathname) {
             case '/login': 
-                this.state.tabIndex=0; 
+                this.state.tabIndex = 0; 
                 break;
             case '/register': 
-                this.state.tabIndex=1;
+                this.state.tabIndex = 1;
                 break;
         }
 
@@ -40,7 +40,7 @@ export default class loginRegister extends Component {
                         <Tab label="登入" />
                         <Tab label="註冊" />
                     </Tabs>
-                    <LinearProgress mode="indeterminate" style={Styles.LinearProgress}/>
+                    <LinearProgress mode="indeterminate" style={Styles.LinearProgress} />
                 </div>
             </div>
         );

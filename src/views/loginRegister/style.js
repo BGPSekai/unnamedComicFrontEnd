@@ -3,7 +3,7 @@ module.exports = {
     root: {
         background: '#2196F3',
         height: '40vh',
-        minHeight: 200,
+        minHeight: 275,
         position: 'relative'
     },
     controllBar: {
