@@ -1,9 +1,9 @@
 /* inline style file */
 module.exports = {
-    mHeader: {
+  mHeader: {
 
-    },
-    mSecend: {
-        background: '#E0E0E0'
-    }
+  },
+  mSecend: {
+    background: '#E0E0E0'
+  }
 };
