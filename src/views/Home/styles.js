@@ -1,5 +1,5 @@
 /* inline style file */
-module.exports = {
+const styles = {
   mHeader: {
 
   },
@@ -7,3 +7,5 @@ module.exports = {
     background: '#E0E0E0'
   }
 };
+
+export default styles;
