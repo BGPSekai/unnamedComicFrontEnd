@@ -25,8 +25,10 @@ export default class App extends Component {
     }
 
   }
-  
-  handleNavToggle() { this.setState({navOpen: !this.state.navOpen}) };
+
+  handleNavToggle() { 
+    this.setState({navOpen: !this.state.navOpen}) 
+  }
 
   handleNeedCloseNav() {
     let widthPersent = 0.16;
@@ -101,5 +103,5 @@ export default class App extends Component {
       </div>
     )
   }
-  
+
 }
