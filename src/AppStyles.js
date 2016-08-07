@@ -1,4 +1,4 @@
-module.exports = {
+const appStyle = {
   root: {
     color: '#424242'
   },
@@ -61,5 +61,6 @@ module.exports = {
   footer: {
     background: '#f6f9fa'
   }
-  
-}
+};
+
+export default appStyle;

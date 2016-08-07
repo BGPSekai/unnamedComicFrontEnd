@@ -12,7 +12,7 @@ import IconButton from 'material-ui/lib/icon-button';
 import MenuIcon from 'material-ui/lib/svg-icons/navigation/menu';
 import FileUploadIcon from 'material-ui/lib/svg-icons/file/file-upload';
 import MenuResource from './res/menu.json';
-import Styles from './AppStyles';
+import Styles from './appStyles';
 import MenuDrawer from './components/menuDrawer';
 import Footer from './components/footer';
 
@@ -32,7 +32,7 @@ export default class App extends Component {
 
   handleNeedCloseNav() {
     let widthPersent = 0.16;
-    
+
     if(window.innerWidth*widthPersent<256)
       this.setState({navOpen: false});
 
@@ -45,7 +45,7 @@ export default class App extends Component {
 
   render() {
     let MenuElement = [];
-    
+
     for(let i in MenuResource) {
       MenuElement.push(
       <ListItem key={i} onTouchTap={this.handlePageChange.bind( this, i)}>
@@ -101,7 +101,7 @@ export default class App extends Component {
         </div>
         <Footer />
       </div>
-    )
+    );
   }
 
 }
