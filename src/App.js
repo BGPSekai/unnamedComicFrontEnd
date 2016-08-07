@@ -22,7 +22,7 @@ export default class App extends Component {
     this.state = {
       navOpen: false,
       hasAuth: false
-    }
+    };
 
   }
 
@@ -33,7 +33,7 @@ export default class App extends Component {
   handleNeedCloseNav() {
     let widthPersent = 0.16;
 
-    if(window.innerWidth*widthPersent<256)
+    if (window.innerWidth * widthPersent < 256)
       this.setState({navOpen: false});
 
   }

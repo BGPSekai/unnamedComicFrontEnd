@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 import Tabs from 'material-ui/lib/tabs/tabs';
 import Tab from 'material-ui/lib/tabs/tab';
 import LinearProgress from 'material-ui/lib/linear-progress';
@@ -11,22 +12,30 @@ export default class LoginRegister extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			tabIndex: this.props.location.pathname === '/login'? 0 : 1
+			tabIndex: Number(this.props.location.pathname !== '/login')
 		};
+
 	}
 	
 	handleBackAcation() {
-		console.log(this.props.history);
+		 if (this.props.routes.length <= 1)
+		 	browserHistory.push('/');
+		 else	
+		 	this.props.history.goBack();
 	}
 
 	render() {
 		return (
 			<div style={styles.root}>
 				<Container style={styles.controllBar}>
-					<IconButton onTouchTap={this.handleBackAcation.bind(this)}><ArrowBackIcon color={styles.backIcon.color}/></IconButton>
+					<IconButton onTouchTap={this.handleBackAcation.bind(this)}>
+					<ArrowBackIcon color={styles.backIcon.color}/></IconButton>
 				</Container>
 				<div style={styles.Box}>
-					<Tabs initialSelectedIndex={this.state.tabIndex} tabItemContainerStyle={styles.Tabs}>
+					<Tabs 
+						initialSelectedIndex={this.state.tabIndex} 
+						tabItemContainerStyle={styles.Tabs}
+					>
 						<Tab label="登入" />
 						<Tab label="註冊" />
 					</Tabs>
