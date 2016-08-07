@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import GridList from 'material-ui/lib/grid-list/grid-list';
 import Container from '../../components/container';
-import styles from './style';
+import styles from './styles';
 
 export default class Home extends Component {
   render() {
-   
     return (
       <div>
         <Container style={styles.mHeader}>
@@ -21,7 +20,5 @@ export default class Home extends Component {
         </Container>
       </div>
     );
-  
   }
-
 }
