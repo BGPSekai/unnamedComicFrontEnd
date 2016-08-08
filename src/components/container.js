@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 export default class Container extends Component {
   render() {
-
+    
     let styles = {
       width: '75%',
       maxWidth: '1080px',

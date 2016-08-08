@@ -56,7 +56,10 @@ export default class App extends Component {
     return (
       <div style={Styles.root}>
         <LeftNav style={Styles.navLeft} open={this.state.navOpen}>
-          <MenuDrawer title="title" background={'https://lh3.googleusercontent.com/yDResYVDafsxu1f_74idKOw4MFLi0BiBy51W2oRXVC2S9Uj4XptePeekB0HZMPZM4IrCc6tARQ=w368-h207-p-no'} />
+          <MenuDrawer 
+            title="title" 
+            background={'https://lh3.googleusercontent.com/yDResYVDafsxu1f_74idKOw4MFLi0BiBy51W2oRXVC2S9Uj4XptePeekB0HZMPZM4IrCc6tARQ=w368-h207-p-no'} 
+          />
           <List subheader="主選單">
             {MenuElement}
           </List>

@@ -3,7 +3,7 @@ import Container from './container';
 
 export default class Footer extends Component {
   
-  render() {
+render() {
 
     let Styles = {
       footer: {

@@ -29,7 +29,8 @@ export default class LoginRegister extends Component {
 			<div style={styles.root}>
 				<Container style={styles.controllBar}>
 					<IconButton onTouchTap={this.handleBackAcation.bind(this)}>
-					<ArrowBackIcon color={styles.backIcon.color}/></IconButton>
+						<ArrowBackIcon color={styles.backIcon.color}/>
+					</IconButton>
 				</Container>
 				<div style={styles.Box}>
 					<Tabs 
