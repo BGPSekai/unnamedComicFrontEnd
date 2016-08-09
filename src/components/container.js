@@ -4,7 +4,7 @@ export default class Container extends Component {
   render() {
     
     let styles = {
-      width: '75%',
+      width: '95%',
       maxWidth: '1080px',
       minHeight: '300px',
       marginLeft: 'auto',

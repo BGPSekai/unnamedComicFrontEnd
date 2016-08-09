@@ -14,7 +14,7 @@ import FileUploadIcon from 'material-ui/lib/svg-icons/file/file-upload';
 import MenuResource from './res/menu.json';
 import Styles from './appStyles';
 import MenuDrawer from './components/menuDrawer';
-import Footer from './components/footer';
+import Footer from './components/Footer';
 
 export default class App extends Component {
   constructor(props) {
@@ -74,7 +74,7 @@ export default class App extends Component {
                   <MenuIcon color={Styles.iconLeft.color}/>
                 </IconButton>}
               iconElementRight={
-                <IconButton tooltip="發布漫畫" onTouchTap={this.handlePageChange.bind( this, 'upload')}>
+                <IconButton tooltip="發布漫畫" onTouchTap={this.handlePageChange.bind( this, '/upload')}>
                   <FileUploadIcon color={Styles.iconLeft.color}/>
                 </IconButton>}
               style={Styles.appBar}
@@ -94,8 +94,8 @@ export default class App extends Component {
               <FlatButton  
                 style={Styles.loginButton} 
                 rippleColor="#FF4081" 
-                label="登入 / 註冊"
-                onTouchTap={this.handlePageChange.bind( this, 'login')} />
+                label="登入"
+                onTouchTap={this.handlePageChange.bind( this, '/login')} />
             }
           </div>
         </div>

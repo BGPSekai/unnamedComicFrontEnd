@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import GridList from 'material-ui/lib/grid-list/grid-list';
-import Container from '../../components/container';
+import Container from '../../components/Container';
 import styles from './styles';
 
 export default class Home extends Component {
@@ -8,7 +8,7 @@ export default class Home extends Component {
     return (
       <div>
         <Container style={styles.mHeader}>
-        	未命名的漫畫網站
+        	未命名的漫畫網站 meta Header
         </Container>
         <div style={styles.mSecend}>
           <Container>

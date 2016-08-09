@@ -28,7 +28,7 @@ const appStyle = {
 
   appBarOuter: {
     display: 'flex',
-    width: '75%',
+    width: '95%',
     maxWidth: '1080px',
     margin: 'auto',
   },
