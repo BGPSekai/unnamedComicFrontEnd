@@ -42,11 +42,15 @@ export default class FetchModule {
   }
 
   send() {
+    let data = new FormData();
+    for(let i in this._tempData.data) {
+      data.append( i, this._tempData.data[i]);
+    }
     return new Promise( ( resolve, reject) => {
       fetch( this._tempData.url, {
         method: this._tempData.method,
         mode: this._tempData.mode,
-        body: JSON.stringify(this._tempData.data)
+        body: data
       })
       .then( (response) => {
         if (this._tempData.type == 'json')

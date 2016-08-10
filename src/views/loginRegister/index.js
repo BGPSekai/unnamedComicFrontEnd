@@ -5,6 +5,7 @@ import Tab from 'material-ui/lib/tabs/tab';
 import TextField from 'material-ui/lib/text-field';
 import LinearProgress from 'material-ui/lib/linear-progress';
 import Container from '../../components/Container';
+import ContextualBg from '../../components/ContextualBg';
 import RaisedButton from 'material-ui/lib/raised-button';
 import IconButton from 'material-ui/lib/icon-button';
 import ArrowBackIcon from 'material-ui/lib/svg-icons/navigation/arrow-back.js';
@@ -18,7 +19,8 @@ export default class LoginRegister extends Component {
 		this.state = {
 			tabIndex: Number(this.props.location.pathname !== '/login'),
 			submitButtonColor: styles.defaultColor,
-			loading: false
+			loading: false,
+			msg: []
 		};
 		
 	}
@@ -33,7 +35,10 @@ export default class LoginRegister extends Component {
 	getRequestData(response) {
 		this.setState({loading: false});
 		if (response.status == 'error') {
-			this.setState({submitButtonColor: styles.warrningColor});
+			this.setState({
+				submitButtonColor: styles.warrningColor,
+				msg: response.msg
+			});
 		} else {
 			this.setState({submitButtonColor: styles.defaultColor});
 		};
@@ -139,6 +144,10 @@ export default class LoginRegister extends Component {
 							/>
 						</Tab>
 					</Tabs>
+					<ContextualBg 
+						warrning
+						msg={this.state.msg} 
+					/>
 					<LinearProgress 
 						mode="indeterminate" 
 						style={styles.LinearProgress}
