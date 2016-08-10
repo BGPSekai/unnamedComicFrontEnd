@@ -1,23 +1,30 @@
+import NodeRSA from 'node-rsa';
 import FetchModule from '../../module/FetchModule';
 import apiUrl from '../../res/apiUrl';
+import LocalStorage from '../../module/LocalStorage';
 
-export default class LoginModule {
+class LoginModule {
   constructor() {
   }
 
+  encrypt(data) {
+    let key = new NodeRSA({b: 512});
+    var encrypted = key.encrypt(data, 'base64');
+    LocalStorage.set({
+      auth: encrypted
+    });
+  }
+  
+  
   postData(data) {
-    new FetchModule()
-          .setUrl(apiUrl.auth)
-          .setMethod('POST')
-          .setData(data)
-          .setCros('cors')
-          .send()
-          .then( (data) => {
-            console.log(data);
-          }).then( (err) => {
-            console.log(err);
-          }).catch( (err) => {
-            console.warn(err);
-          });
+    return new FetchModule()
+      .setUrl(apiUrl.auth)
+      .setCros('cors')
+      .setMethod('POST')
+      .setType('json')
+      .setData(data)
+      .send();
   }
 }
+
+export default new LoginModule;

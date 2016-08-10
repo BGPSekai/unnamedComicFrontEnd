@@ -15,15 +15,22 @@ export default class Container extends Component {
       styles[i] = this.props.style[i];
     }
 
-    if(this.props.warrning){
+    if (this.props.warrning) 
       styles.color = '#D50000';
-    }
-
+    if (this.props.successful) 
+      styles.color = '#4CAF50';
+      
     return (
       <div style={styles}>
-        {this.props.msg.map( (msg) => {
-          return <p>{msg}</p>;
-        })}
+        {Array.isArray(this.props.msg)&&
+          this.props.msg.map( ( msg, i) => {
+            return <p key={i}>{msg}</p>;
+          })
+        }
+        {
+          typeof this.props.msg == 'string' &&
+          <p>{this.props.msg}</p>
+        }
       </div>
     );
 

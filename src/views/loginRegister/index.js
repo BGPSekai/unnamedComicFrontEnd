@@ -9,18 +9,23 @@ import ContextualBg from '../../components/ContextualBg';
 import RaisedButton from 'material-ui/lib/raised-button';
 import IconButton from 'material-ui/lib/icon-button';
 import ArrowBackIcon from 'material-ui/lib/svg-icons/navigation/arrow-back.js';
+import Checkbox from 'material-ui/lib/checkbox';
 import styles from './styles';
 import LoginModule from './LoginModule';
 import RegisterModule from './RegisterModule';
+import LocalStorage from '../../module/LocalStorage';
 
 export default class LoginRegister extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			tabIndex: Number(this.props.location.pathname !== '/login'),
-			submitButtonColor: styles.defaultColor,
+			registerButtonColor: styles.defaultColor,
+			loginButtonColor: styles.defaultColor,
 			loading: false,
-			msg: []
+			msg: [],
+			warrning: false,
+			register: {}
 		};
 		
 	}
@@ -32,22 +37,64 @@ export default class LoginRegister extends Component {
 		 	this.props.history.goBack();
 	}
 
-	getRequestData(response) {
-		this.setState({loading: false});
+	getRegisterRequestData(response) {
 		if (response.status == 'error') {
 			this.setState({
-				submitButtonColor: styles.warrningColor,
-				msg: response.msg
+				loading: false,
+				registerButtonColor: styles.warrningColor,
+				msg: response.msg,
+				warrning: true
 			});
 		} else {
-			this.setState({submitButtonColor: styles.defaultColor});
+			this.setState({
+				loading: false,
+				registerButtonColor: styles.defaultColor,
+				msg: '註冊成功',
+				warrning: false
+			});
+			for(let i in this.state.register) {
+				this.state.register[i] = ''; 
+			}
+			this.setState({
+				register: this.state.register
+			});
 		};
+	}
+
+	getLoginRequestData( userData, response) {
+		this.setState({loading: false});
+		if (response.error) {
+			this.setState({
+				loading: false,
+				loginButtonColor: styles.warrningColor,
+				msg: response.error,
+				warrning: true
+			});
+		} else {
+			this.setState({
+				loading: false,
+				loginButtonColor: styles.defaultColor,
+				msg: '登入成功',
+				warrning: false
+			});
+			let time = new Date();
+			LoginModule.encrypt(Object.assign( userData, {
+				remeber: this.refs.remeber.isChecked(),
+				timestamp: Math.floor(time.getTime()/1000)
+			}));
+			browserHistory.push('/');
+		};
+	}
+
+	handleRegisterChange( e, refs) {
+		this.state.register[refs] = e.target.value; 
+		this.setState({
+			register: this.state.register
+		});
 	}
 
 	onSubmit(type) {
 		let tempUserData = {};
-		let loginModule = new LoginModule();
-		let registerModule = new RegisterModule();
 		
 		for(let i in this.refs) {
 			if (i.match(type)) {
@@ -58,13 +105,16 @@ export default class LoginRegister extends Component {
 		this.setState({loading: true});
 		
 		if (type === 'login.') {
-			loginModule
+			LoginModule
 				.postData(tempUserData)
-				.then(this.getRequestData.bind(this))
+				.then(this.getLoginRequestData.bind(this, tempUserData))
 		}	else {
-			registerModule
+			this.setState({
+				register: tempUserData
+			});
+			RegisterModule
 				.postData(tempUserData)
-				.then(this.getRequestData.bind(this))
+				.then(this.getRegisterRequestData.bind(this))
 		};
 	}
 
@@ -97,14 +147,21 @@ export default class LoginRegister extends Component {
 							/>
 							<TextField
 								floatingLabelText="密碼"
+								type="password"
 								ref="login.password"
 								hintText="填入您的密碼"
 								fullWidth
 							/>
+							<Checkbox 
+								ref="remeber"
+								label="自動登入(無勾選則維持一小時)" 
+							/>
 							<RaisedButton 
-								label="登入" 
-								secondary
+								label="登入"
 								fullWidth
+								labelColor="#fff"
+								style={styles.comfirmButton}
+								backgroundColor={this.state.loginButtonColor}
 								onMouseDown={this.onSubmit.bind(this, 'login.')}
 								onKeyDown={this.onSubmit.bind(this, 'login.')}
 							/>
@@ -115,28 +172,38 @@ export default class LoginRegister extends Component {
 								ref="register.email"
 								hintText="填入您的電子郵件"
 								fullWidth
+								value={this.state.register.email}
+								onChange={(e) => {this.handleRegisterChange(e,'email')}}
 							/>
 							<TextField
 								floatingLabelText="密碼"
+								type="password"
 								ref="register.password"
 								hintText="填入您的密碼"
 								fullWidth
+								value={this.state.register.password}
+								onChange={(e) => {this.handleRegisterChange(e,'password')}}
 							/>
 							<TextField
 								floatingLabelText="密碼確認"
-								ref="register.passwordConfirmation"
+								type="password"
+								ref="register.password_confirmation"
 								hintText="確認您的密碼"
 								fullWidth
+								value={this.state.register.password_confirmation}
+								onChange={(e) => {this.handleRegisterChange(e,'password_confirmation')}}
 							/>
 							<TextField
 								floatingLabelText="姓名"
 								ref="register.name"
 								hintText="填入您的姓名"
 								fullWidth
+								value={this.state.register.name}
+								onChange={(e) => {this.handleRegisterChange(e,'name')}}
 							/>
 							<RaisedButton 
 								label="註冊"
-								backgroundColor={this.state.submitButtonColor}
+								backgroundColor={this.state.registerButtonColor}
 								labelColor="#fff"
 								style={styles.comfirmButton}
 								onMouseDown={this.onSubmit.bind(this, 'register.')}
@@ -145,7 +212,8 @@ export default class LoginRegister extends Component {
 						</Tab>
 					</Tabs>
 					<ContextualBg 
-						warrning
+						warrning={this.state.warrning}
+						successful={!this.state.warrning}
 						msg={this.state.msg} 
 					/>
 					<LinearProgress 

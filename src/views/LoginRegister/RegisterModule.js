@@ -1,7 +1,7 @@
 import FetchModule from '../../module/FetchModule';
 import apiUrl from '../../res/apiUrl';
 
-export default class RegisterModule {
+class RegisterModule {
   constructor() {
   }
 
@@ -15,3 +15,5 @@ export default class RegisterModule {
       .send();
   }
 }
+
+export default new RegisterModule; 
