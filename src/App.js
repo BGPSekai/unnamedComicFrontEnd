@@ -46,8 +46,6 @@ export default class App extends Component {
 
   render() {
     let MenuElement = [];
-    
-    console.log(UserModule.checkHasExpired());
 
     for(let i in MenuResource) {
       MenuElement.push(
@@ -85,7 +83,7 @@ export default class App extends Component {
             />
             {
               /* 已經登入 */
-              this.state.hasAuth&&
+              UserModule.checkIsLogin()&&
               <Paper style={Styles.avatarPaper} zDepth={1} circle={true}>
                 <Avatar>
                   鳥
@@ -94,6 +92,7 @@ export default class App extends Component {
             }
             {
               /* 尚未登入 */
+              !UserModule.checkIsLogin()&&
               <FlatButton  
                 style={Styles.loginButton} 
                 rippleColor="#FF4081" 
