@@ -3,29 +3,26 @@ const appStyle = {
     color: '#424242'
   },
 
-  navLeft: {
-    zIndex: 500,
-    padding: '80px 0 0 0'
+  header: {
+    backgroundColor: '#D81B60',
+    zIndex: 1000,
+    position: 'relative'
   },
 
-  header: {
-    background: '#D81B60',
-    padding: '10px 5px',
-    position: 'relative',
-    zIndex: 1000,
-    boxShadow: '0 1px 6px rgba(0,0,0,0.12),0 1px 4px rgba(0,0,0,0.12)'
+  navLeft: {
+    zIndex: 500,
+    padding: '63px 0 0 0'
   },
 
   title: {
-    color: '#424242',
-    fontSize: '1.2rem',
-    lineHeight: '60px'
+    color: '#FCE4EC',
+    fontSize: '1.2rem'
   },
 
   iconLeft: {
-    color: '#424242'
+    color: '#FCE4EC'
   },
-
+  
   appBarOuter: {
     display: 'flex',
     width: '95%',
@@ -35,13 +32,14 @@ const appStyle = {
 
   appBar: {
     flex: 2,
-    background: '#fff',
     padding: '0px 20px',
     minHeight: 'auto',
+    background: 'transparent',
+    boxShadow: 'none'
   },
 
   userButton: {
-    flex: 1,
+    flex: 1
   },
 
   avatarPaper: {

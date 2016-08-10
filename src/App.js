@@ -71,32 +71,15 @@ export default class App extends Component {
               title={process.env.WEBSITE_TITLE}
               iconElementLeft={
                 <IconButton tooltip="切換選單" onTouchTap={this.handleNavToggle.bind(this)}>
-                  <MenuIcon color={Styles.iconLeft.color}/>
+                  <MenuIcon color={Styles.iconLeft.color} />
                 </IconButton>}
               iconElementRight={
                 <IconButton tooltip="發布漫畫" onTouchTap={this.handlePageChange.bind( this, '/upload')}>
-                  <FileUploadIcon color={Styles.iconLeft.color}/>
+                  <FileUploadIcon color={Styles.iconLeft.color} />
                 </IconButton>}
               style={Styles.appBar}
               titleStyle={Styles.title}
             />
-            {
-              /* 已經登入 */
-              this.state.hasAuth&&
-              <Paper style={Styles.avatarPaper} zDepth={1} circle={true}>
-                <Avatar>
-                  鳥
-                </Avatar>
-              </Paper>
-            }
-            {
-              /* 尚未登入 */
-              <FlatButton  
-                style={Styles.loginButton} 
-                rippleColor="#FF4081" 
-                label="登入"
-                onTouchTap={this.handlePageChange.bind( this, '/login')} />
-            }
           </div>
         </div>
         <div id="main" onTouchTap={this.handleNeedCloseNav.bind(this)}>
