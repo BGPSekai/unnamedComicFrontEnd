@@ -15,6 +15,7 @@ import MenuResource from './res/menu.json';
 import Styles from './appStyles';
 import MenuDrawer from './components/menuDrawer';
 import Footer from './components/Footer';
+import UserModule from './module/UserModule';
 
 export default class App extends Component {
   constructor(props) {
@@ -45,6 +46,8 @@ export default class App extends Component {
 
   render() {
     let MenuElement = [];
+    
+    console.log(UserModule.checkHasExpired());
 
     for(let i in MenuResource) {
       MenuElement.push(

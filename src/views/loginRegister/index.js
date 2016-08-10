@@ -80,7 +80,7 @@ export default class LoginRegister extends Component {
 			let time = new Date();
 			LoginModule.encrypt(Object.assign( userData, {
 				remeber: this.refs.remeber.isChecked(),
-				timestamp: Math.floor(time.getTime()/1000)
+				timeStamp: Math.floor(time.getTime()/1000)
 			}));
 			browserHistory.push('/');
 		};

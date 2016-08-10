@@ -11,7 +11,10 @@ class LoginModule {
     let key = new NodeRSA({b: 512});
     var encrypted = key.encrypt(data, 'base64');
     LocalStorage.set({
-      auth: encrypted
+      auth: encrypted,
+      key: key.exportKey('private')
+            .replace('-----BEGIN RSA PRIVATE KEY-----','')
+            .replace('-----END RSA PRIVATE KEY-----','')
     });
   }
   
