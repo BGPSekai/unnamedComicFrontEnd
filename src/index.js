@@ -5,6 +5,8 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import App from './App';
 import Home from './views/Home';
 import LoginRegister from './views/LoginRegister';
+import Upload from './views/Upload';
+import Profile from './views/Profile';
 
 injectTapEventPlugin();
 
@@ -14,6 +16,8 @@ render((
 		<Route path="/register" component={LoginRegister} />
 		<Route path="/" component={App}>
 			<IndexRoute component={Home} />
+			<Route path="/upload" component={Upload} />
+			<Route path="/profile" component={Profile} />
 		</Route>
 	</Router>
 ), document.getElementById('root'));

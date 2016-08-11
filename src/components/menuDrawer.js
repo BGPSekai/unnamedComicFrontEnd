@@ -11,8 +11,18 @@ export default class MenuDrawer extends Component {
 				minHeight: '100px'
 			},
 
+			showItem: {
+				zIndex: 3,
+				position: 'relative',
+				padding: '10px 6px',
+				boxSizing: 'border-box'
+			},
+
 			drawerBackground: {
 				position: 'absolute',
+				top: 0,
+				left: 0,
+				zIndex: 2,
 				width: '100%',
 				height: '100%',
 				display: 'block',
@@ -22,8 +32,8 @@ export default class MenuDrawer extends Component {
 
 		return (
 			<div style={Styles.drawer}>
+				<div style={Styles.showItem}>{this.props.title}</div>
 				<div style={Styles.drawerBackground}></div>
-				{this.props.title}
 			</div>
 		);
 		

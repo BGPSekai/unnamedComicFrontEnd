@@ -7,12 +7,16 @@ class UserData {
   }
 
   get() {
-    let publicKey = '-----BEGIN RSA PRIVATE KEY-----\n'+
+    if(LocalStorage.get('key')){
+      let publicKey = '-----BEGIN RSA PRIVATE KEY-----\n'+
                     LocalStorage.get('key')+
                     '\n-----END RSA PRIVATE KEY-----';
-    let key = new NodeRSA(publicKey);
-    let auth = LocalStorage.get('auth');
-    this.data = key.decrypt(auth, 'utf8');
+      let key = new NodeRSA(publicKey);
+      let auth = LocalStorage.get('auth');
+      this.data = key.decrypt(auth, 'utf8');
+    } else {
+      this.data = '{}';
+    };
     return this;
   }
 

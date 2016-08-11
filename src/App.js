@@ -41,6 +41,7 @@ export default class App extends Component {
 
   handlePageChange(page) {
     //this.props.history.push(page); //deprecated
+    this.setState({navOpen: false}) 
     browserHistory.push(page);
   }
 
@@ -84,7 +85,12 @@ export default class App extends Component {
             {
               /* 已經登入 */
               UserModule.checkIsLogin()&&
-              <Paper style={Styles.avatarPaper} zDepth={1} circle={true}>
+              <Paper 
+                style={Styles.avatarPaper} 
+                zDepth={1} 
+                circle={true}
+                onTouchTap={this.handlePageChange.bind( this, '/profile')}
+              >
                 <Avatar>
                   鳥
                 </Avatar>
