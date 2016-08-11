@@ -107,7 +107,7 @@ export default class App extends Component {
             }
           </div>
         </div>
-        <div id="main" onTouchTap={this.handleNeedCloseNav.bind(this)}>
+        <div id="main" style={Styles.main} onTouchTap={this.handleNeedCloseNav.bind(this)}>
           {this.props.children}
         </div>
         <Footer />
