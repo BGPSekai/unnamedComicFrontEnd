@@ -1,3 +1,5 @@
+import UserModel from './UserModule';
+
 export default class FetchModule {
   constructor() {
     let tempData = {
@@ -12,6 +14,7 @@ export default class FetchModule {
       'Content-Type': 'text/plain'
     });
     this._tempData = tempData;
+    this._needAuth = false;
   }
 
   setType(type) {
@@ -20,7 +23,7 @@ export default class FetchModule {
   }
 
   setMethod(method) {
-    this._tempData.method = method;
+    this._tempData.method = (method === 'json') ? 'application/json' : method;
     return this;
   }
   /**
@@ -40,25 +43,43 @@ export default class FetchModule {
     this._tempData.data = data;
     return this;
   }
+  /**
+   * 自動添加 header 驗證
+   * @param null
+   * @return this class
+   */
+  auth() {
+    this._needAuth = true;
+    return this;
+  }
 
   send() {
+    let mHeaders = new Headers();
     let data = new FormData();
+
+    if (this._needAuth)
+      mHeaders.append( 'Authorization', `Bearer ${UserModel.getUserInfo('jwt')}`);
+
     for(let i in this._tempData.data) {
       data.append( i, this._tempData.data[i]);
     }
+    
+    let init = {
+      method: this._tempData.method,
+      headers: mHeaders,
+      mode: this._tempData.mode,
+      body: data
+    };
+
     return new Promise( ( resolve, reject) => {
-      fetch( this._tempData.url, {
-        method: this._tempData.method,
-        mode: this._tempData.mode,
-        body: data
-      })
+      fetch( this._tempData.url, init)
       .then( (response) => {
-        if (this._tempData.type == 'json')
+        if (this._tempData.type == 'application/json')
           resolve(response.json());
         else 
           resolve(response);
       })
-      .then(reject);
+      .catch(reject);
     });
   }
 }

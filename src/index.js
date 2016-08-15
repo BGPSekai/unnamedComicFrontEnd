@@ -6,6 +6,7 @@ import App from './App';
 import Home from './views/Home';
 import LoginRegister from './views/LoginRegister';
 import Upload from './views/Upload';
+import ComicUpload from './views/Upload/ComicUpload';
 import Profile from './views/Profile';
 
 injectTapEventPlugin();
@@ -17,6 +18,7 @@ render((
 		<Route path="/" component={App}>
 			<IndexRoute component={Home} />
 			<Route path="/upload" component={Upload} />
+			<Route path="/upload/comic" component={ComicUpload} />
 			<Route path="/profile" component={Profile} />
 		</Route>
 	</Router>

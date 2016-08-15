@@ -7,7 +7,7 @@ class UserData {
   }
 
   get() {
-    if(LocalStorage.get('key')){
+    if(LocalStorage.get('key')&&LocalStorage.get('auth')){
       let publicKey = '-----BEGIN RSA PRIVATE KEY-----\n'+
                     LocalStorage.get('key')+
                     '\n-----END RSA PRIVATE KEY-----';
@@ -29,6 +29,11 @@ class UserData {
 class UserModule {
   constructor() {
 
+  }
+
+  getUserInfo(name) {
+    let userData = new UserData().getFromJson();
+    return userData[name];
   }
   
   checkIsLogin() {

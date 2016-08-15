@@ -12,7 +12,7 @@ const appStyle = {
   },
 
   main: {
-    marginTop: '3rem'
+    marginTop: '4rem'
   },
 
   navLeft: {
