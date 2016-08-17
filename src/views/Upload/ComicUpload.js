@@ -7,6 +7,7 @@ import CardMedia from 'material-ui/lib/card/card-media';
 import CardActions from 'material-ui/lib/card/card-actions';
 import TextField from 'material-ui/lib/text-field';
 import RaisedButton from 'material-ui/lib/raised-button';
+import LinearProgress from 'material-ui/lib/linear-progress';
 import Container from '../../components/Container';
 import FileUpload from '../../components/FileUpload';
 import FetchModule from '../../module/FetchModule';
@@ -41,10 +42,11 @@ export default class ComicUpload extends Component {
   
   _onSubmit() {
     let data = {
-      name: this.refs.name,
-      summary: this.refs.summary,
+      name: this.refs.name.getValue(),
+      summary: this.refs.summary.getValue(),
       cover: this.refs.cover.getFile(0)
     };
+    
     new FetchModule()
       .setUrl(apiUrl.publish.comic)
       .auth()
@@ -54,7 +56,9 @@ export default class ComicUpload extends Component {
       .setData(data)
       .send()
       .then( (data) => {
-        console.log(data);
+        if (data.status === 'success') {
+
+        };
       });
   }
 

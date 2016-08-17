@@ -7,7 +7,7 @@ class RegisterModule {
 
   postData(data) {
     return new FetchModule()
-      .setUrl(apiUrl.service.register)
+      .setUrl(apiUrl.register)
       .setCros('cors')
       .setMethod('POST')
       .setType('json')

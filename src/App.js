@@ -92,7 +92,7 @@ export default class App extends Component {
                 onTouchTap={this.handlePageChange.bind( this, '/profile')}
               >
                 <Avatar>
-                  鳥
+                  {UserModule.getUserInfo('userName').substring( 0, 1)}
                 </Avatar>
               </Paper>
             }

@@ -1,5 +1,7 @@
 import NodeRSA from 'node-rsa';
 import LocalStorage from './LocalStorage';
+import apiUrl from '../res/apiUrl';
+import FetchModule from './FetchModule';
 
 class UserData {
   constructor() {
@@ -23,6 +25,17 @@ class UserData {
   getFromJson() {
     this.get();
     return JSON.parse(this.data);
+  }
+
+  set(data) {
+    let key = new NodeRSA({b: 512});
+    var encrypted = key.encrypt(data, 'base64');
+    LocalStorage.set({
+      auth: encrypted,
+      key: key.exportKey('private')
+            .replace('-----BEGIN RSA PRIVATE KEY-----','')
+            .replace('-----END RSA PRIVATE KEY-----','')
+    });
   }
 }
 
@@ -48,6 +61,36 @@ class UserModule {
       return false;
     };
     return true;
+  }
+
+  setUserInfo(data) {
+    let userData = new UserData();
+    let Data = userData.getFromJson();
+    Object.assign( Data, data);
+    userData.set(Data);
+    return this;
+  }
+
+  updateToken() {
+    let data = {
+      email: this.getUserInfo('email'),
+      password: this.getUserInfo('password')
+    };
+    return new FetchModule()
+      .setUrl(apiUrl.auth)
+      .setCros('cors')
+      .setMethod('POST')
+      .setType('json')
+      .setData(data)
+      .send()
+      .then( (data) => {
+        let time = new Date();
+        if(data.status === 'success')
+          this.setUserInfo({
+            auth: data.token,
+            timeStamp: Math.floor(time.getTime()/1000)
+          });
+      });
   }
 }
 

@@ -14,6 +14,7 @@ import styles from './styles';
 import LoginModule from './LoginModule';
 import RegisterModule from './RegisterModule';
 import LocalStorage from '../../module/LocalStorage';
+import UserModule from '../../module/UserModule';
 
 export default class LoginRegister extends Component {
 	constructor(props) {
@@ -38,11 +39,11 @@ export default class LoginRegister extends Component {
 	}
 
 	getRegisterRequestData(response) {
-		if (response.status == 'error') {
+		if (response.status === 'error') {
 			this.setState({
 				loading: false,
 				registerButtonColor: styles.warrningColor,
-				msg: response.msg,
+				msg: response.message,
 				warrning: true
 			});
 		} else {
@@ -63,11 +64,11 @@ export default class LoginRegister extends Component {
 
 	getLoginRequestData( userData, response) {
 		this.setState({loading: false});
-		if (response.error) {
+		if (response.status === 'error') {
 			this.setState({
 				loading: false,
 				loginButtonColor: styles.warrningColor,
-				msg: response.error,
+				msg: response.message,
 				warrning: true
 			});
 		} else {
@@ -78,7 +79,10 @@ export default class LoginRegister extends Component {
 				warrning: false
 			});
 			let time = new Date();
-			LoginModule.encrypt(Object.assign( userData, {
+
+			UserModule.setUserInfo(Object.assign( userData, {
+				userName: response.user.name,
+				userId: response.user.id,
 				remeber: this.refs.remeber.isChecked(),
 				timeStamp: Math.floor(time.getTime()/1000),
 				jwt: response.token
