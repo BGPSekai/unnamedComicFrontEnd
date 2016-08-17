@@ -70,13 +70,44 @@ class UserModule {
     userData.set(Data);
     return this;
   }
+  /**
+   * 更新使用者資料
+   * 重點是不會去自動更新 token (須修正)
+   * @param null
+   * @return Fetch Promise
+   */
+  updateInfo() {
+    let data = {
+      token: this.getUserInfo('jwt')
+    };
+
+    return new Promise( (resolve,reject) => {
+      new FetchModule()
+      .setUrl(`${apiUrl.user.info}?token=${data.token}`)
+      .setCros('cors')
+      .setMethod('GET')
+      .setType('json')
+      .setData(data)
+      .send()
+      .then( (data) => {
+        if(data.status === 'success')
+          this.setUserInfo({
+            userName: data.user.name,
+            userId: data.user.id
+          });
+        resolve(data);
+      });
+    });
+  }
 
   updateToken() {
     let data = {
       email: this.getUserInfo('email'),
       password: this.getUserInfo('password')
     };
-    return new FetchModule()
+
+    return new Promise( (resolve,reject) => {
+      new FetchModule()
       .setUrl(apiUrl.auth)
       .setCros('cors')
       .setMethod('POST')
@@ -85,12 +116,18 @@ class UserModule {
       .send()
       .then( (data) => {
         let time = new Date();
-        if(data.status === 'success')
+        if (data.status === 'success') {
           this.setUserInfo({
             auth: data.token,
             timeStamp: Math.floor(time.getTime()/1000)
           });
+
+          UserModule.updateInfo();
+        }
+
+        resolve(data);
       });
+    });
   }
 }
 

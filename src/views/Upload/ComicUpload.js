@@ -46,7 +46,7 @@ export default class ComicUpload extends Component {
       summary: this.refs.summary.getValue(),
       cover: this.refs.cover.getFile(0)
     };
-    
+
     new FetchModule()
       .setUrl(apiUrl.publish.comic)
       .auth()
@@ -57,7 +57,7 @@ export default class ComicUpload extends Component {
       .send()
       .then( (data) => {
         if (data.status === 'success') {
-
+          
         };
       });
   }

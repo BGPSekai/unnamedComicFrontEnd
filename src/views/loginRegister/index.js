@@ -81,13 +81,14 @@ export default class LoginRegister extends Component {
 			let time = new Date();
 
 			UserModule.setUserInfo(Object.assign( userData, {
-				userName: response.user.name,
-				userId: response.user.id,
 				remeber: this.refs.remeber.isChecked(),
 				timeStamp: Math.floor(time.getTime()/1000),
 				jwt: response.token
 			}));
-			browserHistory.push('/');
+
+			UserModule.updateInfo().then( (data) => {
+				browserHistory.push('/');
+			});
 		};
 	}
 
