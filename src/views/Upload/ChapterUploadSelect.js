@@ -14,7 +14,7 @@ import FetchModule from '../../module/FetchModule';
 import apiUrl from '../../res/apiUrl';
 import styles from './styles';
 
-export default class ComicUpload extends Component {
+export default class ChapterUploadSelect extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -56,14 +56,7 @@ export default class ComicUpload extends Component {
       .setData(data)
       .send()
       .then( (data) => {
-        console.log(data);
         if (data.status === 'success') {
-          console.log(apiUrl.getReplaceUrl(
-            apiUrl.front.publishChapter,
-            {
-              comicId: data.comic.id
-            }
-          ));
           browserHistory.push(apiUrl.getReplaceUrl(
             apiUrl.front.publishChapter,
             {

@@ -5,13 +5,30 @@ const apiUrl = {
   user: {
     info: `${base}/user`
   },
+
   comic: {
     list: `${base}/comic/page/{page}`,
     cover: `${base}/comic/{id}/cover`
   },
+
   publish: {
     comic: `${base}/publish`,
     chapter: `${base}/publish/{id}`
+  },
+
+  front: {
+    publishChapter: `/upload/comic/{comicId}/chapter`
+  },
+  /**
+   * 取得替代後 Url
+   * @param (String) url
+   * @param (Object) replaceData
+   */
+  getReplaceUrl: (url = '', replaceData = {}) => {
+    for(let i in replaceData) {
+      url = url.replace( `{${i}}`, replaceData[i]);
+    }
+    return url;
   }
 };
 
