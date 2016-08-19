@@ -21,7 +21,6 @@ export default class ChapterUploader extends Component {
       uploadList: []
     };
 
-    this._changePreviewImg = this._changePreviewImg.bind(this);
     this._onChange = this._onChange.bind(this);
     this._onSubmit = this._onSubmit.bind(this);
   }
@@ -30,18 +29,19 @@ export default class ChapterUploader extends Component {
     browserHistory.push(page);
   }
 
-  _changePreviewImg(data) {
-  }
-
   _onChange(files) {
-    //this.refs.cover.getImagePreview(0).then(this._changePreviewImg);
     this.refs.images.getAllImagePreview( 0, (array) => {
       let putData = [];
-      array.map( () => {
-        
+
+      array.map( ( data, i) => {
+        putData[i] = {
+          file: files[i],
+          image: data
+        };
       });
+      
       this.setState({
-        uploadList: array
+        uploadList: this.state.uploadList.concat(putData)
       });
     });
   }
@@ -51,6 +51,15 @@ export default class ChapterUploader extends Component {
       
     };
 
+    new FetchModule()
+      .setUrl('http://127.0.0.1:3000/')
+      .setCros('cors')
+      .setMethod('GET')
+      .setData(data)
+      .send()
+      .then( (data) => {
+        console.log(data);
+      });
     // new FetchModule()
     //   .setUrl(apiUrl.publish.comic)
     //   .auth()
@@ -98,7 +107,7 @@ export default class ChapterUploader extends Component {
               <h1>上傳圖片</h1>
               <p>丟入圖片或者點擊此區域</p>
             </FileUpload>
-            <SortableList data={this.state.uploadList} />
+            <SortableList listData={this.state.uploadList} />
           </CardText>
           <CardActions>
             <RaisedButton 

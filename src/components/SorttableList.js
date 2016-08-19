@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Sortable } from 'react-sortable';
+import IconButton from 'material-ui/lib/icon-button';
+import ActionDelete from 'material-ui/lib/svg-icons/action/delete';
 
 class GridItem extends Component {
   render() {
     const styles = {
       position: 'relative',
-      margin: '5px 5px 0 0',
-      width: 245,
       color: '#fff',
-      float: 'left'
+      height: '100%'
     };
 
     return (
@@ -24,7 +24,7 @@ class SortableGrid extends Component {
     super(params);
     this.state = {
       draggingIndex: null,
-      data: this.props.data
+      listData: this.props.listData
     };
     
     this.updateState = this.updateState.bind(this);
@@ -34,51 +34,91 @@ class SortableGrid extends Component {
     this.setState(obj);
   }
 
+  _deleteListItem(id) {
+    let data = Array.from(this.state.listData);
+    data.splice( id, 1);
+    console.log(data);
+    this.setState({listData: data});
+  }
+
   componentWillReceiveProps(nextProps) {
-    if (nextProps.data !== this.state.data) {
-      this.setState({ data: nextProps.data });
+    console.log(nextProps);
+    if (nextProps.listData !== this.state.listData) {
+      this.setState({ listData: nextProps.listData });
     }
   }
 
   render() {
     const styles = {
       image: {
-        width: '100%',
-        verticalAlign: 'middle'
+        width: '100%'
       },
 
       name: {
         position: 'absolute',
         background: 'rgba( 0, 0, 0, 0.5)',
-        padding: '10px 5px',
+        padding: '10px 20px',
         boxSizing: 'border-box',
         color: '#FAFAFA',
         bottom: 0,
         width: '100%',
         display: 'block'
+      },
+
+      closeButton: {
+        position: 'absolute',
+        zIndex: 10,
+        right: 0,
+        top: 2
+      },
+
+      fileTitle: {
+        display: 'inline-block',
+        width: 120,
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        verticalAlign: 'middle'
+      },
+
+      title: {
+        verticalAlign: 'middle'
       }
     };
-
-    let listItems = this.props.data.map(function(item, i) {
+    
+    let listItems = this.state.listData.map(function(item, i) {
       return (
         <SortableGridItem
           key={i}
           updateState={this.updateState}
-          items={this.state.data}
+          items={this.state.listData}
           draggingIndex={this.state.draggingIndex}
           sortId={i}
-          outline="grid"
+          outline="list"
           >
             <div>
+              <div style={styles.closeButton}>
+                <IconButton tooltip="移除" onTouchTap={this._deleteListItem.bind( this, i)}>
+                  <ActionDelete 
+                    color={'#2196F3'} 
+                    hoverColor={'#F50057'}
+                  />
+                </IconButton>
+              </div>
               <span style={styles.image}>
                 <img style={{
-                    width: '100%'
+                    position: 'absolute',
+                    width: '100%',
+                    top: 0,
+                    bottom: 0,
+                    margin: 'auto'
                   }} 
-                  src={item} 
+                  src={item.image} 
                 />
               </span>
               <span style={styles.name}>
-                asdasd
+                <span style={styles.title}>{i+1} - </span>
+                <span style={styles.fileTitle}>{item.file.name}</span> 
               </span>
             </div>
           </SortableGridItem>

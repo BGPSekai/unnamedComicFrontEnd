@@ -119,6 +119,7 @@ export default class Content extends Component {
         textAlign: 'center',
         cursor: 'pointer'
       },
+      
       fileSelect: {
         display: 'none'
       }

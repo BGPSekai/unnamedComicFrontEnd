@@ -101,14 +101,31 @@ export default class FetchModule {
       return text ? JSON.parse(text) : {}
     })
   }
+  /**
+   * 暫時的 
+   * 取得速度
+   */
+  consume(stream, total = 0) {
+    console.log(stream);
+    while (stream.state === 'readable') {
+      var data = stream.read();
+      total += data.byteLength;
+      console.log('received ' + data.byteLength + ' bytes (' + total + ' bytes in total).')
+    }
+    if (stream.state === 'waiting') {
+      stream.ready.then(() => consume(stream, total))
+    }
+    return stream.closed;
+  }
 
   _fetch( url, init = {}, resolve = () => {}, reject = () => {}) {
     if (init.method === 'GET')
       delete init.body;
     fetch( url, init)
       .then( (response) => {
+        this.consume(response.body);
         if (this._tempData.type === 'application/json' && response.json)
-          resolve(this._parseJSON(response));
+          resolve(this._parseJSON(response), response);
         else 
           resolve(response);
       })
