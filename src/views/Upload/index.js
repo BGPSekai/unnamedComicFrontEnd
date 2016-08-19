@@ -3,6 +3,7 @@ import { browserHistory } from 'react-router';
 import RaisedButton from 'material-ui/lib/raised-button';
 import Divider from 'material-ui/lib/divider';
 import Container from '../../components/Container';
+import ChapterUploadSelect from './ChapterUploadSelect';
 import styles from './styles';
 
 export default class Upload extends Component {
@@ -19,7 +20,8 @@ export default class Upload extends Component {
           onTouchTap={this.handlePageChange.bind( this, '/upload/comic')}
         />
         <Divider />
-        或者找尋漫畫新增章節
+        <p>或者找尋漫畫新增章節</p>
+        <ChapterUploadSelect />
       </Container>
     );
   };

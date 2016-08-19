@@ -3,7 +3,6 @@ import { browserHistory } from 'react-router';
 import Card from 'material-ui/lib/card/card';
 import CardTitle from 'material-ui/lib/card/card-title';
 import CardText from 'material-ui/lib/card/card-text';
-import CardMedia from 'material-ui/lib/card/card-media';
 import CardActions from 'material-ui/lib/card/card-actions';
 import TextField from 'material-ui/lib/text-field';
 import RaisedButton from 'material-ui/lib/raised-button';
@@ -11,14 +10,15 @@ import LinearProgress from 'material-ui/lib/linear-progress';
 import Container from '../../components/Container';
 import FileUpload from '../../components/FileUpload';
 import FetchModule from '../../module/FetchModule';
+import SortableList from '../../components/SorttableList';
 import apiUrl from '../../res/apiUrl';
 import styles from './styles';
 
-export default class ComicUpload extends Component {
+export default class ChapterUploader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      previewImg: ''
+      uploadList: []
     };
 
     this._changePreviewImg = this._changePreviewImg.bind(this);
@@ -31,84 +31,74 @@ export default class ComicUpload extends Component {
   }
 
   _changePreviewImg(data) {
-    if(data)
-    this.setState({
-      previewImg: data
-    });
   }
 
   _onChange(files) {
-    this.refs.cover.getImagePreview(0).then(this._changePreviewImg);
+    //this.refs.cover.getImagePreview(0).then(this._changePreviewImg);
+    this.refs.images.getAllImagePreview( 0, (array) => {
+      let putData = [];
+      array.map( () => {
+        
+      });
+      this.setState({
+        uploadList: array
+      });
+    });
   }
   
   _onSubmit() {
     let data = {
-      name: this.refs.name.getValue(),
-      summary: this.refs.summary.getValue(),
-      cover: this.refs.cover.getFile(0)
+      
     };
 
-    new FetchModule()
-      .setUrl(apiUrl.publish.comic)
-      .auth()
-      .setCros('cors')
-      .setMethod('POST')
-      .setType('json')
-      .setData(data)
-      .send()
-      .then( (data) => {
-        console.log(data);
-        if (data.status === 'success') {
-          console.log(apiUrl.getReplaceUrl(
-            apiUrl.front.publishChapter,
-            {
-              comicId: data.comic.id
-            }
-          ));
-          browserHistory.push(apiUrl.getReplaceUrl(
-            apiUrl.front.publishChapter,
-            {
-              comicId: data.comic.id
-            }
-          ));
-        };
-      });
+    // new FetchModule()
+    //   .setUrl(apiUrl.publish.comic)
+    //   .auth()
+    //   .setCros('cors')
+    //   .setMethod('POST')
+    //   .setType('json')
+    //   .setData(data)
+    //   .send()
+    //   .then( (data) => {
+    //     console.log(data);
+    //     if (data.status === 'success') {
+    //       console.log(apiUrl.getReplaceUrl(
+    //         apiUrl.front.publishChapter,
+    //         {
+    //           comicId: data.comic.id
+    //         }
+    //       ));
+    //       browserHistory.push(apiUrl.getReplaceUrl(
+    //         apiUrl.front.publishChapter,
+    //         {
+    //           comicId: data.comic.id
+    //         }
+    //       ));
+    //     };
+    //   });
   }
 
   render() {
     return (
       <Container>
         <Card>
-          <CardTitle title="投稿漫畫作品" subtitle="新增漫畫" />
+          <CardTitle title="新增漫畫章節" subtitle="上傳漫畫圖片" />
           <CardText>
             <TextField 
-              hintText="漫畫名稱"
-              floatingLabelText="漫畫名稱"
+              hintText="輸入您的章節名稱"
+              floatingLabelText="章節標題"
               ref="name"
               fullWidth
             /><br />
-            <TextField 
-              hintText="漫畫簡介 ( 最少30字 ) "
-              floatingLabelText="漫畫簡介"
-              ref="summary"
-              fullWidth
-              multiLine={true}
-              rows={2}
-              rowsMax={4}
-            /><br />
             <FileUpload 
-              ref="cover"
-              multiple={false}
+              ref="images"
+              multiple={true}
               onChange={this._onChange}
             >
               <h1>上傳圖片</h1>
               <p>丟入圖片或者點擊此區域</p>
             </FileUpload>
-            <CardMedia 
-              overlay={<CardTitle title="封面圖片預覽" />}
-            >
-              <img src={this.state.previewImg} style={styles.coverImgPreview}/>
-            </CardMedia>
+            <SortableList data={this.state.uploadList} />
           </CardText>
           <CardActions>
             <RaisedButton 

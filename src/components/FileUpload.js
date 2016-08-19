@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 
 class FileStore {
   constructor() {
-    this._files = {};
+    this._files = [];
+    this.fileLength = 0;
   }
 
   putFiles(data) {
     this._files = data;
+    this.fileLength = this._files.length;
   }
 
   getFiles(index) {
@@ -41,7 +43,7 @@ export default class Content extends Component {
     return fileStore.getFiles(index);
   }
 
-  getImagePreview(index) {
+  getImagePreview(index = 0) {
     let reader = new FileReader();
     let file =  fileStore.getFiles(index);
     let loadStatus = new Promise( ( resolve, reject) => {
@@ -50,8 +52,28 @@ export default class Content extends Component {
       };
     });
 
-    reader.readAsDataURL(file);
-    return loadStatus;
+    if (file) {
+      reader.readAsDataURL(file);
+      return loadStatus;
+    } else {
+      return new Promise( ( resolve, reject) => {
+        resolve(null);
+      });
+    };
+  }
+  /**
+   * 一次取得所有 Preview ( 非 Promise )
+   * @prama (Integer) index 從第幾個開始
+   */
+  getAllImagePreview(index = 0, finishFunction = () => {}, arr = []) {
+    if (index < fileStore.fileLength) {
+      this.getImagePreview(index).then((data) => {
+        arr = arr.concat(data);
+        this.getAllImagePreview( index + 1, finishFunction, arr);
+      });
+    } else {
+      finishFunction(arr);
+    };
   }
 
   _handleUploadChange(e) {
