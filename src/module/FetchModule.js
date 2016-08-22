@@ -74,9 +74,16 @@ export default class FetchModule {
 
     if (this._needAuth)
       url.searchParams.append('token',UserModel.getUserInfo('jwt'));
-
+      
     for(let i in this._tempData.data) {
-      data.append( i, this._tempData.data[i]);
+      if (Array.isArray(this._tempData.data[i])) {
+        let label = `${i}[]`;
+        this._tempData.data[i].map(( val, i2) => {
+          data.append( label, this._tempData.data[i][i2]);
+        });
+      } else {
+        data.append( i, this._tempData.data[i]);
+      };
     }
     
     let init = {

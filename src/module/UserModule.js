@@ -122,7 +122,7 @@ class UserModule {
             timeStamp: Math.floor(time.getTime()/1000)
           });
 
-          UserModule.updateInfo();
+          this.updateInfo();
         }
 
         resolve(data);

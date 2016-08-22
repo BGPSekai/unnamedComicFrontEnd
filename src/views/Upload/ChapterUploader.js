@@ -23,6 +23,7 @@ export default class ChapterUploader extends Component {
 
     this._onChange = this._onChange.bind(this);
     this._onSubmit = this._onSubmit.bind(this);
+    this._onListChange = this._onListChange.bind(this);
   }
 
   handlePageChange(page) {
@@ -45,46 +46,37 @@ export default class ChapterUploader extends Component {
       });
     });
   }
-  
+
+  _onListChange() {
+    this.setState({
+      uploadList: this.refs.uploadList.state.listData
+    });
+  }
+
   _onSubmit() {
     let data = {
-      
+      name: this.refs.name.getValue(),
+      images: []
     };
 
+    this.refs.uploadList.state.listData.map(( val, i) => {
+      data.images.push(val.file);
+    });
+    
     new FetchModule()
-      .setUrl('http://127.0.0.1:3000/')
+      .setUrl(apiUrl.getReplaceUrl(apiUrl.publish.chapter, {id: this.props.routeParams.comicId}))
+      .auth()
       .setCros('cors')
-      .setMethod('GET')
+      .setMethod('POST')
+      .setType('json')
       .setData(data)
       .send()
       .then( (data) => {
         console.log(data);
+        if (data.status === 'success') {
+          console.log(data);
+        };
       });
-    // new FetchModule()
-    //   .setUrl(apiUrl.publish.comic)
-    //   .auth()
-    //   .setCros('cors')
-    //   .setMethod('POST')
-    //   .setType('json')
-    //   .setData(data)
-    //   .send()
-    //   .then( (data) => {
-    //     console.log(data);
-    //     if (data.status === 'success') {
-    //       console.log(apiUrl.getReplaceUrl(
-    //         apiUrl.front.publishChapter,
-    //         {
-    //           comicId: data.comic.id
-    //         }
-    //       ));
-    //       browserHistory.push(apiUrl.getReplaceUrl(
-    //         apiUrl.front.publishChapter,
-    //         {
-    //           comicId: data.comic.id
-    //         }
-    //       ));
-    //     };
-    //   });
   }
 
   render() {
@@ -107,7 +99,11 @@ export default class ChapterUploader extends Component {
               <h1>上傳圖片</h1>
               <p>丟入圖片或者點擊此區域</p>
             </FileUpload>
-            <SortableList listData={this.state.uploadList} />
+            <SortableList 
+              ref="uploadList"
+              listData={this.state.uploadList}
+              onChange={this._onListChange}
+            />
           </CardText>
           <CardActions>
             <RaisedButton 

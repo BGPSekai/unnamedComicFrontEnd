@@ -8,6 +8,7 @@ import LoginRegister from './views/LoginRegister';
 import Upload from './views/Upload';
 import ComicUpload from './views/Upload/ComicUpload';
 import ChapterUploader from './views/Upload/ChapterUploader';
+import ChapterUploadSelect from './views/Upload/ChapterUploadSelect';
 import Profile from './views/Profile';
 import Comic from './views/Comic';
 
@@ -23,9 +24,10 @@ render((
 				<Route path="page/:page" component={Comic} />
 			</Route>
 			<Route path="/upload" component={Upload} />
-			<Route path="/upload/comic/:comidId/chapter" component={ChapterUploader} />
-			<Route path="upload/comic" component={ComicUpload} />
-			<Route path="profile" component={Profile}>
+			<Route path="/upload/comic" component={ComicUpload} />
+			<Route path="/upload/comic/:comicId" component={ChapterUploadSelect} />
+			<Route path="/upload/comic/:comicId/chapter" component={ChapterUploader} />
+			<Route path="/profile" component={Profile}>
 
 			</Route>
 		</Route>

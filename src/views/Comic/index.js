@@ -6,8 +6,6 @@ import styles from './styles';
 import apiUrl from '../../res/apiUrl';
 import FetchModule from '../../module/FetchModule';
 
-let comicData = [];
-
 export default class Comic extends Component {
   constructor(props) {
     super(props);
@@ -31,10 +29,9 @@ export default class Comic extends Component {
       })
       .send()
       .then( (data) => {
-        if (data.comics)
-          comicData = data.comics;
         this.setState({
-          loading: false
+          loading: false,
+          comics: data.comics
         });
       });
   }
@@ -48,7 +45,7 @@ export default class Comic extends Component {
           >
           {
             (!this.state.loading) ?
-            <ComicElement comicData={comicData} /> :
+            <ComicElement comicData={this.state.comics} /> :
             <div />
           }
           </div>

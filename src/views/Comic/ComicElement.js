@@ -27,7 +27,6 @@ class ComicElement extends Component {
       <div>
         {
           this.props.comicData.map((comic) => {
-            console.log(this.props.linkUrl);
             if (this.props.linkUrl)
               return (
                 <Link 

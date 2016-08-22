@@ -31,18 +31,18 @@ class SortableGrid extends Component {
   }
 
   updateState(obj) {
+    if (this.props.onChange)
+      this.props.onChange.call()
     this.setState(obj);
   }
 
   _deleteListItem(id) {
     let data = Array.from(this.state.listData);
     data.splice( id, 1);
-    console.log(data);
-    this.setState({listData: data});
+    this.updateState({listData: data});
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     if (nextProps.listData !== this.state.listData) {
       this.setState({ listData: nextProps.listData });
     }
