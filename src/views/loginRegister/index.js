@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
-import Tabs from 'material-ui/lib/tabs/tabs';
-import Tab from 'material-ui/lib/tabs/tab';
-import TextField from 'material-ui/lib/text-field';
-import LinearProgress from 'material-ui/lib/linear-progress';
+import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {Tabs, Tab} from 'material-ui/Tabs';
+import TextField from 'material-ui/TextField';
+import LinearProgress from 'material-ui/LinearProgress';
 import Container from '../../components/Container';
 import ContextualBg from '../../components/ContextualBg';
-import RaisedButton from 'material-ui/lib/raised-button';
-import IconButton from 'material-ui/lib/icon-button';
-import ArrowBackIcon from 'material-ui/lib/svg-icons/navigation/arrow-back.js';
-import Checkbox from 'material-ui/lib/checkbox';
+import RaisedButton from 'material-ui/RaisedButton';
+import IconButton from 'material-ui/IconButton';
+import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back';
+import Checkbox from 'material-ui/Checkbox';
 import styles from './styles';
 import LoginModule from './LoginModule';
 import RegisterModule from './RegisterModule';
@@ -132,103 +134,105 @@ export default class LoginRegister extends Component {
 		}
 
 		return (
-			<div style={styles.root}>
-				<Container style={styles.controllBar}>
-					<IconButton onTouchTap={this.handleBackAcation.bind(this)}>
-						<ArrowBackIcon color={styles.backIcon.color}/>
-					</IconButton>
-				</Container>
-				<div style={styles.Box}>
-					<Tabs 
-						initialSelectedIndex={this.state.tabIndex} 
-						tabItemContainerStyle={styles.Tabs}
-						contentContainerStyle={styles.Tab}
-					>
-						<Tab label="登入">
-							<TextField
-								floatingLabelText="E-Mail"
-								ref="login.email"
-								hintText="填入您的電子郵件"
-								fullWidth
-							/>
-							<TextField
-								floatingLabelText="密碼"
-								type="password"
-								ref="login.password"
-								hintText="填入您的密碼"
-								fullWidth
-							/>
-							<Checkbox 
-								ref="remeber"
-								label="自動登入(無勾選則維持一小時)" 
-							/>
-							<RaisedButton 
-								label="登入"
-								fullWidth
-								labelColor="#fff"
-								style={styles.comfirmButton}
-								backgroundColor={this.state.loginButtonColor}
-								onMouseDown={this.onSubmit.bind(this, 'login.')}
-								onKeyDown={this.onSubmit.bind(this, 'login.')}
-							/>
-						</Tab>
-						<Tab label="註冊">
-							<TextField
-								floatingLabelText="E-Mail"
-								ref="register.email"
-								hintText="填入您的電子郵件"
-								fullWidth
-								value={this.state.register.email}
-								onChange={(e) => {this.handleRegisterChange(e,'email')}}
-							/>
-							<TextField
-								floatingLabelText="密碼"
-								type="password"
-								ref="register.password"
-								hintText="填入您的密碼"
-								fullWidth
-								value={this.state.register.password}
-								onChange={(e) => {this.handleRegisterChange(e,'password')}}
-							/>
-							<TextField
-								floatingLabelText="密碼確認"
-								type="password"
-								ref="register.password_confirmation"
-								hintText="確認您的密碼"
-								fullWidth
-								value={this.state.register.password_confirmation}
-								onChange={(e) => {this.handleRegisterChange(e,'password_confirmation')}}
-							/>
-							<TextField
-								floatingLabelText="姓名"
-								ref="register.name"
-								hintText="填入您的姓名"
-								fullWidth
-								value={this.state.register.name}
-								onChange={(e) => {this.handleRegisterChange(e,'name')}}
-							/>
-							<RaisedButton 
-								label="註冊"
-								backgroundColor={this.state.registerButtonColor}
-								labelColor="#fff"
-								style={styles.comfirmButton}
-								onMouseDown={this.onSubmit.bind(this, 'register.')}
-								onKeyDown={this.onSubmit.bind(this, 'register.')}
-							/>
-						</Tab>
-					</Tabs>
-					<ContextualBg 
-						warrning={this.state.warrning}
-						successful={!this.state.warrning}
-						msg={this.state.msg} 
-					/>
-					<LinearProgress 
-						mode="indeterminate" 
-						style={styles.LinearProgress}
-						color={'#E91E63'}
-					/>
+			<MuiThemeProvider muiTheme={getMuiTheme(baseTheme)}>
+				<div style={styles.root}>
+					<Container style={styles.controllBar}>
+						<IconButton onTouchTap={this.handleBackAcation.bind(this)}>
+							<ArrowBackIcon color={styles.backIcon.color}/>
+						</IconButton>
+					</Container>
+					<div style={styles.Box}>
+						<Tabs 
+							initialSelectedIndex={this.state.tabIndex} 
+							tabItemContainerStyle={styles.Tabs}
+							contentContainerStyle={styles.Tab}
+						>
+							<Tab label="登入">
+								<TextField
+									floatingLabelText="E-Mail"
+									ref="login.email"
+									hintText="填入您的電子郵件"
+									fullWidth
+								/>
+								<TextField
+									floatingLabelText="密碼"
+									type="password"
+									ref="login.password"
+									hintText="填入您的密碼"
+									fullWidth
+								/>
+								<Checkbox 
+									ref="remeber"
+									label="自動登入(無勾選則維持一小時)" 
+								/>
+								<RaisedButton 
+									label="登入"
+									fullWidth
+									labelColor="#fff"
+									style={styles.comfirmButton}
+									backgroundColor={this.state.loginButtonColor}
+									onMouseDown={this.onSubmit.bind(this, 'login.')}
+									onKeyDown={this.onSubmit.bind(this, 'login.')}
+								/>
+							</Tab>
+							<Tab label="註冊">
+								<TextField
+									floatingLabelText="E-Mail"
+									ref="register.email"
+									hintText="填入您的電子郵件"
+									fullWidth
+									value={this.state.register.email||''}
+									onChange={(e) => {this.handleRegisterChange(e,'email')}}
+								/>
+								<TextField
+									floatingLabelText="密碼"
+									type="password"
+									ref="register.password"
+									hintText="填入您的密碼"
+									fullWidth
+									value={this.state.register.password||''}
+									onChange={(e) => {this.handleRegisterChange(e,'password')}}
+								/>
+								<TextField
+									floatingLabelText="密碼確認"
+									type="password"
+									ref="register.password_confirmation"
+									hintText="確認您的密碼"
+									fullWidth
+									value={this.state.register.password_confirmation||''}
+									onChange={(e) => {this.handleRegisterChange(e,'password_confirmation')}}
+								/>
+								<TextField
+									floatingLabelText="姓名"
+									ref="register.name"
+									hintText="填入您的姓名"
+									fullWidth
+									value={this.state.register.name||''}
+									onChange={(e) => {this.handleRegisterChange(e,'name')}}
+								/>
+								<RaisedButton 
+									label="註冊"
+									backgroundColor={this.state.registerButtonColor}
+									labelColor="#fff"
+									style={styles.comfirmButton}
+									onMouseDown={this.onSubmit.bind(this, 'register.')}
+									onKeyDown={this.onSubmit.bind(this, 'register.')}
+								/>
+							</Tab>
+						</Tabs>
+						<ContextualBg 
+							warrning={this.state.warrning}
+							successful={!this.state.warrning}
+							msg={this.state.msg} 
+						/>
+						<LinearProgress 
+							mode="indeterminate" 
+							style={styles.LinearProgress}
+							color={'#E91E63'}
+						/>
+					</div>
 				</div>
-			</div>
+			</MuiThemeProvider>
 		);
 	}
 

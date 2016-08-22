@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Sortable } from 'react-sortable';
-import IconButton from 'material-ui/lib/icon-button';
-import ActionDelete from 'material-ui/lib/svg-icons/action/delete';
+import IconButton from 'material-ui/IconButton';
+import ActionDelete from 'material-ui/svg-icons/action/delete';
 
 class GridItem extends Component {
   render() {

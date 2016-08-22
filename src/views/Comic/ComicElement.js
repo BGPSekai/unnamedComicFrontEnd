@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import GridTile from 'material-ui/lib/grid-list/grid-tile';
-import IconButton from 'material-ui/lib/icon-button';
+import { GridTile } from 'material-ui/GridList';
+import IconButton from 'material-ui/IconButton';
 import apiUrl from '../../res/apiUrl';
 import styles from './styles';
 

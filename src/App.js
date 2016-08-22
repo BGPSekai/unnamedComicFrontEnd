@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
-import AppBar from 'material-ui/lib/app-bar';
-import LeftNav from 'material-ui/lib/left-nav';
-import List from 'material-ui/lib/lists/list';
-import ListItem from 'material-ui/lib/lists/list-item';
-import FlatButton from 'material-ui/lib/flat-button';
-import IconMenu from 'material-ui/lib/menus/icon-menu';
-import Avatar from 'material-ui/lib/avatar';
-import Paper from 'material-ui/lib/paper';
-import IconButton from 'material-ui/lib/icon-button';
-import MenuIcon from 'material-ui/lib/svg-icons/navigation/menu';
-import FileUploadIcon from 'material-ui/lib/svg-icons/file/file-upload';
+import AppBar from 'material-ui/AppBar';
+import Drawer from 'material-ui/Drawer';
+import {List, ListItem} from 'material-ui/List';
+import FlatButton from 'material-ui/FlatButton';
+import IconMenu from 'material-ui/IconMenu';
+import Avatar from 'material-ui/Avatar';
+import Paper from 'material-ui/Paper';
+import IconButton from 'material-ui/IconButton';
+import MenuIcon from 'material-ui/svg-icons/navigation/menu';
+import FileUploadIcon from 'material-ui/svg-icons/file/file-upload';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MenuResource from './res/menu.json';
 import Styles from './appStyles';
 import MenuDrawer from './components/menuDrawer';
@@ -56,16 +58,17 @@ export default class App extends Component {
     };
 
     return (
+      <MuiThemeProvider muiTheme={getMuiTheme()}>
       <div style={Styles.root}>
-        <LeftNav style={Styles.navLeft} open={this.state.navOpen}>
+        <Drawer style={Styles.navLeft} open={this.state.navOpen}>
           <MenuDrawer 
             title="title" 
             background={'https://lh3.googleusercontent.com/yDResYVDafsxu1f_74idKOw4MFLi0BiBy51W2oRXVC2S9Uj4XptePeekB0HZMPZM4IrCc6tARQ=w368-h207-p-no'} 
           />
-          <List subheader="主選單">
+          <List>
             {MenuElement}
           </List>
-        </LeftNav>
+        </Drawer>
         <div id="header" style={Styles.header}>
           <div style={Styles.appBarOuter}>
             {/* Grid */}
@@ -112,6 +115,7 @@ export default class App extends Component {
         </div>
         <Footer />
       </div>
+      </MuiThemeProvider>
     );
   }
 

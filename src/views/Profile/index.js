@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Avatar from 'material-ui/lib/avatar';
+import Avatar from 'material-ui/Avatar';
 import Container from '../../components/Container';
 import styles from './styles';
 
