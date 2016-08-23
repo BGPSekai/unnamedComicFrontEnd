@@ -12,10 +12,10 @@ const styles = {
   },
 
   gridTile: {
-    width: '27%',
+    width: 200,
     display: 'inline-block',
     marginRight: '5%',
-    height: '300'
+    height: 300
   }
 };
 

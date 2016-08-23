@@ -118,7 +118,7 @@ class UserModule {
         let time = new Date();
         if (data.status === 'success') {
           this.setUserInfo({
-            auth: data.token,
+            jwt: data.token,
             timeStamp: Math.floor(time.getTime()/1000)
           });
 

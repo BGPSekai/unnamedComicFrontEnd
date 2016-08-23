@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
+import {browserHistory, LinK} from 'react-router';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import {List, ListItem} from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
 import FlatButton from 'material-ui/FlatButton';
 import IconMenu from 'material-ui/IconMenu';
 import Avatar from 'material-ui/Avatar';
@@ -65,6 +66,9 @@ export default class App extends Component {
             title="title" 
             background={'https://lh3.googleusercontent.com/yDResYVDafsxu1f_74idKOw4MFLi0BiBy51W2oRXVC2S9Uj4XptePeekB0HZMPZM4IrCc6tARQ=w368-h207-p-no'} 
           />
+          <Subheader>
+            主選單
+          </Subheader>
           <List>
             {MenuElement}
           </List>

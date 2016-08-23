@@ -8,7 +8,8 @@ const apiUrl = {
 
   comic: {
     list: `${base}/comic/page/{page}`,
-    cover: `${base}/comic/{id}/cover`
+    cover: `${base}/comic/{id}/cover`,
+    info: `${base}/comic/{id}`
   },
 
   publish: {
@@ -17,7 +18,8 @@ const apiUrl = {
   },
 
   front: {
-    publishChapter: `/upload/comic/{comicId}/chapter`
+    publishChapterSelecter: '/upload/comic/{comicId}',
+    publishChapter: '/upload/comic/{comicId}/chapter'
   },
   /**
    * 取得替代後 Url

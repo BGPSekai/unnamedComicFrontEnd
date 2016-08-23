@@ -3,7 +3,7 @@ import { browserHistory } from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
 import Divider from 'material-ui/Divider';
 import Container from '../../components/Container';
-import ChapterUploadSelect from './ChapterUploadSelect';
+import ComicUploadSelect from './ComicUploadSelect';
 import styles from './styles';
 
 export default class Upload extends Component {
@@ -21,7 +21,7 @@ export default class Upload extends Component {
         />
         <Divider />
         <p>或者找尋漫畫新增章節</p>
-        <ChapterUploadSelect />
+        <ComicUploadSelect />
       </Container>
     );
   };

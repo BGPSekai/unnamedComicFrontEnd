@@ -69,7 +69,6 @@ export default class ChapterUploader extends Component {
       .setData(data)
       .send()
       .then( (data) => {
-        console.log(data);
         if (data.status === 'success') {
           console.log(data);
         };

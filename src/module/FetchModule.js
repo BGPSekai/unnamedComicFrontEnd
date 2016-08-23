@@ -76,14 +76,15 @@ export default class FetchModule {
       url.searchParams.append('token',UserModel.getUserInfo('jwt'));
       
     for(let i in this._tempData.data) {
-      if (Array.isArray(this._tempData.data[i])) {
-        let label = `${i}[]`;
-        this._tempData.data[i].map(( val, i2) => {
-          data.append( label, this._tempData.data[i][i2]);
-        });
-      } else {
-        data.append( i, this._tempData.data[i]);
-      };
+      if (this._tempData.data[i])
+        if (Array.isArray(this._tempData.data[i])) {
+          let label = `${i}[]`;
+          this._tempData.data[i].map(( val, i2) => {
+            data.append( label, this._tempData.data[i][i2]);
+          });
+        } else {
+          data.append( i, this._tempData.data[i]);
+        };
     }
     
     let init = {
@@ -95,6 +96,8 @@ export default class FetchModule {
     return new Promise( ( resolve, reject) => {
       if (this._needAuth && UserModel.checkHasExpired()) {
         UserModel.updateToken().then(() => {
+          url.searchParams.delete('token');
+          url.searchParams.append('token', UserModel.getUserInfo('jwt'));
           this._fetch( url, init, resolve, reject);
         });
       } else {

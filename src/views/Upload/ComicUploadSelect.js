@@ -41,7 +41,7 @@ export default class ChapterUploadSelect extends Component {
     return (
       <ComicElement 
         comicData={this.state.comics} 
-        linkUrl={apiUrl.front.publishChapter}
+        linkUrl={apiUrl.front.publishChapterSelecter}
       />
     );
   };

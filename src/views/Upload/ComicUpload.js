@@ -84,7 +84,7 @@ export default class ComicUpload extends Component {
               fullWidth
             /><br />
             <TextField 
-              hintText="漫畫簡介 ( 最少30字 ) "
+              hintText="漫畫簡介"
               floatingLabelText="漫畫簡介"
               ref="summary"
               fullWidth

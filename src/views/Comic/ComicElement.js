@@ -31,13 +31,13 @@ class ComicElement extends Component {
               return (
                 <Link 
                   to={this.props.linkUrl.replace('{comicId}', comic.id)}
-                  key={comic.key}
+                  key={comic.id}
                 >
-                  <TileElement comic={comic} />
+                  <TileElement key={comic.id} comic={comic} />
                 </Link>
               );
             else 
-              return(<TileElement comic={comic} />);
+              return(<TileElement key={comic.id} comic={comic} />);
           })
         }
       </div>

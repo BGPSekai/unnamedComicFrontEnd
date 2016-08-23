@@ -4,7 +4,7 @@ const appStyle = {
   },
 
   header: {
-    backgroundColor: '#D81B60',
+    backgroundColor: '#F06292',
     zIndex: 1000,
     position: 'fixed',
     width: '100%',
@@ -12,7 +12,6 @@ const appStyle = {
   },
 
   main: {
-    marginTop: '4rem'
   },
 
   navLeft: {
@@ -57,7 +56,7 @@ const appStyle = {
 
   loginButton: {
     color: '#fff',
-    margin: '0 2%'
+    margin: 'auto 2%'
   },
 
   avatar: {},

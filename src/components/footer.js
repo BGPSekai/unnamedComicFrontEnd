@@ -7,7 +7,7 @@ render() {
 
     let Styles = {
       footer: {
-        background: '#f6f9fa'
+        background: '#FAFAFA'
       },
 
       container: {
