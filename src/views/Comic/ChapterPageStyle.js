@@ -30,6 +30,11 @@ const styles = {
     padding: '10px 20px'
   },
 
+  addChapter: {
+    position: 'absolute',
+    right: 50
+  },
+
   mainPaper: {
     marginTop: 30,
     padding: 20,

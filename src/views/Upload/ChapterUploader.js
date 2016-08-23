@@ -44,9 +44,9 @@ export default class ChapterUploader extends Component {
     });
   }
 
-  _onListChange() {
+  _onListChange(obj) {
     this.setState({
-      uploadList: this.refs.uploadList.state.listData
+      uploadList: obj.listData
     });
   }
 
@@ -70,7 +70,12 @@ export default class ChapterUploader extends Component {
       .send()
       .then( (data) => {
         if (data.status === 'success') {
-          console.log(data);
+          this.handlePageChange(
+            apiUrl.getReplaceUrl( 
+              apiUrl.front.publishChapterSelecter, 
+              {comicId: this.props.routeParams.comicId}
+            )
+          );
         };
       });
   }

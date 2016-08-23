@@ -32,7 +32,7 @@ class SortableGrid extends Component {
 
   updateState(obj) {
     if (this.props.onChange)
-      this.props.onChange.call()
+      this.props.onChange.call(this, obj);
     this.setState(obj);
   }
 
