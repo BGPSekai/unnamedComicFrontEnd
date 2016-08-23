@@ -10,7 +10,8 @@ export default class Content extends Component {
       marginLeft: 'auto',
       marginRight: 'auto',
       boxSizing: 'border-box',
-      padding: '20px'
+      padding: '20px',
+      position: 'relative'
     };
 
     for(let i in this.props.style) {

@@ -44,8 +44,8 @@ export default class App extends Component {
 
   handlePageChange(page) {
     //this.props.history.push(page); //deprecated
-    this.setState({navOpen: false}) 
-    browserHistory.push(page);
+    this.setState({navOpen: false});
+    browserHistory.push('/'+page);
   }
 
   render() {
@@ -83,7 +83,7 @@ export default class App extends Component {
                   <MenuIcon color={Styles.iconLeft.color} />
                 </IconButton>}
               iconElementRight={
-                <IconButton tooltip="發布漫畫" onTouchTap={this.handlePageChange.bind( this, '/upload')}>
+                <IconButton tooltip="發布漫畫" onTouchTap={this.handlePageChange.bind( this, 'upload')}>
                   <FileUploadIcon color={Styles.iconLeft.color} />
                 </IconButton>}
               style={Styles.appBar}
