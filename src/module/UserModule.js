@@ -48,12 +48,18 @@ class UserModule {
     let userData = new UserData().getFromJson();
     return userData[name];
   }
-  
+  /**
+   * 檢查使用者是否登入，回傳布林值
+   * @return boolen
+   */
   checkIsLogin() {
     let userData = new UserData().getFromJson();
     return (userData.email&&userData.password&&userData.timeStamp) ? true : false;
   }
-
+  /**
+   * 檢查是否使用者更新時間過期
+   * @return boolen
+   */
   checkHasExpired() {
     let userData = new UserData().getFromJson();
     let time = Math.floor(new Date().getTime()/1000)

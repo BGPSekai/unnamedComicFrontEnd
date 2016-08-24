@@ -6,6 +6,7 @@ import App from './App';
 import Home from './views/Home';
 import LoginRegister from './views/LoginRegister';
 import Upload from './views/Upload';
+import ComicUploadSelect from './views/Upload/ComicUploadSelect';
 import ComicUpload from './views/Upload/ComicUpload';
 import ChapterUploader from './views/Upload/ChapterUploader';
 import ChapterUploadSelect from './views/Upload/ChapterUploadSelect';
@@ -13,6 +14,7 @@ import Profile from './views/Profile';
 import Comic from './views/Comic';
 import ComicInfo from './views/Comic/ComicInfo';
 import Types from './views/Types';
+import UserModule from './module/UserModule';
 
 injectTapEventPlugin();
 
@@ -30,10 +32,12 @@ render((
 			{/* tags */}
 			<Route path="/types" component={Types} />
 			{/* upload */}
-			<Route path="/upload" component={Upload} />
-			<Route path="/upload/comic" component={ComicUpload} />
-			<Route path="/upload/comic/:comicId" component={ChapterUploadSelect} />
-			<Route path="/upload/comic/:comicId/chapter" component={ChapterUploader} />
+			<Route path="/upload" component={Upload}>
+				<IndexRoute component={ComicUploadSelect} />
+				<Route path="/upload/comic" component={ComicUpload} />
+				<Route path="/upload/comic/:comicId" component={ChapterUploadSelect} />
+				<Route path="/upload/comic/:comicId/chapter" component={ChapterUploader} />
+			</Route>
 			<Route path="/profile" component={Profile}>
 
 			</Route>

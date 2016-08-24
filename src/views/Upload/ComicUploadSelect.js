@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
+import RaisedButton from 'material-ui/RaisedButton';
+import Divider from 'material-ui/Divider';
+import Container from '../../components/Container';
 import FetchModule from '../../module/FetchModule';
 import apiUrl from '../../res/apiUrl';
 import ComicElement from '../Comic/ComicElement';
+import styles from './styles';
 
 export default class ChapterUploadSelect extends Component {
   constructor(props) {
@@ -37,12 +41,25 @@ export default class ChapterUploadSelect extends Component {
       });
   }
 
+  _handlePageChange(page) {
+    browserHistory.push(page);
+  }
+
   render() {
     return (
-      <ComicElement 
-        comicData={this.state.comics} 
-        linkUrl={apiUrl.front.publishChapterSelecter}
-      />
+      <Container>
+        <RaisedButton 
+          label="新增漫畫" 
+          primary={true} 
+          onTouchTap={this._handlePageChange.bind( this, '/upload/comic')}
+        />
+        <Divider />
+        <p>或者找尋漫畫新增章節</p>
+        <ComicElement 
+          comicData={this.state.comics} 
+          linkUrl={apiUrl.front.publishChapterSelecter}
+        />
+      </Container>
     );
   };
 }
