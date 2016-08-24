@@ -6,6 +6,7 @@ import Container from '../../components/Container';
 import ChapterPageStyle from './ChapterPageStyle';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import FlatButton from 'material-ui/FlatButton';
 import apiUrl from '../../res/apiUrl';
 
 class ChapterPage extends Component {
@@ -52,7 +53,7 @@ class ChapterPage extends Component {
           }
           <Paper style={ChapterPageStyle.mainPaper}>
             {this.props.chapterData.map(( value, i) => {
-              return (<div key={i}>{i+1} - {value.name}</div>);
+              return (<FlatButton key={i} label={`${i+1} - ${value.name}`} style={ChapterPageStyle.chapterButton} />);
             })}
           </Paper>
         </Container>

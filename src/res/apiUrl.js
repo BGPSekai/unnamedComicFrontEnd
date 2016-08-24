@@ -21,6 +21,7 @@ const apiUrl = {
 
   front: {
     comicInfo: '/comic/{comicId}',
+    comicViewer: '/comic/{comicId}/chapter/{chapterId}',
     publishChapterSelecter: '/upload/comic/{comicId}',
     publishChapter: '/upload/comic/{comicId}/chapter'
   },

@@ -12,6 +12,7 @@ import ChapterUploadSelect from './views/Upload/ChapterUploadSelect';
 import Profile from './views/Profile';
 import Comic from './views/Comic';
 import ComicInfo from './views/Comic/ComicInfo';
+import Types from './views/Types';
 
 injectTapEventPlugin();
 
@@ -21,10 +22,14 @@ render((
 		<Route path="/register" component={LoginRegister} />
 		<Route path="/" component={App}>
 			<IndexRoute component={Home} />
+			{/* Comic */}
 			<Route path="comic" component={Comic}>
 				<Route path="page/:page" component={Comic} />
 			</Route>
 			<Route path="/comic/:comicId" component={ComicInfo} />
+			{/* tags */}
+			<Route path="/types" component={Types} />
+			{/* upload */}
 			<Route path="/upload" component={Upload} />
 			<Route path="/upload/comic" component={ComicUpload} />
 			<Route path="/upload/comic/:comicId" component={ChapterUploadSelect} />

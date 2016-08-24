@@ -120,7 +120,6 @@ export default class FetchModule {
   consume(response, fileSize = 0) {
     let progress = 0;
     let pump = (reader) => {
-      console.log(reader.read());
       reader.read().then(function(result) {
         if (result.done) {
           return;

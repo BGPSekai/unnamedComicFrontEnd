@@ -35,6 +35,12 @@ const styles = {
     right: 50
   },
 
+  chapterButton: {
+    display: 'block',
+    width: '100%',
+    textAlign: 'left'
+  },
+
   mainPaper: {
     marginTop: 30,
     padding: 20,
