@@ -114,19 +114,35 @@ export default class FetchModule {
   }
   /**
    * 暫時的 
-   * 取得速度
+   * 取得下載速度(上傳無解)
    */
-  consume(stream, total = 0) {
-    console.log(stream.read());
-    while (stream.state === 'readable') {
-      var data = stream.read();
-      total += data.byteLength;
-      console.log('received ' + data.byteLength + ' bytes (' + total + ' bytes in total).')
-    }
-    if (stream.state === 'waiting') {
-      stream.ready.then(() => consume(stream, total))
-    }
-    return stream.closed;
+
+  consume(response, fileSize = 0) {
+    let progress = 0;
+    let pump = (reader) => {
+      console.log(reader.read());
+      reader.read().then(function(result) {
+        if (result.done) {
+          return;
+        }
+        // retrieve the multi-byte chunk of data
+        var chunk = result.value;
+        var text = '';
+        // since the chunk can be multiple bytes, iterate through
+        // each byte while skipping the byte order mark
+        // (assuming UTF-8 with single-byte chars)
+        // for (var i = 3; i < chunk.byteLength; i++) {
+        //   text += String.fromCharCode(chunk[i]);
+        // }
+        // report our current progress
+        progress += chunk.byteLength;
+        //console.log(((progress / contentLength) * 100) + '%');
+        // go to next chunk via recursion
+        return pump(reader);
+      });
+    };
+
+    return pump(response.body.getReader());
   }
 
   _fetch( url, init = {}, resolve = () => {}, reject = () => {}) {
@@ -134,7 +150,7 @@ export default class FetchModule {
       delete init.body;
     fetch( url, init)
       .then( (response) => {
-        this.consume(response.body);
+        this.consume(response.clone());
         if (this._tempData.type === 'application/json' && response.json)
           resolve(this._parseJSON(response), response);
         else 
