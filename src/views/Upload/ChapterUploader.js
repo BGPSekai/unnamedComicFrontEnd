@@ -63,7 +63,7 @@ export default class ChapterUploader extends Component {
     new FetchModule()
       .setUrl(apiUrl.getReplaceUrl(apiUrl.publish.chapter, {id: this.props.routeParams.comicId}))
       .auth()
-      .setCros('cors')
+      .setCors('cors')
       .setMethod('POST')
       .setType('json')
       .setData(data)

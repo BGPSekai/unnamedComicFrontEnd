@@ -17,7 +17,7 @@ class ComicInfo extends Component {
   componentWillMount() {
     new FetchModule()
       .setUrl(apiUrl.getReplaceUrl( apiUrl.comic.info, { id: this.props.params.comicId}))
-      .setCros('cors')
+      .setCors('cors')
       .setType('json')
       .send()
       .then((data) => {

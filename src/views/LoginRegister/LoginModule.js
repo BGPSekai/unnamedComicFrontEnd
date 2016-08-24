@@ -22,7 +22,7 @@ class LoginModule {
   postData(data) {
     return new FetchModule()
       .setUrl(apiUrl.auth)
-      .setCros('cors')
+      .setCors('cors')
       .setMethod('POST')
       .setType('json')
       .setData(data)

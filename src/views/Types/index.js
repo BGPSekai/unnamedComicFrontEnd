@@ -13,7 +13,7 @@ class Types extends Component {
 
     new FetchModule()
       .setUrl(apiUrl.type)
-      .setCros('cors')
+      .setCors('cors')
       .setMethod('GET')
       .setType('json')
       .send()
@@ -24,7 +24,6 @@ class Types extends Component {
   
   render() {
     let Types = this.state.types.map(( value, i) => {
-      console.log(i);
       return (<FloatButton key={i} label={value.name} />);
     });
     

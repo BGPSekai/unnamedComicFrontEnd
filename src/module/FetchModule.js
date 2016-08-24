@@ -29,9 +29,9 @@ export default class FetchModule {
     return this;
   }
   /**
-   * @param mode same-origin no-cros cors
+   * @param mode same-origin no-cors cors
    */
-  setCros(mode = 'same-origin') {
+  setCors(mode = 'same-origin') {
     this._tempData.mode = mode;
     return this;
   }

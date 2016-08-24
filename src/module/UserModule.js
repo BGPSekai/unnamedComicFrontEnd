@@ -84,7 +84,7 @@ class UserModule {
     return new Promise( (resolve,reject) => {
       new FetchModule()
       .setUrl(`${apiUrl.user.info}?token=${data.token}`)
-      .setCros('cors')
+      .setCors('cors')
       .setMethod('GET')
       .setType('json')
       .setData(data)
@@ -109,7 +109,7 @@ class UserModule {
     return new Promise( (resolve,reject) => {
       new FetchModule()
       .setUrl(apiUrl.auth)
-      .setCros('cors')
+      .setCors('cors')
       .setMethod('POST')
       .setType('json')
       .setData(data)

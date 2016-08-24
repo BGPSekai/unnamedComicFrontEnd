@@ -29,7 +29,7 @@ export default class ComicUpload extends Component {
     new FetchModule()
       .setUrl(apiUrl.type)
       .setType('json')
-      .setCros('cros')
+      .setCors('cros')
       .setMethod('GET')
       .send()
       .then((data) => {
@@ -68,7 +68,7 @@ export default class ComicUpload extends Component {
     new FetchModule()
       .setUrl(apiUrl.publish.comic)
       .auth()
-      .setCros('cors')
+      .setCors('cors')
       .setMethod('POST')
       .setType('json')
       .setData(data)

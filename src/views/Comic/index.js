@@ -21,7 +21,7 @@ export default class Comic extends Component {
   _getData(page = 1) {
     new FetchModule()
       .setUrl(apiUrl.comic.list)
-      .setCros('cors')
+      .setCors('cors')
       .setMethod('GET')
       .setType('json')
       .replaceVariable({
