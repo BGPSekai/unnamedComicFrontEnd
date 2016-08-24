@@ -1,3 +1,4 @@
+import 'whatwg-fetch';
 import UserModel from './UserModule';
 
 export default class FetchModule {
@@ -116,7 +117,7 @@ export default class FetchModule {
    * 取得速度
    */
   consume(stream, total = 0) {
-    console.log(stream);
+    console.log(stream.read());
     while (stream.state === 'readable') {
       var data = stream.read();
       total += data.byteLength;

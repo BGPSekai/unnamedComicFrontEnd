@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
-import ChapterPage from '../Comic/ChapterPage';
 import FetchModule from '../../module/FetchModule';
 import apiUrl from '../../res/apiUrl';
+import Container from '../../components/Container';
+import ChapterPage from './ChapterPage';
 
-class ChapterUploadSelect extends Component {
+class ComicInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
       comic: {},
       chapters: []
     };
-    
+
   }
   
   componentWillMount() {
@@ -29,12 +30,11 @@ class ChapterUploadSelect extends Component {
       <div>
         <ChapterPage 
           comicData={this.state.comic} 
-          chapterData={this.state.chapters}
-          backEnd
+          chapterData={this.state.chapters} 
         />
       </div>
     );
   }
 }
 
-export default ChapterUploadSelect;
+export default ComicInfo;

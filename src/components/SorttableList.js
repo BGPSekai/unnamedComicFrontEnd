@@ -28,12 +28,20 @@ class SortableGrid extends Component {
     };
     
     this.updateState = this.updateState.bind(this);
+    this._changeList = this._changeList.bind(this);
   }
 
   updateState(obj) {
     if (this.props.onChange)
       this.props.onChange.call(this, obj);
     this.setState(obj);
+  }
+  
+  _changeList(obj) {
+    if (obj.item)
+      this.updateState({listData: obj.item});
+    else 
+      this.setState({draggingIndex: obj.draggingIndex});
   }
 
   _deleteListItem(id) {
@@ -90,7 +98,7 @@ class SortableGrid extends Component {
       return (
         <SortableGridItem
           key={i}
-          updateState={this.updateState}
+          updateState={this._changeList}
           items={this.state.listData}
           draggingIndex={this.state.draggingIndex}
           sortId={i}

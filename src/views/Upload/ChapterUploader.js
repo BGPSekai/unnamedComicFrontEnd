@@ -28,7 +28,7 @@ export default class ChapterUploader extends Component {
   }
 
   _onChange(files) {
-    this.refs.images.getAllImagePreview( 0, (array) => {
+    this.refs.images.getAllImagePreview( 0, (array = []) => {
       let putData = [];
 
       array.map( ( data, i) => {

@@ -96,7 +96,7 @@ export default class App extends Component {
                 style={Styles.avatarPaper} 
                 zDepth={1} 
                 circle={true}
-                onTouchTap={this.handlePageChange.bind( this, '/profile')}
+                onTouchTap={this.handlePageChange.bind( this, 'profile')}
               >
                 <Avatar>
                   {UserModule.getUserInfo('userName').substring( 0, 1)}
@@ -110,7 +110,7 @@ export default class App extends Component {
                 style={Styles.loginButton} 
                 rippleColor="#FF4081" 
                 label="登入"
-                onTouchTap={this.handlePageChange.bind( this, '/login')} />
+                onTouchTap={this.handlePageChange.bind( this, 'login')} />
             }
           </div>
         </div>

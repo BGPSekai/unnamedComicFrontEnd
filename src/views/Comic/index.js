@@ -45,7 +45,7 @@ export default class Comic extends Component {
           >
           {
             (!this.state.loading) ?
-            <ComicElement comicData={this.state.comics} /> :
+            <ComicElement linkUrl={apiUrl.front.comicInfo} comicData={this.state.comics} /> :
             <div />
           }
           </div>

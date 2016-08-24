@@ -4,6 +4,8 @@ import {Card, CardActions, CardMedia, CardTitle, CardText} from 'material-ui/Car
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import LinearProgress from 'material-ui/LinearProgress';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import Container from '../../components/Container';
 import FileUpload from '../../components/FileUpload';
 import FetchModule from '../../module/FetchModule';
@@ -14,16 +16,33 @@ export default class ComicUpload extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      previewImg: ''
+      previewImg: '',
+      types: [],
+      typeValue: 1
     };
 
     this._changePreviewImg = this._changePreviewImg.bind(this);
     this._onChange = this._onChange.bind(this);
     this._onSubmit = this._onSubmit.bind(this);
+    this._handleTypeChange = this._handleTypeChange.bind(this);
+
+    new FetchModule()
+      .setUrl(apiUrl.type)
+      .setType('json')
+      .setCros('cros')
+      .setMethod('GET')
+      .send()
+      .then((data) => {
+        this.setState(data);
+      });
   }
 
   handlePageChange(page) {
     browserHistory.push(page);
+  }
+
+  _handleTypeChange(event, index, value) {
+    this.setState({typeValue: value});
   }
 
   _changePreviewImg(data) {
@@ -40,8 +59,10 @@ export default class ComicUpload extends Component {
   _onSubmit() {
     let data = {
       name: this.refs.name.getValue(),
+      author: this.refs.author.getValue(),
       summary: this.refs.summary.getValue(),
-      cover: this.refs.cover.getFile(0)
+      cover: this.refs.cover.getFile(0),
+      type: this.state.typeValue
     };
 
     new FetchModule()
@@ -55,14 +76,8 @@ export default class ComicUpload extends Component {
       .then( (data) => {
         console.log(data);
         if (data.status === 'success') {
-          console.log(apiUrl.getReplaceUrl(
-            apiUrl.front.publishChapter,
-            {
-              comicId: data.comic.id
-            }
-          ));
           browserHistory.push(apiUrl.getReplaceUrl(
-            apiUrl.front.publishChapter,
+            apiUrl.front.publishChapterSelecter,
             {
               comicId: data.comic.id
             }
@@ -81,6 +96,24 @@ export default class ComicUpload extends Component {
               hintText="漫畫名稱"
               floatingLabelText="漫畫名稱"
               ref="name"
+              fullWidth
+            /><br />
+            <SelectField 
+              ref="type" 
+              value={this.state.typeValue} 
+              fullWidth
+              onChange={this._handleTypeChange}  
+            >
+            {
+              this.state.types.map(( data, i) => {
+                return <MenuItem value={data.id} key={i} primaryText={data.name} />
+              })
+            }
+            </SelectField><br />
+            <TextField 
+              hintText="漫畫作者"
+              floatingLabelText="漫畫作者(輸入名稱)"
+              ref="author"
               fullWidth
             /><br />
             <TextField 

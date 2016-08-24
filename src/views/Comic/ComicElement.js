@@ -11,7 +11,7 @@ class TileElement extends Component {
        <GridTile
          key={this.props.comic.id}
          title={this.props.comic.name}
-         subtitle={<span>上傳者 <b>{this.props.comic.publish_by.name}</b></span>}
+         subtitle={<span>上傳者/作者 <b>{this.props.comic.publish_by.name}/{this.props.comic.author}</b></span>}
          actionIcon={<IconButton></IconButton>}
          style={styles.gridTile}
        >

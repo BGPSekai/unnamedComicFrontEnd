@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import Paper from 'material-ui/Paper';
 import FetchModule from '../../module/FetchModule';
@@ -24,13 +24,17 @@ class ChapterPage extends Component {
         <Container>
           <div style={ChapterPageStyle.infomation}>
             <div style={ChapterPageStyle.imageBlock}>
-              <img 
-                src={apiUrl.getReplaceUrl( apiUrl.comic.cover, { id: this.props.comicData.id})} 
-                style={ChapterPageStyle.img}
-              />
+              {
+                this.props.comicData.id &&
+                <img 
+                  src={apiUrl.getReplaceUrl( apiUrl.comic.cover, { id: this.props.comicData.id})} 
+                  style={ChapterPageStyle.img}
+                />
+              }
             </div>
             <div style={ChapterPageStyle.nameInfo}>
               <h3>{this.props.comicData.name}</h3>
+              <p>作者: {this.props.comicData.author}</p>
               <p>{this.props.comicData.summary}</p>
             </div>
           </div>
@@ -57,4 +61,13 @@ class ChapterPage extends Component {
   }
 }
 
+ChapterPage.propTypes = {
+  comicData: PropTypes.object.isRequired,
+  chapterData: PropTypes.array.isRequired
+}
+
+ChapterPage.defaultProps = {
+    comicData: {},
+    chapterData: []
+};
 export default ChapterPage;

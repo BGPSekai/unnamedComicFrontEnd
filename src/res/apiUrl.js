@@ -11,6 +11,8 @@ const apiUrl = {
     cover: `${base}/comic/{id}/cover`,
     info: `${base}/comic/{id}`
   },
+  
+  type: `${base}/type`,
 
   publish: {
     comic: `${base}/publish`,
@@ -18,6 +20,7 @@ const apiUrl = {
   },
 
   front: {
+    comicInfo: '/comic/{comicId}',
     publishChapterSelecter: '/upload/comic/{comicId}',
     publishChapter: '/upload/comic/{comicId}/chapter'
   },
