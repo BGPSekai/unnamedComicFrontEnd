@@ -94,6 +94,25 @@ export default class LoginRegister extends Component {
 		};
 	}
 
+	_handleEnterClick( e, ref) {
+		let ele = this.refs[ref];
+		if (e.keyCode === 13) {
+			// if (ele.constructor.name === 'Checkbox') {
+			// 	// e.target.blur();
+			// 	// ele.refs.enhancedSwitch.setState({isKeyboardFocused: true});
+			// 	// ele.refs.enhancedSwitch.handleFocus(e);
+			// }
+			// if (ele.handleKeyboardFocus) {
+			// 	e.target.blur();
+			// 	ele.handleKeyboardFocus( e, true);
+			// 	console.log(ele);
+			// }
+			// else 
+			if (ele.focus())
+				ele.focus();
+		};
+	}
+
 	handleRegisterChange( e, refs) {
 		this.state.register[refs] = e.target.value; 
 		this.setState({
@@ -153,6 +172,7 @@ export default class LoginRegister extends Component {
 									ref="login.email"
 									hintText="填入您的電子郵件"
 									fullWidth
+									onKeyDown={(e) => this._handleEnterClick( e, 'login.password')}
 								/>
 								<TextField
 									floatingLabelText="密碼"
@@ -163,7 +183,7 @@ export default class LoginRegister extends Component {
 								/>
 								<Checkbox 
 									ref="remeber"
-									label="自動登入(無勾選則維持一小時)" 
+									label="自動登入(無勾選則維持一小時)"
 								/>
 								<RaisedButton 
 									label="登入"
@@ -183,6 +203,7 @@ export default class LoginRegister extends Component {
 									fullWidth
 									value={this.state.register.email||''}
 									onChange={(e) => {this.handleRegisterChange(e,'email')}}
+									onKeyDown={(e) => this._handleEnterClick( e, 'register.password')}
 								/>
 								<TextField
 									floatingLabelText="密碼"
@@ -192,6 +213,7 @@ export default class LoginRegister extends Component {
 									fullWidth
 									value={this.state.register.password||''}
 									onChange={(e) => {this.handleRegisterChange(e,'password')}}
+									onKeyDown={(e) => this._handleEnterClick( e, 'register.password_confirmation')}
 								/>
 								<TextField
 									floatingLabelText="密碼確認"
@@ -201,6 +223,7 @@ export default class LoginRegister extends Component {
 									fullWidth
 									value={this.state.register.password_confirmation||''}
 									onChange={(e) => {this.handleRegisterChange(e,'password_confirmation')}}
+									onKeyDown={(e) => this._handleEnterClick( e, 'register.name')}
 								/>
 								<TextField
 									floatingLabelText="姓名"
@@ -212,11 +235,11 @@ export default class LoginRegister extends Component {
 								/>
 								<RaisedButton 
 									label="註冊"
+									ref="submit"
 									backgroundColor={this.state.registerButtonColor}
 									labelColor="#fff"
 									style={styles.comfirmButton}
-									onMouseDown={this.onSubmit.bind(this, 'register.')}
-									onKeyDown={this.onSubmit.bind(this, 'register.')}
+									onTouchTap={this.onSubmit.bind(this, 'register.')}
 								/>
 							</Tab>
 						</Tabs>
