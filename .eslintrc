@@ -11,6 +11,8 @@
   "rules": {
     "quotes": [2, "single"],
     "strict": [2, "never"],
+    "keyword-spacing": [1, { "before": true , "after": true }],
+    "eol-last": 1,
     "babel/generator-star-spacing": 1,
     "babel/new-cap": 1,
     "babel/object-shorthand": 1,
