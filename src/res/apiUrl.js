@@ -31,7 +31,7 @@ const apiUrl = {
    * @param (Object) replaceData
    */
   getReplaceUrl: (url = '', replaceData = {}) => {
-    for(let i in replaceData) {
+    for (let i in replaceData) {
       url = url.replace( `{${i}}`, replaceData[i]);
     }
     return url;
