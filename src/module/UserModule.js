@@ -8,8 +8,13 @@ class UserData {
     this.data = null;
   }
 
+  clear(name) {
+    LocalStorage.remove(name);
+    return this;
+  }
+
   get() {
-    if(LocalStorage.get('key')&&LocalStorage.get('auth')){
+    if (LocalStorage.get('key')&&LocalStorage.get('auth')) {
       let publicKey = '-----BEGIN RSA PRIVATE KEY-----\n'+
                     LocalStorage.get('key')+
                     '\n-----END RSA PRIVATE KEY-----';
@@ -43,7 +48,17 @@ class UserModule {
   constructor() {
 
   }
-
+  /**
+   * 清除使用者資料
+   */
+  clearUserData() {
+    new UserData().clear('auth').clear('key');
+  }
+  /**
+   * 取得使用者資訊
+   * @param String name
+   * @return String userData
+   */
   getUserInfo(name) {
     let userData = new UserData().getFromJson();
     return userData[name];
@@ -96,7 +111,7 @@ class UserModule {
       .setData(data)
       .send()
       .then( (data) => {
-        if(data.status === 'success')
+        if (data.status === 'success')
           this.setUserInfo({
             userName: data.user.name,
             userId: data.user.id

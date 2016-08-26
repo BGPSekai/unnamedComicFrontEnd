@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {browserHistory, LinK} from 'react-router';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import FlatButton from 'material-ui/FlatButton';
@@ -19,6 +20,8 @@ import Styles from './appStyles';
 import MenuDrawer from './components/menuDrawer';
 import Footer from './components/Footer';
 import UserModule from './module/UserModule';
+import PersonIcon from 'material-ui/svg-icons/social/person';
+import PowerSettingsNewIcon from 'material-ui/svg-icons/action/power-settings-new';
 
 export default class App extends Component {
   constructor(props) {
@@ -39,7 +42,6 @@ export default class App extends Component {
 
     if (window.innerWidth * widthPersent < 256)
       this.setState({navOpen: false});
-
   }
 
   handlePageChange(page) {
@@ -51,7 +53,7 @@ export default class App extends Component {
   render() {
     let MenuElement = [];
 
-    for(let i in MenuResource) {
+    for (let i in MenuResource) {
       MenuElement.push(
       <ListItem key={i} onTouchTap={this.handlePageChange.bind( this, i)}>
         {MenuResource[i].text}
@@ -92,16 +94,27 @@ export default class App extends Component {
             {
               /* 已經登入 */
               UserModule.checkIsLogin()&&
-              <Paper 
-                style={Styles.avatarPaper} 
-                zDepth={1} 
-                circle={true}
-                onTouchTap={this.handlePageChange.bind( this, 'profile')}
-              >
-                <Avatar>
-                  {UserModule.getUserInfo('userName').substring( 0, 1)}
-                </Avatar>
-              </Paper>
+              <div style={Styles.userInfo}>
+                <IconMenu
+                  iconButtonElement={
+                    <IconButton style={Styles.avatarButton}>
+                      <Paper 
+                        zDepth={1} 
+                        circle={true}
+                      >
+                        <Avatar>
+                          {UserModule.getUserInfo('userName').substring( 0, 1)}
+                        </Avatar>
+                      </Paper>
+                    </IconButton>
+                  }
+                  menuStyle={Styles.userMenu}
+                  onChange={(e, value) => this.handlePageChange.call(this, value)}
+                >
+                  <MenuItem primaryText="關於我" value="profile" leftIcon={<PersonIcon />} />
+                  <MenuItem primaryText="登出"  value="logout" leftIcon={<PowerSettingsNewIcon />}/>
+                </IconMenu>
+              </div>
             }
             {
               /* 尚未登入 */

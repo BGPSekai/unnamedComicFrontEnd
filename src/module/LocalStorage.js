@@ -1,13 +1,19 @@
 class LocalStorage {
-  constructor() {}
+  constructor() {
+    this._lS = localStorage;
+  }
+
+  remove(name) {
+    this._lS.removeItem(name);
+  }
 
   get(name) {
-    return localStorage.getItem(name);
+    return this._lS.getItem(name);
   }
   
   set(data = {}) {
-    for(let i in data) {
-      localStorage.setItem( i, data[i]);
+    for (let i in data) {
+      this._lS.setItem( i, data[i]);
     };
   }
 

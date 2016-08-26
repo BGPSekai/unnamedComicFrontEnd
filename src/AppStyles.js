@@ -47,10 +47,11 @@ const appStyle = {
     flex: 1
   },
 
-  avatarPaper: {
+  avatarButton: {
     width: '40px',
     height: '40px',
-    margin: 'auto 2%',
+    margin: '12px 2%',
+    padding: 0,
     cursor: 'pointer'
   },
 
@@ -59,7 +60,14 @@ const appStyle = {
     margin: 'auto 2%'
   },
 
+  userInfo: {
+    position: 'relative'
+  },
+
   avatar: {},
+
+  userMenu: {
+  },
 
   footer: {
     background: '#f6f9fa'

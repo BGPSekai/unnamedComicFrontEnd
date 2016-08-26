@@ -10,16 +10,18 @@ import ComicUploadSelect from './views/Upload/ComicUploadSelect';
 import ComicUpload from './views/Upload/ComicUpload';
 import ChapterUploader from './views/Upload/ChapterUploader';
 import ChapterUploadSelect from './views/Upload/ChapterUploadSelect';
-import Profile from './views/Profile';
 import Comic from './views/Comic';
 import ComicInfo from './views/Comic/ComicInfo';
 import Types from './views/Types';
-import UserModule from './module/UserModule';
+import Profile from './views/User';
+import UserProfile from './views/User/UserProfile';
+import Logout from './views/User/Logout';
 
 injectTapEventPlugin();
 
 render((
 	<Router history={browserHistory}>
+		<Route path="/logout" component={Logout} />
 		<Route path="/login" component={LoginRegister} />
 		<Route path="/register" component={LoginRegister} />
 		<Route path="/" component={App}>
@@ -39,7 +41,7 @@ render((
 				<Route path="/upload/comic/:comicId/chapter" component={ChapterUploader} />
 			</Route>
 			<Route path="/profile" component={Profile}>
-
+				<IndexRoute component={UserProfile} />
 			</Route>
 		</Route>
 	</Router>

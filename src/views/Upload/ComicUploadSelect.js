@@ -47,7 +47,7 @@ export default class ChapterUploadSelect extends Component {
 
   render() {
     return (
-      <Container>
+      <Container style={styles.container}>
         <RaisedButton 
           label="新增漫畫" 
           primary={true} 
