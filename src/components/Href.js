@@ -12,7 +12,9 @@ class Href extends Component {
   render() {
     return (
       <div>
-        <a onClick={this._handlePageChange.bind(this, this.props.href)} {...this.props}>{this.props.children}</a>
+        <a onClick={this._handlePageChange.bind(this, this.props.href)} {...this.props}>
+          {this.props.children}
+        </a>
       </div>
     );
   }

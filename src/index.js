@@ -16,6 +16,7 @@ import Types from './views/Types';
 import Profile from './views/User';
 import UserProfile from './views/User/UserProfile';
 import Logout from './views/User/Logout';
+import Search from './views/Search';
 
 injectTapEventPlugin();
 
@@ -39,6 +40,10 @@ render((
 				<Route path="/upload/comic" component={ComicUpload} />
 				<Route path="/upload/comic/:comicId" component={ChapterUploadSelect} />
 				<Route path="/upload/comic/:comicId/chapter" component={ChapterUploader} />
+			</Route>
+			{/* Search */}
+			<Route path="/search" component={Search}>
+				<IndexRoute />
 			</Route>
 			<Route path="/profile" component={Profile}>
 				<IndexRoute component={UserProfile} />

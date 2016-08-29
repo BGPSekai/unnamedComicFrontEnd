@@ -30,6 +30,11 @@ const appStyle = {
     textDecoration: 'none'
   },
 
+  titleSearch: {
+    color: '#fff',
+    borderColor: '#AD1457'
+  },
+
   iconLeft: {
     color: '#FCE4EC'
   },

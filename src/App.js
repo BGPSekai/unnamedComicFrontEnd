@@ -4,6 +4,7 @@ import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import {List, ListItem} from 'material-ui/List';
+import TextField from 'material-ui/TextField';
 import Subheader from 'material-ui/Subheader';
 import FlatButton from 'material-ui/FlatButton';
 import IconMenu from 'material-ui/IconMenu';
@@ -30,7 +31,7 @@ export default class App extends Component {
     super(props);
     this.state = {
       navOpen: false,
-      hasAuth: false
+      isSearching: false
     };
 
   }
@@ -49,17 +50,37 @@ export default class App extends Component {
   handlePageChange(page, e) {
     //this.props.history.push(page); //deprecated
     if (e && e.nativeEvent.which === 1) {
-      this.setState({navOpen: false});
+      this.setState({navOpen: false,isSearching: false});
       browserHistory.push('/'+page);
     }
   }
 
   _handlePageSearch(e) {
-    console.log('search');
+    this.handlePageChange('search', e);
+    this.setState({isSearching: true});
   }
 
   render() {
     let MenuElement = [];
+    let TitleElement;
+
+    if (this.state.isSearching) {
+      TitleElement = (
+        <TextField 
+          hintText={'搜尋'}
+          inputStyle={Styles.titleSearch}
+          underlineFocusStyle={Styles.titleSearch}
+          hintStyle={Styles.titleSearch}
+          fullWidth
+        />
+      );
+    } else {
+      TitleElement = (
+        <Href href="" style={Styles.title} onTouchTap={this.handlePageChange.bind( this, '')}>
+          {process.env.WEBSITE_TITLE}
+        </Href>
+      );
+    };
 
     for (let i in MenuResource) {
       MenuElement.push(
@@ -87,11 +108,7 @@ export default class App extends Component {
           <div style={Styles.appBarOuter}>
             {/* Grid */}
             <AppBar
-              title={
-                <Href href="" style={Styles.title} onTouchTap={this.handlePageChange.bind( this, '')}>
-                  {process.env.WEBSITE_TITLE}
-                </Href>
-              }
+              title={TitleElement}
               iconElementLeft={
                 <IconButton tooltip="切換選單" onTouchTap={this.handleNavToggle.bind(this)}>
                   <MenuIcon color={Styles.iconLeft.color} />
@@ -99,9 +116,12 @@ export default class App extends Component {
               }
               iconElementRight={
                 <div>
-                  <IconButton tooltip="搜尋" onTouchTap={this._handlePageSearch.bind(this)}>
-                    <SearchIcon color={Styles.iconLeft.color} />
-                  </IconButton>
+                  {
+                    !this.state.isSearching &&
+                    <IconButton tooltip="搜尋" onTouchTap={this._handlePageSearch.bind(this)}>
+                      <SearchIcon color={Styles.iconLeft.color} />
+                    </IconButton>
+                  }
                   <IconButton tooltip="發布漫畫" onTouchTap={this.handlePageChange.bind( this, 'upload')}>
                     <FileUploadIcon color={Styles.iconLeft.color} />
                   </IconButton>
