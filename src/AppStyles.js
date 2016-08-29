@@ -14,6 +14,11 @@ const appStyle = {
   main: {
   },
 
+  a: {
+    textDecoration: 'none',
+    color: '#222'
+  },
+
   navLeft: {
     zIndex: 500,
     padding: '63px 0 0 0'
@@ -21,7 +26,8 @@ const appStyle = {
 
   title: {
     color: '#FCE4EC',
-    fontSize: '1.2rem'
+    fontSize: '1.2rem',
+    textDecoration: 'none'
   },
 
   iconLeft: {
