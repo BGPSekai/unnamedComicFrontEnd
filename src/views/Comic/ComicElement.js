@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { GridTile } from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
+import Href from '../../components/Href';
 import apiUrl from '../../res/apiUrl';
 import styles from './styles';
 
@@ -29,15 +30,15 @@ class ComicElement extends Component {
           this.props.comicData.map((comic) => {
             if (this.props.linkUrl)
               return (
-                <Link 
-                  to={this.props.linkUrl.replace('{comicId}', comic.id)}
+                <Href 
+                  href={this.props.linkUrl.replace('{comicId}', comic.id)}
                   key={comic.id}
                 >
                   <TileElement key={comic.id} comic={comic} />
-                </Link>
+                </Href>
               );
             else 
-              return(<TileElement key={comic.id} comic={comic} />);
+              return (<TileElement key={comic.id} comic={comic} />);
           })
         }
       </div>

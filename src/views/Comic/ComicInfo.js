@@ -28,9 +28,11 @@ class ComicInfo extends Component {
   render() {
     return (
       <div>
+        {this.props.children}
         <ChapterPage 
           comicData={this.state.comic} 
-          chapterData={this.state.chapters} 
+          chapterData={this.state.chapters}
+          linkUrl={apiUrl.front.viewComic}
         />
       </div>
     );

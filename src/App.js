@@ -25,6 +25,7 @@ import Footer from './components/Footer';
 import UserModule from './module/UserModule';
 import PersonIcon from 'material-ui/svg-icons/social/person';
 import PowerSettingsNewIcon from 'material-ui/svg-icons/action/power-settings-new';
+import apiUrl from './res/apiUrl';
 
 export default class App extends Component {
   constructor(props) {
@@ -33,7 +34,16 @@ export default class App extends Component {
       navOpen: false,
       isSearching: false
     };
-
+    
+  }
+  /**
+   * 檢查 search location是否是 search
+   * 是則顯示 search bar  
+   */  
+  componentWillMount() {
+   if (this.props.location.pathname.match(apiUrl.front.search)) {
+      this.state.isSearching = true;
+    } 
   }
 
   handleNavToggle() { 
@@ -60,23 +70,37 @@ export default class App extends Component {
     this.setState({isSearching: true});
   }
 
+  _handleSearchStart(e) {
+    if (e.nativeEvent.keyCode === 13) {
+      browserHistory.push(
+        apiUrl.getReplaceUrl( apiUrl.front.searchByName,
+          {comicName: this.refs.search.getValue()}
+        )
+      );
+    }
+  }
+
   render() {
     let MenuElement = [];
     let TitleElement;
-
+    
     if (this.state.isSearching) {
       TitleElement = (
         <TextField 
           hintText={'搜尋'}
+          ref="search"
+          defaultValue={this.props.params.searchName}
           inputStyle={Styles.titleSearch}
           underlineFocusStyle={Styles.titleSearch}
           hintStyle={Styles.titleSearch}
+          autoFocus={true}
+          onKeyDown={this._handleSearchStart.bind(this)}
           fullWidth
         />
       );
     } else {
       TitleElement = (
-        <Href href="" style={Styles.title} onTouchTap={this.handlePageChange.bind( this, '')}>
+        <Href href="/" style={Styles.title} onTouchTap={this.handlePageChange.bind( this, '')}>
           {process.env.WEBSITE_TITLE}
         </Href>
       );
@@ -122,9 +146,11 @@ export default class App extends Component {
                       <SearchIcon color={Styles.iconLeft.color} />
                     </IconButton>
                   }
-                  <IconButton tooltip="發布漫畫" onTouchTap={this.handlePageChange.bind( this, 'upload')}>
-                    <FileUploadIcon color={Styles.iconLeft.color} />
-                  </IconButton>
+                  <Href href="/upload" style={Styles.a}>
+                    <IconButton tooltip="發布漫畫" onTouchTap={this.handlePageChange.bind( this, 'upload')}>
+                      <FileUploadIcon color={Styles.iconLeft.color} />
+                    </IconButton>
+                  </Href>
                 </div>
               }
               style={Styles.appBar}
@@ -150,8 +176,8 @@ export default class App extends Component {
                   menuStyle={Styles.userMenu}
                   onChange={(e, value) => this.handlePageChange.call(this, value)}
                 >
-                  <MenuItem primaryText="關於我" value="profile" leftIcon={<PersonIcon />} />
-                  <MenuItem primaryText="登出"  value="logout" leftIcon={<PowerSettingsNewIcon />}/>
+                  <Href href="/profile" style={Styles.a}><MenuItem primaryText="關於我" value="profile" leftIcon={<PersonIcon />} /></Href>
+                  <Href href="/logout" style={Styles.a}><MenuItem primaryText="登出"  value="logout" leftIcon={<PowerSettingsNewIcon />}/></Href>
                 </IconMenu>
               </div>
             }

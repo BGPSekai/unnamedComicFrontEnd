@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
+import Container from '../../components/container';
 
 class Search extends Component {
   render() {
     return (
-      <div>
-        搜尋頁面
-      </div>
+      <Container>
+        {this.props.children}
+      </Container>
     );
   }
 }

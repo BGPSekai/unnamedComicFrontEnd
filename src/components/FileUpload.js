@@ -18,7 +18,7 @@ class FileStore {
 
 const fileStore = new FileStore;
 
-export default class Content extends Component {
+export default class FileUploader extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -125,11 +125,11 @@ export default class Content extends Component {
       }
     };
 
-    for(let i in this.props.style) {
+    for (let i in this.props.style) {
       styles[i] = this.props.style[i];
     }
     
-    if(this.state.isDragActive)
+    if (this.state.isDragActive)
       styles.dropZone.border = '2px dashed #D81B60';  
 
     return (

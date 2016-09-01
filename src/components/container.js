@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class Content extends Component {
+export default class Container extends Component {
   render() {
     
     let styles = {
@@ -14,7 +14,7 @@ export default class Content extends Component {
       position: 'relative'
     };
 
-    for(let i in this.props.style) {
+    for (let i in this.props.style) {
       styles[i] = this.props.style[i];
     }
 

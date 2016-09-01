@@ -19,7 +19,17 @@ const apiUrl = {
     chapter: `${base}/publish/{id}`
   },
 
+  search: {
+    searchByName: `${base}/search/name/{name}/{page}`,
+    searchByTag:  `${base}/search/tag/{name}/{page}`,
+    searchByType:  `${base}/search/type/{name}/{page}`,
+    searchByPublisher: `${base}/search/publisher/{name}/{page}`
+  },
+
   front: {
+    viewComic: '/comic/{comicId}/view',
+    search: '/search',
+    searchByName: '/search/name/{comicName}',
     comicInfo: '/comic/{comicId}',
     comicViewer: '/comic/{comicId}/chapter/{chapterId}',
     publishChapterSelecter: '/upload/comic/{comicId}',

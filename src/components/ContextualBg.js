@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class Container extends Component {
+export default class ContextualBg extends Component {
   render() {
     
     let styles = {
@@ -11,7 +11,7 @@ export default class Container extends Component {
       marginRight: 'auto'
     };
 
-    for(let i in this.props.style) {
+    for (let i in this.props.style) {
       styles[i] = this.props.style[i];
     }
 

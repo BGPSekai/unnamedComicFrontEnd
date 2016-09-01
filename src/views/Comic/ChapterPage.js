@@ -7,6 +7,7 @@ import ChapterPageStyle from './ChapterPageStyle';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import FlatButton from 'material-ui/FlatButton';
+import Href from '../../components/Href';
 import apiUrl from '../../res/apiUrl';
 
 class ChapterPage extends Component {
@@ -53,7 +54,14 @@ class ChapterPage extends Component {
           }
           <Paper style={ChapterPageStyle.mainPaper}>
             {this.props.chapterData.map(( value, i) => {
-              return (<FlatButton key={i} label={`${i+1} - ${value.name}`} style={ChapterPageStyle.chapterButton} />);
+              return (
+              <Href 
+                key={i}
+                underLine={false}
+                href={apiUrl.getReplaceUrl(this.props.linkUrl,{comicId: this.props.comicData.id})}
+              >
+                <FlatButton label={`${i+1} - ${value.name}`} style={ChapterPageStyle.chapterButton} />
+              </Href>);
             })}
           </Paper>
         </Container>
