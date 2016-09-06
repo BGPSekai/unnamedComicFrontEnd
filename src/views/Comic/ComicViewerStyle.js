@@ -7,15 +7,28 @@ const styles = {
     top: 0,
     left: 0,
     zIndex: 1000,
-    background: 'rgba( 0, 0, 0, 0.2)'
+    background: 'rgba( 0, 0, 0, 0.6)'
   },
 
   viewerBar: {
-    height: 64
+    height: 56
   },
 
   view: {
-    
+    position: 'absolute',
+    width: '100%',
+    left: 0,
+    top: 56,
+    height: 'calc(100% - 56px)',
+    overflow: 'auto'
+  },
+
+  image: {
+    width: '100%',
+    display: 'block',
+    background: '#fff',
+    margin: '10px auto',
+    boxShadow: '0 0 40px 0.5px #000'
   }
 };
 

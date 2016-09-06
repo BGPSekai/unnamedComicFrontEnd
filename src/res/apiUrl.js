@@ -9,9 +9,10 @@ const apiUrl = {
   comic: {
     list: `${base}/comic/page/{page}`,
     cover: `${base}/comic/{id}/cover`,
-    info: `${base}/comic/{id}`
+    info: `${base}/comic/{id}`,
+    view: `${base}/comic/chapter/{page}?token={token}`
   },
-  
+
   type: `${base}/type`,
 
   publish: {
@@ -21,13 +22,13 @@ const apiUrl = {
 
   search: {
     searchByName: `${base}/search/name/{name}/{page}`,
-    searchByTag:  `${base}/search/tag/{name}/{page}`,
-    searchByType:  `${base}/search/type/{name}/{page}`,
+    searchByTag: `${base}/search/tag/{name}/{page}`,
+    searchByType: `${base}/search/type/{name}/{page}`,
     searchByPublisher: `${base}/search/publisher/{name}/{page}`
   },
 
   front: {
-    viewComic: '/comic/{comicId}/view',
+    viewComic: '/comic/{comicId}/chapter/{chapterId}',
     search: '/search',
     searchByName: '/search/name/{comicName}',
     comicInfo: '/comic/{comicId}',
@@ -42,7 +43,7 @@ const apiUrl = {
    */
   getReplaceUrl: (url = '', replaceData = {}) => {
     for (let i in replaceData) {
-      url = url.replace( `{${i}}`, replaceData[i]);
+      url = url.replace(`{${i}}`, replaceData[i]);
     }
     return url;
   }

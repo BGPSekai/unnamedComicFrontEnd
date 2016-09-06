@@ -35,7 +35,7 @@ render((
 			</Route>
 			<Route path="/comic/:comicId" component={ComicInfo}>
 				<IndexRoute />
-				<Route path="view" component={ComicViewer} />
+				<Route path="chapter/:chapterId" component={ComicViewer} />
 			</Route>
 			{/* tags */}
 			<Route path="/types" component={Types} />

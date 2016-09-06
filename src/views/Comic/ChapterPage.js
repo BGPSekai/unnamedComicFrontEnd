@@ -17,9 +17,9 @@ class ChapterPage extends Component {
       name: '',
       summary: ''
     };
-    
+
   }
-  
+
   render() {
     return (
       <div style={ChapterPageStyle.root}>
@@ -28,10 +28,10 @@ class ChapterPage extends Component {
             <div style={ChapterPageStyle.imageBlock}>
               {
                 this.props.comicData.id &&
-                <img 
-                  src={apiUrl.getReplaceUrl( apiUrl.comic.cover, { id: this.props.comicData.id})} 
+                <img
+                  src={apiUrl.getReplaceUrl(apiUrl.comic.cover, { id: this.props.comicData.id }) }
                   style={ChapterPageStyle.img}
-                />
+                  />
               }
             </div>
             <div style={ChapterPageStyle.nameInfo}>
@@ -42,27 +42,28 @@ class ChapterPage extends Component {
           </div>
           {
             this.props.backEnd &&
-            <FloatingActionButton 
-              secondary={true} 
+            <FloatingActionButton
+              secondary={true}
               style={ChapterPageStyle.addChapter}
               onTouchTap={() => {
-                browserHistory.push(apiUrl.getReplaceUrl(apiUrl.front.publishChapter,{comicId: this.props.comicData.id}))}
+                  browserHistory.push(apiUrl.getReplaceUrl(apiUrl.front.publishChapter, { comicId: this.props.comicData.id }))
+                }
               }
-            >
+              >
               <ContentAdd />
             </FloatingActionButton>
           }
           <Paper style={ChapterPageStyle.mainPaper}>
-            {this.props.chapterData.map(( value, i) => {
+            {this.props.chapterData.map((value, i) => {
               return (
-              <Href 
-                key={i}
-                underLine={false}
-                href={apiUrl.getReplaceUrl(this.props.linkUrl,{comicId: this.props.comicData.id})}
-              >
-                <FlatButton label={`${i+1} - ${value.name}`} style={ChapterPageStyle.chapterButton} />
-              </Href>);
-            })}
+                <Href
+                  key={i}
+                  underLine={false}
+                  href={apiUrl.getReplaceUrl(this.props.linkUrl, { comicId: this.props.comicData.id, chapterId: i + 1 }) }
+                  >
+                  <FlatButton label={`${i + 1} - ${value.name}`} style={ChapterPageStyle.chapterButton} />
+                </Href>);
+            }) }
           </Paper>
         </Container>
       </div>
@@ -76,7 +77,7 @@ ChapterPage.propTypes = {
 }
 
 ChapterPage.defaultProps = {
-    comicData: {},
-    chapterData: []
+  comicData: {},
+  chapterData: []
 };
 export default ChapterPage;

@@ -1,7 +1,7 @@
 /* inline style file */
 const styles = {
   root: {
-    background: '#A33259',
+    background: '#FF82AC',
     backgroundSize: 'cover',
     minHeight: 400,
     position: 'relative',
