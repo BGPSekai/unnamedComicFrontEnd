@@ -39,7 +39,7 @@ export default class FetchModule {
   setUrl(url) {
     this._tempData.default_url = url;
     this._tempData.url = url;
-    return this;  
+    return this;
   }
 
   setData(data = {}) {
@@ -60,10 +60,10 @@ export default class FetchModule {
    * @param Object
    * @returns this class
    */
-  replaceVariable( data = {}) {
+  replaceVariable(data = {}) {
     let url = this._tempData.default_url;
-    for(let i in data) {
-      url = url.replace( '{'+i+'}', data[i]);
+    for (let i in data) {
+      url = url.replace('{' + i + '}', data[i]);
     }
     this._tempData.url = url;
     return this;
@@ -74,41 +74,41 @@ export default class FetchModule {
     let url = new URL(this._tempData.url);
 
     if (this._needAuth)
-      url.searchParams.append('token',UserModel.getUserInfo('jwt'));
-      
-    for(let i in this._tempData.data) {
+      url.searchParams.append('token', UserModel.getUserInfo('jwt'));
+
+    for (let i in this._tempData.data) {
       if (this._tempData.data[i])
         if (Array.isArray(this._tempData.data[i])) {
           let label = `${i}[]`;
-          this._tempData.data[i].map(( val, i2) => {
-            data.append( label, this._tempData.data[i][i2]);
+          this._tempData.data[i].map((val, i2) => {
+            data.append(label, this._tempData.data[i][i2]);
           });
         } else {
-          data.append( i, this._tempData.data[i]);
+          data.append(i, this._tempData.data[i]);
         };
     }
-    
+
     let init = {
       method: this._tempData.method,
       mode: this._tempData.mode,
       body: data
     };
-    
-    return new Promise( ( resolve, reject) => {
+
+    return new Promise((resolve, reject) => {
       if (this._needAuth && UserModel.checkHasExpired()) {
         UserModel.updateToken().then(() => {
           url.searchParams.delete('token');
           url.searchParams.append('token', UserModel.getUserInfo('jwt'));
-          this._fetch( url, init, resolve, reject);
+          this._fetch(url, init, resolve, reject);
         });
       } else {
-        this._fetch( url, init, resolve, reject);
+        this._fetch(url, init, resolve, reject);
       };
     });
   }
 
   _parseJSON(response) {
-    return response.text().then(function(text) {
+    return response.text().then(function (text) {
       return text ? JSON.parse(text) : {}
     })
   }
@@ -120,7 +120,7 @@ export default class FetchModule {
   consume(response, fileSize = 0) {
     let progress = 0;
     let pump = (reader) => {
-      reader.read().then(function(result) {
+      reader.read().then(function (result) {
         if (result.done) {
           return;
         }
@@ -144,15 +144,18 @@ export default class FetchModule {
     return pump(response.body.getReader());
   }
 
-  _fetch( url, init = {}, resolve = () => {}, reject = () => {}) {
+  _fetch(url, init = {}, resolve = () => { }, reject = () => { }) {
     if (init.method === 'GET')
       delete init.body;
-    fetch( url, init)
-      .then( (response) => {
+    fetch(url, init)
+      .then((response) => {
+        // if (!response.ok) {
+        //   throw Error(response.statusText);
+        // }
         this.consume(response.clone());
         if (this._tempData.type === 'application/json' && response.json)
           resolve(this._parseJSON(response), response);
-        else 
+        else
           resolve(response);
       })
       .then(reject);

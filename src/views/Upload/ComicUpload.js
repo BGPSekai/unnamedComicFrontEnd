@@ -74,7 +74,6 @@ export default class ComicUpload extends Component {
       .setData(data)
       .send()
       .then( (data) => {
-        console.log(data);
         if (data.status === 'success') {
           browserHistory.push(apiUrl.getReplaceUrl(
             apiUrl.front.publishChapterSelecter,
