@@ -51,13 +51,13 @@ class ComicViewer extends Component {
             <Image
               src={`${apiUrl.getReplaceUrl(apiUrl.comic.view, { page: i, token: chapterInfo.token })}`}
               style={styles.image}
-              key={i}
+              key={`${this.props.params.chapterId}-${i}`}
               />
           );
         };
 
       this.props.comicInfo.chapters.map((val, i) => {
-        ChapterSelecter.push(<MenuItem key={`${this.props.params.chapterId}-${i}`} value={i + 1} primaryText={`第 ${i + 1} 章 - ${val.name}`} />);
+        ChapterSelecter.push(<MenuItem key={i} value={i + 1} primaryText={`第 ${i + 1} 章 - ${val.name}`} />);
       });
     }
    
