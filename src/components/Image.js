@@ -10,7 +10,7 @@ class Image extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
+    
   }
 
   render() {

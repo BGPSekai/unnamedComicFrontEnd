@@ -7,6 +7,7 @@ import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import DropDownMenu from 'material-ui/DropDownMenu';
+import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back';
 import Container from '../../components/Container';
 import Image from '../../components/Image';
 import styles from './ComicViewerStyle';
@@ -22,6 +23,7 @@ class ComicViewer extends Component {
     };
     
     this._handleChapterChange = this._handleChapterChange.bind(this);
+    this._handleToChapterPage = this._handleToChapterPage.bind(this);
   }
 
   _handleChapterChange(event, index, value) {
@@ -31,6 +33,14 @@ class ComicViewer extends Component {
           { comicId: this.props.params.comicId, chapterId: value }
         )
       );
+  }
+
+  _handleToChapterPage() {
+    browserHistory.push(
+        apiUrl.getReplaceUrl(apiUrl.front.comicInfo,
+          { comicId: this.props.params.comicId}
+        )
+    );
   }
 
   componentWillReceiveProps(nextProps) {
@@ -69,6 +79,9 @@ class ComicViewer extends Component {
             <Toolbar style={styles.viewerBar}>
               <Container style={{ minHeight: 'auto', padding: 0 }}>
                 <ToolbarGroup firstChild={true}>
+                  <IconButton onTouchTap={this._handleToChapterPage} style={styles.arrowBackIcon}>
+                    <ArrowBackIcon />
+                  </IconButton>
                   <DropDownMenu value={this.state.chapterId} onChange={this._handleChapterChange}>
                     {ChapterSelecter}
                   </DropDownMenu>

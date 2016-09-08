@@ -23,6 +23,10 @@ const styles = {
     overflow: 'auto'
   },
 
+  arrowBackIcon: {
+    padding: 15
+  },
+
   image: {
     width: '100%',
     display: 'block',
