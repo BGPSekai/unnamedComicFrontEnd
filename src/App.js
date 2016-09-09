@@ -31,8 +31,7 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      navOpen: false,
-      isSearching: false
+      navOpen: false
     };
     
   }
@@ -40,11 +39,11 @@ export default class App extends Component {
    * 檢查 search location是否是 search
    * 是則顯示 search bar  
    */  
-  componentWillMount() {
-   if (this.props.location.pathname.match(apiUrl.front.search)) {
-      this.state.isSearching = true;
-    } 
-  }
+  // componentWillMount() {
+  //  if (this.props.location.pathname.match(apiUrl.front.search)) {
+  //     this.state.isSearching = true;
+  //   } 
+  // }
 
   handleNavToggle() { 
     this.setState({navOpen: !this.state.navOpen}) 
@@ -54,18 +53,17 @@ export default class App extends Component {
     let widthPersent = 0.16;
 
     if (window.innerWidth * widthPersent < 256)
-      this.setState({navOpen: false});
+      this.setState({ navOpen: false });
   }
 
   handlePageChange(page, e) {
     //this.props.history.push(page); //deprecated
-    this.setState({navOpen: false,isSearching: false});
+    this.setState({ navOpen: false, isSearching: false });
     browserHistory.push('/'+page);
   }
 
   _handlePageSearch(e) {
     this.handlePageChange('search', e);
-    this.setState({isSearching: true});
   }
 
   _handleSearchStart(e) {
@@ -81,8 +79,7 @@ export default class App extends Component {
   render() {
     let MenuElement = [];
     let TitleElement;
-    
-    if (this.state.isSearching) {
+    if (this.props.children.props.route.isSearching) {
       TitleElement = (
         <TextField 
           hintText={'搜尋'}
@@ -139,7 +136,7 @@ export default class App extends Component {
               iconElementRight={
                 <div>
                   {
-                    !this.state.isSearching &&
+                    !this.props.children.props.route.isSearching &&
                     <IconButton tooltip="搜尋" onTouchTap={this._handlePageSearch.bind(this)}>
                       <SearchIcon color={Styles.iconLeft.color} />
                     </IconButton>
