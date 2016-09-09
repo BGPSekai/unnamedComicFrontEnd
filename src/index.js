@@ -49,6 +49,7 @@ render((
 			{/* Search */}
 			<Route path="/search" component={Search}>
 				<IndexRoute />
+				<Route path="name/" component={SearchByName} />
 				<Route path="name/:searchName" component={SearchByName} />
 			</Route>
 			<Route path="/profile" component={Profile}>

@@ -46,7 +46,7 @@ export default class ComicUpload extends Component {
   }
 
   _changePreviewImg(data) {
-    if(data)
+    if (data)
     this.setState({
       previewImg: data
     });

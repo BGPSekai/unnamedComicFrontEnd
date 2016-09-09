@@ -15,6 +15,8 @@ const apiUrl = {
 
   type: `${base}/type`,
 
+  tag: `${base}/tag/{tagName}/comic/{comicId}`,
+
   publish: {
     comic: `${base}/publish`,
     chapter: `${base}/publish/{id}`

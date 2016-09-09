@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import ComicElement from '../Comic/ComicElement';
 import FetchModule from '../../module/FetchModule';
 import apiUrl from '../../res/apiUrl';
 
@@ -8,9 +9,12 @@ class SearchByName extends Component {
     
     this.state = {
       searchName: this.props.params.searchName,
-      page: 1,
-      allPage: 0
+      pages: 1,
+      allPage: 0,
+      searchComics: []
     };
+
+    this._getData( this.state.searchName );
   }
   
   componentWillReceiveProps(nextProps) {
@@ -28,7 +32,11 @@ class SearchByName extends Component {
         .setType('json')
         .send()
         .then((data) => {
-          console.log(data);
+          this.setState({
+            searchComics: data.comics,
+            allPage: data.pages,
+            page: searchPage
+          });
         });
   }
 
@@ -36,6 +44,7 @@ class SearchByName extends Component {
     return (
       <div>
         搜尋頁面: {this.state.searchName}
+        <ComicElement linkUrl={apiUrl.front.comicInfo} comicData={this.state.searchComics} />
       </div>
     );
   }

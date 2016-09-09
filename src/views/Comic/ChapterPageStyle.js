@@ -1,5 +1,5 @@
 /* inline style file */
-const styles = {
+const ChapterPageStyle = {
   root: {
     background: '#FF82AC',
     backgroundSize: 'cover',
@@ -13,7 +13,8 @@ const styles = {
   },
 
   imageBlock: {
-    width: 200,
+    width: '37%',
+    minWidth: 150,
     height: 283,
     display: 'inline-block'
   },
@@ -25,9 +26,10 @@ const styles = {
 
   nameInfo: {
     display: 'inline-block',
+    width: '60%',
     verticalAlign: 'top',
     color: '#FFFFFF',
-    padding: '10px 20px'
+    padding: '10px 5px'
   },
 
   addChapter: {
@@ -45,7 +47,26 @@ const styles = {
     marginTop: 30,
     padding: 20,
     wordBreak: 'break-all'
+  },
+
+  tagWrapper: {
+    display: 'flex',
+    flexWrap: 'wrap'
+  },
+
+  tagTab: {
+    padding: '10px 3px'
+  },
+
+  tag: {
+    margin: 4
   }
 };
 
-export default styles;
+const smallChapterPageStyle = {
+  nameInfo: {
+    width: '100%'
+  }
+};
+
+export { ChapterPageStyle, smallChapterPageStyle};
