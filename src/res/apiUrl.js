@@ -19,7 +19,8 @@ const apiUrl = {
 
   publish: {
     comic: `${base}/publish`,
-    chapter: `${base}/publish/{id}`
+    chapter: `${base}/publish/{id}`,
+    batchChapterPage: `${base}/publish/chapter/{id}`
   },
 
   search: {
@@ -30,6 +31,7 @@ const apiUrl = {
   },
 
   front: {
+    type: '/types/{typeName}',
     viewComic: '/comic/{comicId}/chapter/{chapterId}',
     search: '/search',
     searchByName: '/search/name/{comicName}',

@@ -10,6 +10,10 @@ const styles = {
 
   coverImgPreview: {
     minHeight: 100
+  },
+
+  error: {
+    color: 'red'
   }
 };
 

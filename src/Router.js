@@ -39,6 +39,7 @@ class Routers extends Component {
 					</Route>
 					{/* tags */}
 					<Route path="/types" component={Types} />
+					<Route path="/types/:typeName" component={Types} />
 					{/* upload */}
 					<Route path="/upload" component={Upload}>
 						<IndexRoute component={ComicUploadSelect} />

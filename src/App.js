@@ -58,8 +58,10 @@ export default class App extends Component {
 
   handlePageChange(page, e) {
     //this.props.history.push(page); //deprecated
-    this.setState({ navOpen: false, isSearching: false });
-    browserHistory.push('/'+page);
+    if (e&&(e.nativeEvent.which==0||e.nativeEvent.which==1)){
+      this.setState({ navOpen: false });
+      browserHistory.push('/'+page);
+    };
   }
 
   _handlePageSearch(e) {
