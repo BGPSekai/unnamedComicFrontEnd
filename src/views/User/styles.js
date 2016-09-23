@@ -17,7 +17,7 @@ const styles = {
   userData: {
     width: '80%',
     display: 'inline-block',
-    height: 100,
+    
     verticalAlign: 'top',
     padding: 5,
     color: '#77787b',
@@ -26,12 +26,35 @@ const styles = {
 
   avatar: {
     margin: '-100px 0 0 0',
-    border: '5px solid #ffffff'
+    border: '5px solid #ffffff',
+    position: 'relative'
   },
 
   userEmail: {
     fontSize: '0.8rem',
     padding: '0 10px'
+  },
+
+  chgInfoButton: {
+    fontSize: '0.5rem',
+    color: '#3498db'
+  },
+
+  changeAvatar: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    lineHeight: '100px',
+    color: '#16a085',
+    borderRadius: '100%',
+    textAlign: 'center',
+    width: '100%',
+    height: '100%',
+    cursor: 'pointer'
+  },
+
+  imageCrop: {
+    
   }
 };
 

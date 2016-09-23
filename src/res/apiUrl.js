@@ -3,7 +3,9 @@ const apiUrl = {
   auth: `${base}/auth`,
   register: `${base}/auth/register`,
   user: {
-    info: `${base}/user`
+    info: `${base}/user`,
+    uploadUserAvatar: `${base}/user/avatar`,
+    avatar: `${base}/public/user/{userId}.jpeg`,
   },
 
   comic: {
