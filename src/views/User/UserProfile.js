@@ -19,8 +19,22 @@ class UserProfile extends Component {
       avatarHover: false,
       avatarChanger: false,
       cropImage: '',
+      avatarType: '',
       avatarCropScale: 1
     };
+
+    new FetchModule()
+      .setUrl(apiUrl.user.info)
+      .auth()
+      .setCors('cors')
+      .setMethod('GET')
+      .setType('json')
+      .send()
+      .then((data) => {
+        this.setState({
+          avatarType: data.user.avatar
+        });
+      });
 
     this._handleAvatarChangerClose = this._handleAvatarChangerClose.bind(this);
     this._changeImage = this._changeImage.bind(this);
@@ -58,7 +72,7 @@ class UserProfile extends Component {
       .send()
       .then((data) => {
         if (data.status === 'success') {
-          this.setState({avatarChanger: false});
+          this.setState({avatarChanger: false,  avatarType: data.user.avatar});
         };
       });
   }
@@ -66,12 +80,12 @@ class UserProfile extends Component {
   render() {
     const actions = [
       <FlatButton
-        label="Cancel"
+        label="取消"
         primary={true}
         onTouchTap={this._handleAvatarChangerClose}
       />,
       <FlatButton
-        label="Submit"
+        label="送出"
         primary={true}
         disabled={(this.state.cropImage)?false:true}
         onTouchTap={this._handleSubmit}
@@ -91,7 +105,16 @@ class UserProfile extends Component {
               onMouseLeave = {() => this.setState({avatarHover: false})}
               onTouchTap = {()=>this.setState({avatarChanger: true})}
               >
-              {UserModule.getUserInfo('userName').substring( 0, 1)}
+              {
+                (this.state.avatarType == '') ? 
+                  UserModule.getUserInfo('userName').substring( 0, 1) :
+                  <img src={apiUrl.getReplaceUrl(apiUrl.user.avatar, {
+                      userId: UserModule.getUserInfo('userId'),
+                      avatarType: this.state.avatarType
+                    })+'?time='+ Date.now()} 
+                    style={styles.avatarImage}
+                  />
+              }
               {
                 this.state.avatarHover &&
                 <FlatButton backgroundColor={'rgba(0,0,0,0.5)'} style={styles.changeAvatar}>+</FlatButton>

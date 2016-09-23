@@ -25,9 +25,11 @@ const styles = {
   },
 
   avatar: {
-    margin: '-100px 0 0 0',
+    margin: 0,
+    top: -70,
     border: '5px solid #ffffff',
-    position: 'relative'
+    position: 'relative',
+    overflow: 'hidden'
   },
 
   userEmail: {
@@ -53,8 +55,9 @@ const styles = {
     cursor: 'pointer'
   },
 
-  imageCrop: {
-    
+  avatarImage: {
+    width: '100%',
+    height: '100%'
   }
 };
 
