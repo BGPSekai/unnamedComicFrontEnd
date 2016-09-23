@@ -30,14 +30,14 @@ export default class LoginRegister extends Component {
 			warrning: false,
 			register: {}
 		};
-		
+
 	}
-	
+
 	handleBackAcation() {
-		 if (this.props.routes.length <= 1)
-		 	browserHistory.push('/');
-		 else	
-		 	this.props.history.goBack();
+		if (this.props.routes.length <= 1)
+			browserHistory.push('/');
+		else
+			this.props.history.goBack();
 	}
 
 	getRegisterRequestData(response) {
@@ -55,8 +55,8 @@ export default class LoginRegister extends Component {
 				msg: '註冊成功',
 				warrning: false
 			});
-			for(let i in this.state.register) {
-				this.state.register[i] = ''; 
+			for (let i in this.state.register) {
+				this.state.register[i] = '';
 			}
 			this.setState({
 				register: this.state.register
@@ -64,8 +64,8 @@ export default class LoginRegister extends Component {
 		};
 	}
 
-	getLoginRequestData( userData, response) {
-		this.setState({loading: false});
+	getLoginRequestData(userData, response) {
+		this.setState({ loading: false });
 		if (response.status === 'error') {
 			this.setState({
 				loading: false,
@@ -82,20 +82,19 @@ export default class LoginRegister extends Component {
 			});
 			let time = new Date();
 
-			UserModule.setUserInfo(Object.assign( userData, {
+			UserModule.setUserInfo(Object.assign(userData, {
 				remeber: this.refs.remeber.isChecked(),
-				timeStamp: Math.floor(time.getTime()/1000),
+				timeStamp: Math.floor(time.getTime() / 1000),
 				jwt: response.token
 			}));
 
-			UserModule.updateInfo().then( (data) => {
+			UserModule.updateInfo().then((data) => {
 				browserHistory.push('/');
 			});
 		};
 	}
 
-	_handleEnterClick( e, ref) {
-		let ele = this.refs[ref];
+	_handleEnterClick(e, ref) {
 		if (e.keyCode === 13) {
 			// if (ele.constructor.name === 'Checkbox') {
 			// 	// e.target.blur();
@@ -108,13 +107,20 @@ export default class LoginRegister extends Component {
 			// 	console.log(ele);
 			// }
 			// else 
-			if (ele.focus())
-				ele.focus();
+			if (ref === 'login') {
+				this.onSubmit.call(this, 'login.')
+			} else if (ref === 'register') {
+				this.onSubmit.call(this, 'register.')
+			} else {
+				let ele = this.refs[ref];
+				if (ele.focus())
+					ele.focus();
+			}
 		};
 	}
 
-	handleRegisterChange( e, refs) {
-		this.state.register[refs] = e.target.value; 
+	handleRegisterChange(e, refs) {
+		this.state.register[refs] = e.target.value;
 		this.setState({
 			register: this.state.register
 		});
@@ -122,20 +128,20 @@ export default class LoginRegister extends Component {
 
 	onSubmit(type) {
 		let tempUserData = {};
-		
-		for(let i in this.refs) {
+
+		for (let i in this.refs) {
 			if (i.match(type)) {
-				tempUserData[i.replace( type, '')] = this.refs[i].getValue();		
+				tempUserData[i.replace(type, '')] = this.refs[i].getValue();
 			}
 		};
-		
-		this.setState({loading: true});
-		
+
+		this.setState({ loading: true });
+
 		if (type === 'login.') {
 			LoginModule
 				.postData(tempUserData)
 				.then(this.getLoginRequestData.bind(this, tempUserData))
-		}	else {
+		} else {
 			this.setState({
 				register: tempUserData
 			});
@@ -153,47 +159,49 @@ export default class LoginRegister extends Component {
 		}
 
 		return (
-			<MuiThemeProvider muiTheme={getMuiTheme(baseTheme)}>
+			<MuiThemeProvider muiTheme={getMuiTheme(baseTheme) }>
 				<div style={styles.root}>
 					<Container style={styles.controllBar}>
-						<IconButton onTouchTap={this.handleBackAcation.bind(this)}>
+						<IconButton onTouchTap={this.handleBackAcation.bind(this) }>
 							<ArrowBackIcon color={styles.backIcon.color}/>
 						</IconButton>
 					</Container>
 					<div style={styles.Box}>
-						<Tabs 
-							initialSelectedIndex={this.state.tabIndex} 
+						<Tabs
+							initialSelectedIndex={this.state.tabIndex}
 							tabItemContainerStyle={styles.Tabs}
 							contentContainerStyle={styles.Tab}
-						>
+							>
 							<Tab label="登入">
 								<TextField
 									floatingLabelText="E-Mail"
 									ref="login.email"
 									hintText="填入您的電子郵件"
 									fullWidth
-									onKeyDown={(e) => this._handleEnterClick( e, 'login.password')}
-								/>
+									onKeyDown={(e) => this._handleEnterClick(e, 'login.password') }
+									/>
 								<TextField
 									floatingLabelText="密碼"
 									type="password"
 									ref="login.password"
 									hintText="填入您的密碼"
 									fullWidth
-								/>
-								<Checkbox 
+									onKeyDown={(e) => this._handleEnterClick(e, 'login') }
+									/>
+								<Checkbox
 									ref="remeber"
 									label="自動登入(無勾選則維持一小時)"
-								/>
-								<RaisedButton 
+									defaultChecked={true}
+									/>
+								<RaisedButton
 									label="登入"
 									fullWidth
 									labelColor="#fff"
 									style={styles.comfirmButton}
 									backgroundColor={this.state.loginButtonColor}
-									onMouseDown={this.onSubmit.bind(this, 'login.')}
-									onKeyDown={this.onSubmit.bind(this, 'login.')}
-								/>
+									onMouseDown={this.onSubmit.bind(this, 'login.') }
+									onKeyDown={this.onSubmit.bind(this, 'login.') }
+									/>
 							</Tab>
 							<Tab label="註冊">
 								<TextField
@@ -201,58 +209,59 @@ export default class LoginRegister extends Component {
 									ref="register.email"
 									hintText="填入您的電子郵件"
 									fullWidth
-									value={this.state.register.email||''}
-									onChange={(e) => {this.handleRegisterChange(e,'email')}}
-									onKeyDown={(e) => this._handleEnterClick( e, 'register.password')}
-								/>
+									value={this.state.register.email || ''}
+									onChange={(e) => { this.handleRegisterChange(e, 'email') } }
+									onKeyDown={(e) => this._handleEnterClick(e, 'register.password') }
+									/>
 								<TextField
 									floatingLabelText="密碼"
 									type="password"
 									ref="register.password"
 									hintText="填入您的密碼"
 									fullWidth
-									value={this.state.register.password||''}
-									onChange={(e) => {this.handleRegisterChange(e,'password')}}
-									onKeyDown={(e) => this._handleEnterClick( e, 'register.password_confirmation')}
-								/>
+									value={this.state.register.password || ''}
+									onChange={(e) => { this.handleRegisterChange(e, 'password') } }
+									onKeyDown={(e) => this._handleEnterClick(e, 'register.password_confirmation') }
+									/>
 								<TextField
 									floatingLabelText="密碼確認"
 									type="password"
 									ref="register.password_confirmation"
 									hintText="確認您的密碼"
 									fullWidth
-									value={this.state.register.password_confirmation||''}
-									onChange={(e) => {this.handleRegisterChange(e,'password_confirmation')}}
-									onKeyDown={(e) => this._handleEnterClick( e, 'register.name')}
-								/>
+									value={this.state.register.password_confirmation || ''}
+									onChange={(e) => { this.handleRegisterChange(e, 'password_confirmation') } }
+									onKeyDown={(e) => this._handleEnterClick(e, 'register.name') }
+									/>
 								<TextField
 									floatingLabelText="姓名"
 									ref="register.name"
 									hintText="填入您的姓名"
 									fullWidth
-									value={this.state.register.name||''}
-									onChange={(e) => {this.handleRegisterChange(e,'name')}}
-								/>
-								<RaisedButton 
+									value={this.state.register.name || ''}
+									onChange={(e) => { this.handleRegisterChange(e, 'name') } }
+									onKeyDown={(e) => this._handleEnterClick(e, 'register') }
+									/>
+								<RaisedButton
 									label="註冊"
 									ref="submit"
 									backgroundColor={this.state.registerButtonColor}
 									labelColor="#fff"
 									style={styles.comfirmButton}
-									onTouchTap={this.onSubmit.bind(this, 'register.')}
-								/>
+									onTouchTap={this.onSubmit.bind(this, 'register.') }
+									/>
 							</Tab>
 						</Tabs>
-						<ContextualBg 
+						<ContextualBg
 							warrning={this.state.warrning}
 							successful={!this.state.warrning}
-							msg={this.state.msg} 
-						/>
-						<LinearProgress 
-							mode="indeterminate" 
+							msg={this.state.msg}
+							/>
+						<LinearProgress
+							mode="indeterminate"
 							style={styles.LinearProgress}
 							color={'#E91E63'}
-						/>
+							/>
 					</div>
 				</div>
 			</MuiThemeProvider>
