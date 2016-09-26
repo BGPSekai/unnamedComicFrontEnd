@@ -28,7 +28,7 @@ const apiUrl = {
   search: {
     searchByName: `${base}/search/name/{name}/{page}`,
     searchByTag: `${base}/search/tag/{name}/{page}`,
-    searchByType: `${base}/search/type/{name}/{page}`,
+    searchByType: `${base}/search/type/{typeId}/{page}`,
     searchByPublisher: `${base}/search/publisher/{name}/{page}`
   },
 
