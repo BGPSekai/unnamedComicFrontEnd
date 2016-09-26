@@ -21,10 +21,10 @@ class ChapterPage extends Component {
       comicData: {},
       tagInput: ''
     };
-    
+
     this._handleTagInputChange = this._handleTagInputChange.bind(this);
     this._handleTagInputEnter = this._handleTagInputEnter.bind(this);
-    
+
     // PageResponse
     //   .setQuery('(max-width: 400px)')
     //   .setDefaultStyle(ChapterPageStyle)
@@ -47,23 +47,26 @@ class ChapterPage extends Component {
 
   _handleTagInputEnter(e) {
     if (e.keyCode === 13) {
-      new FetchModule()
-        .setCors('cors')
-        .auth()
-        .setUrl(apiUrl.getReplaceUrl(apiUrl.tag, { tagName: this.state.tagInput, comicId: this.props.comicData.id }))
-        .setMethod('GET')
-        .setType('json')
-        .send()
-        .then((data) => {
-          if (data.status === 'success') {
-            let comic = this.state.comicData;
-            comic.tags = data.tags;
-            this.setState({
-              comicData: comic,
-              tagInput: ''
-            });
-          }
-        });
+      let tag = this.state.tagInput.replace(/[?#%\///]/g,'');
+      if (tag)
+        new FetchModule()
+          .setCors('cors')
+          .auth()
+          .setUrl(apiUrl.tag)
+          .setMethod('GET')
+          .setType('json')
+          .replaceVariable({ tagName: tag, comicId: this.props.comicData.id })
+          .send()
+          .then((data) => {
+            if (data.status === 'success') {
+              let comic = this.state.comicData;
+              comic.tags = data.tags;
+              this.setState({
+                comicData: comic,
+                tagInput: ''
+              });
+            }
+          });
     };
   }
 
