@@ -9,6 +9,10 @@ export default class Profile extends Component {
           UserModule.checkIsLogin() &&
           this.props.children
         }
+        {
+          !UserModule.checkIsLogin() &&
+          <div>請先登入</div>
+        }
       </div>
     );
   }

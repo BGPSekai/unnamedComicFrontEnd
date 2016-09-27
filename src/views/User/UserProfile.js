@@ -5,6 +5,7 @@ import Dialog from 'material-ui/Dialog';
 import Avatar from 'material-ui/Avatar';
 import Paper from 'material-ui/Paper';
 import Slider from 'material-ui/Slider';
+import Href from '../../components/Href';
 import AvatarEditor from 'react-avatar-editor';
 import Container from '../../components/Container';
 import UserModule from '../../module/UserModule';
@@ -126,7 +127,7 @@ class UserProfile extends Component {
                 {UserModule.getUserInfo('email')}
               </span>
               <span>
-                <FlatButton style={styles.chgInfoButton}>編輯個人資訊</FlatButton>
+                <Href href={apiUrl.front.changeUserProfile}><FlatButton style={styles.chgInfoButton}>編輯個人資訊</FlatButton></Href>
               </span>
             </div>
           </Container>
