@@ -12,13 +12,14 @@ export default class Comic extends Component {
     this.state = {
       loading: true,
       page: 1,
+      allPage: 0,
       comics: []
     };
 
     this._getData();
   }
 
-  _getData(page = 1) {
+  _getData() {
     new FetchModule()
       .setUrl(apiUrl.comic.list)
       .setCors('cors')
@@ -28,10 +29,11 @@ export default class Comic extends Component {
         page: this.state.page
       })
       .send()
-      .then( (data) => {
+      .then((data) => {
         this.setState({
           loading: false,
-          comics: data.comics
+          comics: this.state.comics.concat(data.comics),
+          allPage: data.pages
         });
       });
   }
@@ -42,12 +44,17 @@ export default class Comic extends Component {
         <Container>
           <div
             style={styles.gridList}
-          >
-          {
-            (!this.state.loading) ?
-            <ComicElement linkUrl={apiUrl.front.comicInfo} comicData={this.state.comics} /> :
-            <div />
-          }
+            >
+            {
+              (!this.state.loading) ?
+                <ComicElement
+                  linkUrl={apiUrl.front.comicInfo}
+                  comicData={this.state.comics}
+                  needLoadMore={this.state.page < this.state.allPage}
+                  loadMore={() => { this.setState({ page: this.state.page + 1 }, this._getData.bind(this)); } }
+                  /> :
+                <div />
+            }
           </div>
         </Container>
       </div>

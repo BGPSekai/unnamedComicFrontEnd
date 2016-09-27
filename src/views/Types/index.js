@@ -12,6 +12,7 @@ class Types extends Component {
     this.state = {
       loading: false,
       page: 1,
+      allPage: 0,
       types: [],
       comics: [],
       typeData: { name: this.props.params.typeName }
@@ -44,13 +45,12 @@ class Types extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.typeName != this.state.typeData.name) {
-      this.setState({ typeData: this._getTypeData(nextProps.params.typeName), page: 1 });
+      this.setState({ typeData: this._getTypeData(nextProps.params.typeName), comics: [], page: 1 });
       this._getComicData(this._getTypeData(nextProps.params.typeName));
     }
   }
 
   _getComicData(type) {
-    console.log(type);
     new FetchModule()
       .setUrl(apiUrl.search.searchByType)
       .setCors('cors')
@@ -64,9 +64,20 @@ class Types extends Component {
       .then((data) => {
         this.setState({
           loading: false,
-          comics: data.comics
+          comics: this.state.comics.concat(data.comics),
+          allPage: data.pages
         });
       });
+  }
+
+  _loadMore() {
+    if (this.state.page < this.state.allPage) {
+      this.setState({ page: this.state.page + 1, typeData: this._getTypeData(this.state.typeData.name) },
+        () => {
+          this._getComicData(this.state.typeData);
+        }
+      );
+    };
   }
 
   render() {
@@ -84,7 +95,12 @@ class Types extends Component {
         <Container>
           <h3>所有類型</h3>
           <div>{Types}</div>
-          <ComicElement linkUrl={apiUrl.front.comicInfo} comicData={this.state.comics} />
+          <ComicElement
+            linkUrl={apiUrl.front.comicInfo}
+            comicData={this.state.comics}
+            loadMore={this._loadMore.bind(this) }
+            needLoadMore={this.state.page < this.state.allPage}
+            />
         </Container>
       </div>
     );

@@ -29,7 +29,7 @@ export default class Home extends Component {
       .then( (data) => {
         this.setState({
           loading: false,
-          lastComics: data.comics
+          lastComics: data.comics.slice(0, 8)
         });
       });
   }
