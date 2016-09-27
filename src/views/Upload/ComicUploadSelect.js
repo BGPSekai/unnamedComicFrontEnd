@@ -4,6 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Divider from 'material-ui/Divider';
 import Container from '../../components/Container';
 import FetchModule from '../../module/FetchModule';
+import UserModule from '../../module/UserModule';
 import apiUrl from '../../res/apiUrl';
 import ComicElement from '../Comic/ComicElement';
 import styles from './styles';
@@ -14,6 +15,7 @@ export default class ChapterUploadSelect extends Component {
     this.state = {
       loading: false,
       page: 1,
+      allPage: 0,
       comics: []
     };
 
@@ -22,12 +24,13 @@ export default class ChapterUploadSelect extends Component {
 
   _getData() {
     new FetchModule()
-      .setUrl(apiUrl.comic.list)
+      .setUrl(apiUrl.search.searchByPublisher)
       .setCors('cors')
       .setMethod('GET')
       .setType('json')
       .replaceVariable({
-        page: this.state.page
+        page: this.state.page,
+        userId: UserModule.getUserInfo('userId')
       })
       .send()
       .then( (data) => {
@@ -36,13 +39,20 @@ export default class ChapterUploadSelect extends Component {
           comicData = this.state.comics.concat(data.comics);
         this.setState({
           loading: false,
-          comics: comicData
+          comics: comicData,
+          allPage: data.pages
         });
       });
   }
 
   _handlePageChange(page) {
     browserHistory.push(page);
+  }
+
+  _loadMorePage() {
+    this.setState({
+      page: this.state.page + 1,
+    }, this._getData);
   }
 
   render() {
@@ -58,6 +68,8 @@ export default class ChapterUploadSelect extends Component {
         <ComicElement 
           comicData={this.state.comics} 
           linkUrl={apiUrl.front.publishChapterSelecter}
+          needLoadMore={this.state.page < this.state.allPage}
+          loadMore={() => {}}
         />
       </Container>
     );

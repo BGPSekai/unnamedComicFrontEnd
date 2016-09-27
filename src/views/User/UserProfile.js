@@ -8,6 +8,7 @@ import Slider from 'material-ui/Slider';
 import Href from '../../components/Href';
 import AvatarEditor from 'react-avatar-editor';
 import Container from '../../components/Container';
+import ComicElement from '../Comic/ComicElement';
 import UserModule from '../../module/UserModule';
 import FetchModule from '../../module/FetchModule';
 import apiUrl from '../../res/apiUrl';
@@ -21,9 +22,10 @@ class UserProfile extends Component {
       avatarChanger: false,
       cropImage: '',
       avatarType: '',
-      avatarCropScale: 1
+      avatarCropScale: 1,
+      comics: []
     };
-
+    /* 取得個人資訊 */
     new FetchModule()
       .setUrl(apiUrl.user.info)
       .auth()
@@ -34,6 +36,22 @@ class UserProfile extends Component {
       .then((data) => {
         this.setState({
           avatarType: data.user.avatar
+        });
+      });
+    /* 取得個人漫畫 */
+    new FetchModule()
+      .setUrl(apiUrl.search.searchByPublisher)
+      .replaceVariable({
+        userId: UserModule.getUserInfo('userId'),
+        page: 1
+      })
+      .setCors('cors')
+      .setMethod('GET')
+      .setType('json')
+      .send()
+      .then((data) => {
+        this.setState({
+          comics: data.comics
         });
       });
 
@@ -130,6 +148,7 @@ class UserProfile extends Component {
                 <Href href={apiUrl.front.changeUserProfile}><FlatButton style={styles.chgInfoButton}>編輯個人資訊</FlatButton></Href>
               </span>
             </div>
+            <ComicElement comicData={this.state.comics} linkUrl={apiUrl.front.comicInfo} />
           </Container>
           <Dialog
             title="修改大頭貼"

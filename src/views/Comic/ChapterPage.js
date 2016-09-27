@@ -6,6 +6,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import Chip from 'material-ui/Chip';
+import Dialog from 'material-ui/Dialog';
 import FetchModule from '../../module/FetchModule';
 import Container from '../../components/Container';
 import { ChapterPageStyle, smallChapterPageStyle } from './ChapterPageStyle';
@@ -19,7 +20,8 @@ class ChapterPage extends Component {
     super(params);
     this.state = {
       comicData: {},
-      tagInput: ''
+      tagInput: '',
+      errorText: ''
     };
 
     this._handleTagInputChange = this._handleTagInputChange.bind(this);
@@ -47,7 +49,7 @@ class ChapterPage extends Component {
 
   _handleTagInputEnter(e) {
     if (e.keyCode === 13) {
-      let tag = this.state.tagInput.replace(/[?#%\///]/g,'');
+      let tag = this.state.tagInput.replace(/[?#%\///]/g, '');
       if (tag)
         new FetchModule()
           .setCors('cors')
@@ -65,7 +67,9 @@ class ChapterPage extends Component {
                 comicData: comic,
                 tagInput: ''
               });
-            }
+            } else {
+              this.setState({ errorText: data.message });
+            };
           });
     };
   }
@@ -90,6 +94,24 @@ class ChapterPage extends Component {
   render() {
     return (
       <div style={ChapterPageStyle.root}>
+        <Dialog
+            title="發生問題"
+            actions={
+              [
+                <FlatButton
+                  label="了解"
+                  primary={true}
+                  keyboardFocused={true}
+                  onTouchTap={() => this.setState({ errorText: '' }) }
+                />
+              ]
+            }
+            modal={false}
+            open={this.state.errorText != ''}
+            onRequestClose={() => this.setState({ errorText: '' }) }
+            >
+            {this.state.errorText}
+          </Dialog>
         <Container>
           <div style={ChapterPageStyle.infomation}>
             <div style={ChapterPageStyle.imageBlock}>
