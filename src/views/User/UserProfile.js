@@ -21,23 +21,13 @@ class UserProfile extends Component {
       avatarHover: false,
       avatarChanger: false,
       cropImage: '',
-      avatarType: '',
       avatarCropScale: 1,
       comics: []
     };
+
     /* 取得個人資訊 */
-    new FetchModule()
-      .setUrl(apiUrl.user.info)
-      .auth()
-      .setCors('cors')
-      .setMethod('GET')
-      .setType('json')
-      .send()
-      .then((data) => {
-        this.setState({
-          avatarType: data.user.avatar
-        });
-      });
+    UserModule.updateInfo();
+    
     /* 取得個人漫畫 */
     new FetchModule()
       .setUrl(apiUrl.search.searchByPublisher)
@@ -125,11 +115,11 @@ class UserProfile extends Component {
               onTouchTap = {()=>this.setState({avatarChanger: true})}
               >
               {
-                (this.state.avatarType == '') ? 
+                (!UserModule.getUserInfo('avatar')) ? 
                   UserModule.getUserInfo('userName').substring( 0, 1) :
                   <img src={apiUrl.getReplaceUrl(apiUrl.user.avatar, {
                       userId: UserModule.getUserInfo('userId'),
-                      avatarType: this.state.avatarType
+                      avatarType: UserModule.getUserInfo('avatar')
                     })+'?time='+ Date.now()} 
                     style={styles.avatarImage}
                   />

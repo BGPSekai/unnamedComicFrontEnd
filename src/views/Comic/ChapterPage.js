@@ -95,7 +95,7 @@ class ChapterPage extends Component {
     return (
       <div style={ChapterPageStyle.root}>
         <Dialog
-            title="發生問題"
+            title="警告"
             actions={
               [
                 <FlatButton

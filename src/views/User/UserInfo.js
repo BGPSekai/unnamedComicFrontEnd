@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
+import {browserHistory} from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import Avatar from 'material-ui/Avatar';
 import Paper from 'material-ui/Paper';
+import Dialog from 'material-ui/Dialog';
 import Href from '../../components/Href';
 import Container from '../../components/Container';
 import ComicElement from '../Comic/ComicElement';
@@ -16,6 +18,7 @@ class UserInfo extends Component {
     this.state = {
       userId: this.props.params.userId,
       avatarType: '',
+      errorText: '',
       userInfo: {},
       comics: []
     };
@@ -35,6 +38,8 @@ class UserInfo extends Component {
           userInfo: data.user,
           avatarType: data.user.avatar
         });
+      }).catch(() => {
+        this.setState({errorText: '找不到使用者'});
       });
     /* 取得個人漫畫 */
     new FetchModule()
@@ -90,6 +95,14 @@ class UserInfo extends Component {
             <ComicElement comicData={this.state.comics} linkUrl={apiUrl.front.comicInfo} />
           </Container>
         </Paper>
+        <Dialog
+          title="警告"
+          actions={[<FlatButton label="返回主頁" primary keyboardFocused={true} onTouchTap={() => browserHistory.push('/')} />]}
+          modal={true}
+          open={this.state.errorText !== ''}
+          >
+          {this.state.errorText}
+        </Dialog>
       </div>
     );
   }
