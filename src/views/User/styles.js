@@ -15,7 +15,7 @@ const styles = {
   },
 
   userData: {
-    width: '80%',
+    width: 'calc(95% - 110px)',
     display: 'inline-block',
     
     verticalAlign: 'top',

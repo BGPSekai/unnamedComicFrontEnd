@@ -164,8 +164,12 @@ export default class App extends Component {
                         zDepth={1} 
                         circle={true}
                       >
-                        <Avatar>
-                          {UserModule.getUserInfo('userName').substring( 0, 1)}
+                        <Avatar style={Styles.avatar} size={40}>
+                          {
+                            (UserModule.getUserInfo('avatar')) ?
+                            <img style={Styles.avatarImg} src={apiUrl.getReplaceUrl(apiUrl.user.avatar, {userId: UserModule.getUserInfo('userId'),avatarType: UserModule.getUserInfo('avatar')})+'?time='+ Math.ceil(Date.now()/10000)} /> :
+                            UserModule.getUserInfo('userName').substring( 0, 1)
+                          }
                         </Avatar>
                       </Paper>
                     </IconButton>

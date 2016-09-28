@@ -60,6 +60,10 @@ const ChapterPageStyle = {
 
   tag: {
     margin: 4
+  },
+
+  link: {
+    color: 'white'
   }
 };
 

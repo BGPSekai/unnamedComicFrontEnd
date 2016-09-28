@@ -74,8 +74,14 @@ const appStyle = {
   userInfo: {
     position: 'relative'
   },
+  avatar: {
+    overflow: 'hidden'
+  },
 
-  avatar: {},
+  avatarImg: {
+    width: '100%',
+    height: '100%'
+  },
 
   userMenu: {
   },

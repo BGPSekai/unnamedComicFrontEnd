@@ -125,10 +125,18 @@ class ChapterPage extends Component {
             </div>
             <div style={ChapterPageStyle.nameInfo}>
               <h3>{this.props.comicData.name}</h3>
-              <p>作者: {this.props.comicData.author}</p>
+              <p>作者：{this.props.comicData.author}</p>
+              <p>上傳者：
+                {
+                  this.props.comicData.publish_by &&
+                  <Href style={ChapterPageStyle.link} href={apiUrl.getReplaceUrl(apiUrl.front.getUserInfo, {userId : this.props.comicData.publish_by.id})}>
+                    {this.props.comicData.publish_by.name}
+                  </Href>
+                }
+              </p>
               <p>{this.props.comicData.summary}</p>
               <div style={ChapterPageStyle.tagWrapper}>
-                <span style={ChapterPageStyle.tagTab}>標籤: </span>
+                <span style={ChapterPageStyle.tagTab}>標籤：</span>
                 {this._renderTag() }
               </div>
               {

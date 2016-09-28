@@ -14,6 +14,7 @@ import ComicViewer from './views/Comic/ComicViewer';
 import Types from './views/Types';
 import Profile from './views/User';
 import UserProfile from './views/User/UserProfile';
+import UserInfo from './views/User/UserInfo';
 import ChangeProfile from './views/User/ChangeProfile';
 import Logout from './views/User/Logout';
 import Search from './views/Search';
@@ -54,10 +55,13 @@ class Routers extends Component {
 						<Route path="name" component={SearchByName} />
 						<Route path="name/:searchName" component={SearchByName} />
 					</Route>
+					{/* profile */}
 					<Route path="/profile" component={Profile}>
 						<IndexRoute component={UserProfile} />
 						<Route path="change" component={ChangeProfile} />
 					</Route>
+					{/* user */}
+					<Route path="/user/:userId" component={UserInfo} />
 				</Route>
 			</Router>
     );

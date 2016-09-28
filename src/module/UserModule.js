@@ -114,7 +114,8 @@ class UserModule {
         if (data.status === 'success')
           this.setUserInfo({
             userName: data.user.name,
-            userId: data.user.id
+            userId: data.user.id,
+            avatar: data.user.avatar
           });
         resolve(data);
       });

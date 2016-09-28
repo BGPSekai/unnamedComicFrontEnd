@@ -4,6 +4,7 @@ const apiUrl = {
   register: `${base}/auth/register`,
   user: {
     info: `${base}/user`,
+    userInfo: `${base}/user/{userId}`,
     uploadUserAvatar: `${base}/user/avatar`,
     avatar: `${base.replace('/api','')}/public/users/{userId}.{avatarType}`,
     resetPassword: `${base}/auth/reset`
@@ -42,7 +43,8 @@ const apiUrl = {
     comicViewer: '/comic/{comicId}/chapter/{chapterId}',
     publishChapterSelecter: '/upload/comic/{comicId}',
     publishChapter: '/upload/comic/{comicId}/chapter',
-    changeUserProfile: '/profile/change'
+    changeUserProfile: '/profile/change',
+    getUserInfo: '/user/{userId}'
   },
   /**
    * 取得替代後 Url
