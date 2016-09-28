@@ -69,7 +69,7 @@ export default class ChapterUploadSelect extends Component {
           comicData={this.state.comics} 
           linkUrl={apiUrl.front.publishChapterSelecter}
           needLoadMore={this.state.page < this.state.allPage}
-          loadMore={() => {}}
+          loadMore={() => {this.setState({page: this.state.page + 1}, () => this._getData())}}
         />
       </Container>
     );
