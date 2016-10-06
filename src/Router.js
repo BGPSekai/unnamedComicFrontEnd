@@ -8,6 +8,7 @@ import ComicUploadSelect from './views/Upload/ComicUploadSelect';
 import ComicUpload from './views/Upload/ComicUpload';
 import ChapterUploader from './views/Upload/ChapterUploader';
 import ChapterUploadSelect from './views/Upload/ChapterUploadSelect';
+import ChapterEditer from './views/Upload/ChapterEditer';
 import Comic from './views/Comic';
 import ComicInfo from './views/Comic/ComicInfo';
 import ComicViewer from './views/Comic/ComicViewer';
@@ -48,6 +49,7 @@ class Routers extends Component {
 						<Route path="comic" component={ComicUpload} />
 						<Route path="comic/:comicId" component={ChapterUploadSelect} />
 						<Route path="comic/:comicId/chapter" component={ChapterUploader} />
+						<Route path="comic/:comicId/chapter/:chapterId" component={ChapterEditer} />
 					</Route>
 					{/* Search */}
 					<Route path="/search" component={Search} isSearching={true}>

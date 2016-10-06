@@ -46,7 +46,13 @@ class SortableGrid extends Component {
 
   _deleteListItem(id) {
     let data = Array.from(this.state.listData);
-    data.splice( id, 1);
+    if (this.props.editMode && data[id].defaultIndex) {
+      data[id].file = {};
+      data[id].image = '';
+      data[id].isDelete = true;
+    } else {
+      data.splice( id, 1);
+    };
     this.updateState({listData: data});
   }
 
@@ -93,44 +99,47 @@ class SortableGrid extends Component {
         verticalAlign: 'middle'
       }
     };
-    
+    let re_index = 0;
     let listItems = this.state.listData.map(function(item, i) {
-      return (
-        <SortableGridItem
-          key={i}
-          updateState={this._changeList}
-          items={this.state.listData}
-          draggingIndex={this.state.draggingIndex}
-          sortId={i}
-          outline="list"
-          >
-            <div>
-              <div style={styles.closeButton}>
-                <IconButton tooltip="移除" onTouchTap={this._deleteListItem.bind( this, i)}>
-                  <ActionDelete 
-                    color={'#2196F3'} 
-                    hoverColor={'#F50057'}
+      if (item.image){
+        re_index++;
+        return (
+          <SortableGridItem
+            key={i}
+            updateState={this._changeList}
+            items={this.state.listData}
+            draggingIndex={this.state.draggingIndex}
+            sortId={i}
+            outline="list"
+            >
+              <div>
+                <div style={styles.closeButton}>
+                  <IconButton tooltip="移除" onTouchTap={this._deleteListItem.bind( this, i)}>
+                    <ActionDelete 
+                      color={'#2196F3'} 
+                      hoverColor={'#F50057'}
+                    />
+                  </IconButton>
+                </div>
+                <span style={styles.image}>
+                  <img style={{
+                      position: 'absolute',
+                      width: '100%',
+                      top: 0,
+                      bottom: 0,
+                      margin: 'auto'
+                    }} 
+                    src={item.image} 
                   />
-                </IconButton>
+                </span>
+                <span style={styles.name}>
+                  <span style={styles.title}>{re_index} - </span>
+                  <span style={styles.fileTitle}>{item.file.name}</span> 
+                </span>
               </div>
-              <span style={styles.image}>
-                <img style={{
-                    position: 'absolute',
-                    width: '100%',
-                    top: 0,
-                    bottom: 0,
-                    margin: 'auto'
-                  }} 
-                  src={item.image} 
-                />
-              </span>
-              <span style={styles.name}>
-                <span style={styles.title}>{i+1} - </span>
-                <span style={styles.fileTitle}>{item.file.name}</span> 
-              </span>
-            </div>
-          </SortableGridItem>
-      );
+            </SortableGridItem>
+        );
+      };
     }, this);
 
     return (

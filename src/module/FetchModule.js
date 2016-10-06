@@ -155,6 +155,8 @@ export default class FetchModule {
         this.consume(response.clone());
         if (this._tempData.type === 'application/json' && response.json)
           resolve(this._parseJSON(response), response);
+        else if (this._tempData.type === 'blob' && response.blob)
+          resolve(response.blob());
         else
           resolve(response);
       })

@@ -95,8 +95,8 @@ export default class ChapterUploader extends Component {
 
   _batchUploadAllImage(images = {}) {
     let ImageData = images.next();
-    console.log(ImageData);
-    if (!ImageData.done)
+    //console.log(ImageData);
+    if (!ImageData.done) {
       ImageData.value.fetch.then((data) => {
         if (data.status === 'success')
           this.setState({ 
@@ -118,6 +118,17 @@ export default class ChapterUploader extends Component {
         if (ImageData.value.data.index.length > 0)
           this._batchUploadAllImage(images);
       });
+    } else {
+      this.setState({
+        formState: 3
+      });
+      //換頁
+      this.handlePageChange(
+        apiUrl.getReplaceUrl( 
+          apiUrl.front.publishChapterSelecter, 
+          {comicId: this.props.routeParams.comicId}
+      ));
+    };
   }
 
   _onSubmit() {

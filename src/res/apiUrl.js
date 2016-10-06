@@ -43,6 +43,7 @@ const apiUrl = {
     comicViewer: '/comic/{comicId}/chapter/{chapterId}',
     publishChapterSelecter: '/upload/comic/{comicId}',
     publishChapter: '/upload/comic/{comicId}/chapter',
+    chapterEdit: '/upload/comic/{comicId}/chapter/{chapterId}',
     changeUserProfile: '/profile/change',
     getUserInfo: '/user/{userId}'
   },
