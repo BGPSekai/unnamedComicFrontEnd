@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Step, Stepper, StepLabel} from 'material-ui/Stepper';
@@ -36,6 +37,10 @@ class ChapterEditer extends Component {
         this.setState({ chapterInfo: data.chapters[this.props.params.chapterId - 1] });
         this._getAllUploadedImage(this._getImageData());
       });
+  }
+
+  handlePageChange(page) {
+    browserHistory.push(page);
   }
 
   *_getImageData() {
@@ -115,9 +120,9 @@ class ChapterEditer extends Component {
       let ii = i;
       
       while (counter < 5 && ii < max ) {
-        if (pageData[ii] && !pageData[ii].defaultIndex) {
+        if (pageData[ii] && !pageData[ii].defaultIndex && !pageData[ii].isDelete) {
           uploadImages.push(pageData[ii].file);
-          indexes.push(ii + 1);
+          indexes.push(i + counter + 1);
           counter++;
         }
         ii++;
@@ -125,10 +130,11 @@ class ChapterEditer extends Component {
       //console.log(i+' to '+ii+', max:'+max);
       i = ii;
 
+      if (indexes.length)
       yield {
         data: { index: indexes, images: uploadImages, newIndex: ii, maxIndex: max },
-        fetch: indexes.length ?
-          (new FetchModule()
+        fetch: 
+        new FetchModule()
           .setUrl(apiUrl.getReplaceUrl(apiUrl.publish.batchChapterPage,
             { id: this.state.chapterInfo.id }
           ))
@@ -137,7 +143,7 @@ class ChapterEditer extends Component {
           .setMethod('POST')
           .setType('json')
           .setData({ index: indexes, images: uploadImages })
-          .send()) : {}
+          .send()
       };
     }
 
@@ -146,6 +152,7 @@ class ChapterEditer extends Component {
 
   _batchUploadAllImage(images = {}) {
     let imageData = images.next();
+    console.log(imageData);
     if (!imageData.done) {
       console.log(imageData.value);
       if (imageData.value.fetch.then) {
@@ -167,6 +174,12 @@ class ChapterEditer extends Component {
       });
 
       console.log('完成囉~~~~');
+
+      this.handlePageChange(
+        apiUrl.getReplaceUrl( 
+          apiUrl.front.publishChapterSelecter, 
+          {comicId: this.props.routeParams.comicId}
+      ));
     };
   }
 
