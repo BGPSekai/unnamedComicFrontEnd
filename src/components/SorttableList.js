@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Sortable } from 'react-sortable';
 import IconButton from 'material-ui/IconButton';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
 
 class GridItem extends Component {
   render() {
@@ -24,12 +27,16 @@ class SortableGrid extends Component {
     super(params);
     this.state = {
       draggingIndex: null,
+      changeDialogShow: false,
+      defaultOrder: -1,
       listData: this.props.listData
     };
     
     this.updateState = this.updateState.bind(this);
     this._changeList = this._changeList.bind(this);
-  }
+    this._changeOrder = this._changeOrder.bind(this);
+    this._closeOrderDialog = this._closeOrderDialog.bind(this);
+}
 
   updateState(obj) {
     if (this.props.onChange)
@@ -60,6 +67,16 @@ class SortableGrid extends Component {
     if (nextProps.listData !== this.state.listData) {
       this.setState({ listData: nextProps.listData });
     }
+  }
+
+   _changeOrder(newIndex = -1, oldIndex = 0) {
+    if (newIndex === -1) {
+      this.setState({changeDialogShow: true, defaultOrder: oldIndex});
+    };
+  }
+
+  _closeOrderDialog() {
+    this.setState({changeDialogShow: false});
   }
 
   render() {
@@ -112,7 +129,7 @@ class SortableGrid extends Component {
             sortId={i}
             outline="list"
             >
-              <div>
+              <div onContextMenu={(e) => {e.preventDefault();this._changeOrder.call(this, -1, i)}}>
                 <div style={styles.closeButton}>
                   <IconButton tooltip="移除" onTouchTap={this._deleteListItem.bind( this, i)}>
                     <ActionDelete 
@@ -143,9 +160,38 @@ class SortableGrid extends Component {
     }, this);
 
     return (
-          <div className="grid">
-            {listItems}
-          </div>
+      <div>
+        <Dialog 
+          title="調整順序"
+          actions={[
+            <FlatButton
+              label="取消"
+              primary={true}
+              onTouchTap={this._closeOrderDialog}
+            />,
+            <FlatButton
+              label="修改"
+              primary={true}
+              onTouchTap={this._closeOrderDialog}
+            />
+          ]}
+          modal={true}
+          open={this.state.changeDialogShow}
+        >
+          <TextField
+            hintText="輸入順序"
+            floatingLabelText="圖片順序"
+            ref="orderNumber"
+            type="number"
+            min="1"
+            defaultValue={this.state.defaultOrder+1}
+            fullWidth
+          />
+        </Dialog>
+        <div className="grid">
+          {listItems}
+        </div>
+      </div>
     );
   }
 }
