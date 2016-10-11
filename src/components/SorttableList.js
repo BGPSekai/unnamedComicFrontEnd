@@ -75,7 +75,16 @@ class SortableGrid extends Component {
     };
   }
 
-  _closeOrderDialog() {
+  _closeOrderDialog(change = false) {
+    let listDatas = this.state.listData; //直接更動資料
+    let newIndex = this.refs.orderNumber.getValue() - 1;
+    let oldIndex = this.state.defaultOrder;
+    newIndex = (newIndex < listDatas.length)? newIndex : listDatas.length - 1;
+    if ( change && newIndex < listDatas.length && newIndex != oldIndex) {
+      let temp = listDatas[oldIndex];
+      listDatas[oldIndex] = listDatas[newIndex];
+      listDatas[newIndex] = temp;
+    };
     this.setState({changeDialogShow: false});
   }
 
@@ -167,16 +176,17 @@ class SortableGrid extends Component {
             <FlatButton
               label="取消"
               primary={true}
-              onTouchTap={this._closeOrderDialog}
+              onTouchTap={this._closeOrderDialog.bind(this, false)}
             />,
             <FlatButton
               label="修改"
               primary={true}
-              onTouchTap={this._closeOrderDialog}
+              onTouchTap={this._closeOrderDialog.bind(this, true)}
             />
           ]}
-          modal={true}
+          modal={false}
           open={this.state.changeDialogShow}
+          onRequestClose={this._closeOrderDialog.bind(this, false)}
         >
           <TextField
             hintText="輸入順序"
@@ -184,8 +194,11 @@ class SortableGrid extends Component {
             ref="orderNumber"
             type="number"
             min="1"
+            max={this.state.listData.length}
             defaultValue={this.state.defaultOrder+1}
+            onKeyDown={(e) => {(e.keyCode === 13)?this._closeOrderDialog(true):''}}
             fullWidth
+            autoFocus
           />
         </Dialog>
         <div className="grid">
