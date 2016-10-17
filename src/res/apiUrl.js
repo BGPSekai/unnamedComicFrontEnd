@@ -19,7 +19,7 @@ const apiUrl = {
 
   type: `${base}/type`,
 
-  tag: `${base}/tag/{tagName}/comic/{comicId}`,
+  tag: `${base}/tag/{tagName}/{comicId}`,
 
   publish: {
     comic: `${base}/publish`,
