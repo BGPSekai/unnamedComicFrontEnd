@@ -18,7 +18,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MenuResource from './res/menu.json';
-import Styles from './appStyles';
+import Styles from './AppStyles';
 import MenuDrawer from './components/menuDrawer';
 import Href from './components/Href';
 import Footer from './components/Footer';
