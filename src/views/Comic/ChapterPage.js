@@ -55,7 +55,7 @@ class ChapterPage extends Component {
           .setCors('cors')
           .auth()
           .setUrl(apiUrl.tag)
-          .setMethod('GET')
+          .setMethod('POST')
           .setType('json')
           .replaceVariable({ tagName: tag, comicId: this.props.comicData.id })
           .send()
