@@ -72,6 +72,7 @@ export default class FetchModule {
   send() {
     let data = new FormData();
     let url = new URL(this._tempData.url);
+    let sendMethod = this._tempData.method.toUpperCase();
 
     if (this._needAuth)
       url.searchParams.append('token', UserModel.getUserInfo('jwt'));
@@ -88,8 +89,17 @@ export default class FetchModule {
         };
     }
 
+    /* [bug] fetch 無法送出真正 put,delete method 應對 laravel 暫時解決方式 */
+    
+    if (sendMethod!='GET'&&sendMethod!='POST') {
+      data.append('_method', sendMethod.toLowerCase());
+      sendMethod = 'POST';
+    }
+
+    /* [bug] */
+    
     let init = {
-      method: this._tempData.method,
+      method: sendMethod,
       mode: this._tempData.mode,
       body: data
     };

@@ -4,11 +4,7 @@ import Paper from 'material-ui/Paper';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import FlatButton from 'material-ui/FlatButton';
-import Popover from 'material-ui/Popover';
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
-import Chip from 'material-ui/Chip';
 import Dialog from 'material-ui/Dialog';
 import FetchModule from '../../module/FetchModule';
 import Container from '../../components/Container';
@@ -17,6 +13,7 @@ import Href from '../../components/Href';
 import apiUrl from '../../res/apiUrl';
 import UserModule from '../../module/UserModule';
 import PageResponse from '../../module/PageResponse';
+import TagElement from './TagElement'
 
 class ChapterPage extends Component {
   constructor(params) {
@@ -79,57 +76,6 @@ class ChapterPage extends Component {
     };
   }
 
-  _tagAction(action){
-    let tagIndex = this.state.tagSelect;
-    let tagName = this.state.comicData.tags[tagIndex];
-    
-    switch (action){
-      case 'delete':
-        /* todo 刪除tag */
-        break;
-      case 'search':
-        /* todo 搜尋tag */
-        break;
-    }
-  }
-
-  _renderTag() {
-    let tagElement = [];
-    this.state.comicData.tags &&
-      this.state.comicData.tags.map((val, i) => {
-        tagElement.push(
-          <div key={i}>
-            <Chip
-              backgroundColor={'#F06292'}
-              labelStyle={{ color: '#FCE4EC' }}
-              onTouchTap={(e) => {this.setState({'tagElement': e.currentTarget,'tagSelect': i});}}
-              style={ChapterPageStyle.tag}
-              >
-                {val}
-              </Chip>
-          </div>
-        );
-      })
-
-    tagElement.push(
-      <Popover
-        key="onTop"
-        open={this.state.tagElement!==null}
-        anchorEl={this.state.tagElement}
-        anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-        targetOrigin={{horizontal: 'left', vertical: 'top'}}
-        onRequestClose={() => {this.setState({'tagElement': null, 'tagSelect': -1});}}
-        >
-          <Menu>
-            <MenuItem primaryText="刪除" onTouchTap={this._tagAction.bind(this, 'delete')} />
-            <MenuItem primaryText="搜尋相關 Tag 漫畫" onTouchTap={this._tagAction.bind(this, 'search')} />
-          </Menu>
-      </Popover>
-    );
-
-    return tagElement;
-  }
-
   render() {
     return (
       <div style={ChapterPageStyle.root}>
@@ -176,7 +122,7 @@ class ChapterPage extends Component {
               <p>{this.props.comicData.summary}</p>
               <div style={ChapterPageStyle.tagWrapper}>
                 <span style={ChapterPageStyle.tagTab}>標籤：</span>
-                {this._renderTag() }
+                <TagElement tags={this.state.comicData.tags} comicId={this.props.comicData.id} />
               </div>
               {
                 UserModule.checkIsLogin() &&
