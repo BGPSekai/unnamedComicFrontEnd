@@ -69,11 +69,20 @@ export default class App extends Component {
   }
 
   _handleSearchStart(e) {
+    let type = 'searchBy';
+    let searchName = this.refs.search.getValue();
+    if (this.props.params.searchType)
+      type += 
+          this.props.params.searchType.substr(0, 1).toUpperCase() + 
+          this.props.params.searchType.substr(1).toLowerCase();
+    else type += 'Name';
+    let replaceUrl = apiUrl.getReplaceUrl( apiUrl.front[type],
+          {name: searchName, page: ''}
+        );
+
     if (e.nativeEvent.keyCode === 13) {
       browserHistory.push(
-        apiUrl.getReplaceUrl( apiUrl.front.searchByName,
-          {comicName: this.refs.search.getValue()}
-        )
+        (!searchName) ? replaceUrl.substr(0, replaceUrl.length-1) : replaceUrl 
       );
     }
   }

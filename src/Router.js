@@ -19,7 +19,7 @@ import UserInfo from './views/User/UserInfo';
 import ChangeProfile from './views/User/ChangeProfile';
 import Logout from './views/User/Logout';
 import Search from './views/Search';
-import SearchByName from './views/Search/SearchByName';
+import SearchBySomething from './views/Search/SearchBySomething';
 
 
 
@@ -54,8 +54,8 @@ class Routers extends Component {
 					{/* Search */}
 					<Route path="/search" component={Search} isSearching={true}>
 						<IndexRoute />
-						<Route path="name" component={SearchByName} />
-						<Route path="name/:searchName" component={SearchByName} />
+						<Route path=":searchType" component={SearchBySomething} />
+						<Route path=":searchType/:searchName" component={SearchBySomething} />
 					</Route>
 					{/* profile */}
 					<Route path="/profile" component={Profile}>

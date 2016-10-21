@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { browserHistory } from 'react-router';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
@@ -47,6 +48,10 @@ class TagElement extends Component {
         break;
       case 'search':
         /* todo 搜尋tag */
+        browserHistory.push(apiUrl.getReplaceUrl(apiUrl.front.searchByTag, {
+          name: tagName,
+          page: ''
+        }));
         break;
     }
   }
@@ -79,8 +84,8 @@ class TagElement extends Component {
         onRequestClose={() => {this.setState({'tagElement': null, 'tagSelect': -1});}}
         >
           <Menu>
-            <MenuItem primaryText="刪除" onTouchTap={this._tagAction.bind(this, 'delete')} />
             <MenuItem primaryText="搜尋相關 Tag 漫畫" onTouchTap={this._tagAction.bind(this, 'search')} />
+            <MenuItem primaryText="刪除" onTouchTap={this._tagAction.bind(this, 'delete')} />
           </Menu>
       </Popover>
     );

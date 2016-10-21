@@ -29,16 +29,17 @@ const apiUrl = {
 
   search: {
     searchByName: `${base}/search/name/{name}/{page}`,
-    searchByTag: `${base}/search/tag/{id}/{page}`,
-    searchByType: `${base}/search/type/{typeId}/{page}`,
-    searchByPublisher: `${base}/search/publisher/{userId}/{page}`
+    searchByTag: `${base}/search/tag/{name}/{page}`,
+    searchByType: `${base}/search/type/{name}/{page}`, //name is type id
+    searchByPublisher: `${base}/search/publisher/{name}/{page}` // name is user id
   },
 
   front: {
     type: '/types/{typeName}',
     viewComic: '/comic/{comicId}/chapter/{chapterId}',
     search: '/search',
-    searchByName: '/search/name/{comicName}',
+    searchByName: '/search/name/{name}/{page}',
+    searchByTag: '/search/tag/{name}/{page}',
     comicInfo: '/comic/{comicId}',
     comicViewer: '/comic/{comicId}/chapter/{chapterId}',
     publishChapterSelecter: '/upload/comic/{comicId}',
