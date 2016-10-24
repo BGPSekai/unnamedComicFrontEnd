@@ -13,7 +13,8 @@ import Href from '../../components/Href';
 import apiUrl from '../../res/apiUrl';
 import UserModule from '../../module/UserModule';
 import PageResponse from '../../module/PageResponse';
-import TagElement from './TagElement'
+import TagElement from './TagElement';
+import ComicFavorite from './ComicFavorite';
 
 class ChapterPage extends Component {
   constructor(params) {
@@ -145,10 +146,14 @@ class ChapterPage extends Component {
             </div>
           </div>
           {
+            UserModule.checkIsLogin() &&
+            <ComicFavorite style={ChapterPageStyle.addChapter} comicId={this.state.comicData.id} />
+          }
+          {
             this.props.backEnd &&
             <FloatingActionButton
               secondary={true}
-              style={ChapterPageStyle.addChapter}
+               
               onTouchTap={() => {
                 browserHistory.push(apiUrl.getReplaceUrl(apiUrl.front.publishChapter, { comicId: this.props.comicData.id }))
               }

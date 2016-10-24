@@ -7,14 +7,16 @@ const apiUrl = {
     userInfo: `${base}/user/{userId}`,
     uploadUserAvatar: `${base}/user/avatar`,
     avatar: `${base.replace('/api','')}/public/users/{userId}.{avatarType}`,
-    resetPassword: `${base}/auth/reset`
+    resetPassword: `${base}/auth/reset`,
+    getFavoriteComic: `${base}/user/{userId}/favorites`
   },
 
   comic: {
     list: `${base}/comic/page/{page}`,
     cover: `${base}/comic/{id}/cover`,
     info: `${base}/comic/{id}`,
-    view: `${base}/comic/chapter/{page}?token={token}`
+    view: `${base}/comic/chapter/{page}?token={token}`,
+    favorite: `${base}/favorite/{comicId}`
   },
 
   type: `${base}/type`,
