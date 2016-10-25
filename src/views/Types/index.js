@@ -58,7 +58,7 @@ class Types extends Component {
       .setType('json')
       .replaceVariable({
         page: this.state.page,
-        typeId: type.id
+        name: type.id
       })
       .send()
       .then((data) => {
