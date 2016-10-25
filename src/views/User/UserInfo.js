@@ -45,7 +45,7 @@ class UserInfo extends Component {
     new FetchModule()
       .setUrl(apiUrl.search.searchByPublisher)
       .replaceVariable({
-        userId: this.state.userId,
+        name: this.state.userId,
         page: 1
       })
       .setCors('cors')
