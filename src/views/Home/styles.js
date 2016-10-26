@@ -5,7 +5,8 @@ const styles = {
   },
   
   mSecend: {
-    background: '#E0E0E0'
+    background: '#aa465b',
+    color: '#ffffff'
   }
 };
 

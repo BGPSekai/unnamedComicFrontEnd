@@ -84,10 +84,6 @@ const appStyle = {
   },
 
   userMenu: {
-  },
-
-  footer: {
-    background: '#f6f9fa'
   }
 };
 

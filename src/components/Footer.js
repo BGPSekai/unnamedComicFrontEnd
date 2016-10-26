@@ -7,16 +7,18 @@ render() {
 
     let Styles = {
       footer: {
-        background: '#FAFAFA'
+        background: '#f6f9fa',
+        color: '#101010'
       },
 
       container: {
-        minHeight: '100px',
+        minHeight: '10px',
         display: 'flex'
       },
 
       column: {
-        flex: 1
+        flex: 1,
+        textAlign: 'center'
       },
 
       list: {
@@ -24,13 +26,13 @@ render() {
       },
 
       copyright: {
-        background: '#212121',
-        color: '#F5F5F5'
+        background: '#f6f9fa',
+        color: '#101010'
        },
 
        copyrightContainer: {
          minHeight: 'inline',
-         padding: '10px 0'
+         padding: '2px 0'
        }
     };
 
@@ -39,28 +41,16 @@ render() {
           <div id="footer" style={Styles.footer}>
             <Container style={Styles.container}>
               <div style={Styles.column}>
-                <h3>帳號</h3>
-                  <ul style={Styles.list}>
-                    <li></li>
-                  </ul>
+                <div>帳號</div>
               </div>
               <div style={Styles.column}>
-                <h3>服務</h3>
-                <ul style={Styles.list}>
-                  <li></li>
-                </ul>
+                <div>服務</div>
               </div>
               <div style={Styles.column}>
-                <h3>關於</h3>
-                <ul style={Styles.list}>
-                  <li></li>
-                </ul>
+                <div>關於</div>
               </div>
               <div style={Styles.column}>
-                <h3>其他</h3>
-                <ul style={Styles.list}>
-                  <li></li>
-                </ul>
+                <div>其他</div>
               </div>
             </Container>
           </div>

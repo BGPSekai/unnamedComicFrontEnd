@@ -8,6 +8,11 @@ import apiUrl from '../../res/apiUrl';
 import styles from './styles';
 
 class TileElement extends Component {
+  
+  componentWillReceiveProps(nextProps) {
+    this.forceUpdate();
+  }
+  
   render() {
     return (
        <GridTile
@@ -15,7 +20,7 @@ class TileElement extends Component {
          title={this.props.comic.name}
          subtitle={<span>上傳者/作者 <b>{this.props.comic.publish_by.name}/{this.props.comic.author}</b></span>}
          actionIcon={<IconButton></IconButton>}
-         style={styles.gridTile}
+         style={this.props.style.gridStyle}
        >
          <img src={apiUrl.comic.cover.replace('{id}',this.props.comic.id)} />
        </GridTile>
@@ -25,6 +30,23 @@ class TileElement extends Component {
 
 class ComicElement extends Component {
   
+  constructor(props){
+    super(props);
+    this.state = {
+      gridStyle: window.innerWidth>500?styles.gridTileDesktop:styles.gridTileMobile
+    };
+    var mq = window.matchMedia( '(max-width: 500px)' );
+    mq.addListener(this._widthChange.bind(this));
+  }
+
+  _widthChange(mq) {
+    if (mq.matches){
+      this.setState({gridStyle: styles.gridTileMobile});
+    } else {
+      this.setState({gridStyle: styles.gridTileDesktop});
+    };
+  }
+
   componentDidMount() {
     this._scrollEvent();  
   }
@@ -50,7 +72,7 @@ class ComicElement extends Component {
   
   render() {
     return (
-      <div ref="tileElement" onScroll={this._scrollEvent.bind(this)}>
+      <div ref="tileElement" style={styles.tileElement} onScroll={this._scrollEvent.bind(this)}>
         {
           this.props.comicData.map((comic) => {
             if (this.props.linkUrl)
@@ -59,11 +81,11 @@ class ComicElement extends Component {
                   href={this.props.linkUrl.replace('{comicId}', comic.id)}
                   key={comic.id}
                 >
-                  <TileElement key={comic.id} comic={comic} />
+                  <TileElement key={comic.id} comic={comic} style={{gridStyle: this.state.gridStyle}}/>
                 </Href>
               );
             else 
-              return (<TileElement key={comic.id} comic={comic} />);
+              return (<TileElement key={comic.id} comic={comic} style={{gridStyle: this.state.gridStyle}}/>);
           })
         }
         {

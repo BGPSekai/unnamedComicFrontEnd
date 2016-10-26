@@ -152,11 +152,14 @@ export default class App extends Component {
                       <SearchIcon color={Styles.iconLeft.color} />
                     </IconButton>
                   }
-                  <Href href="/upload" style={Styles.a}>
-                    <IconButton tooltip="發布漫畫" onTouchTap={this.handlePageChange.bind( this, 'upload')}>
-                      <FileUploadIcon color={Styles.iconLeft.color} />
-                    </IconButton>
-                  </Href>
+                  {
+                    UserModule.checkIsLogin()&&
+                    <Href href="/upload" style={Styles.a}>
+                      <IconButton tooltip="發布漫畫" onTouchTap={this.handlePageChange.bind( this, 'upload')}>
+                        <FileUploadIcon color={Styles.iconLeft.color} />
+                      </IconButton>
+                    </Href>
+                  }
                 </div>
               }
               style={Styles.appBar}

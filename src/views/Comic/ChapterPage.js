@@ -16,20 +16,59 @@ import PageResponse from '../../module/PageResponse';
 import TagElement from './TagElement';
 import ComicFavorite from './ComicFavorite';
 
+class TagInput extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tagInput: ''
+    };
+
+    this._handleTagInputChange = this._handleTagInputChange.bind(this);
+  }
+
+  _handleTagInputChange() {
+    this.setState({
+      tagInput: this.refs.tagInput.getValue()
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <TextField
+          ref="tagInput"
+          hintText="輸入 Tag 名稱按 Enter 即可標記"
+          floatingLabelText="標註 Tag 標籤"
+          value={this.state.tagInput}
+          floatingLabelStyle={{ color: '#fff' }}
+          hintStyle={{ color: '#EEEEEE' }}
+          underlineStyle={{ borderColor: 'rgb(240, 98, 146)' }}
+          underlineFocusStyle={{ borderColor: 'rgb(240, 98, 146)' }}
+          inputStyle={{ color: '#fff' }}
+          onChange={this._handleTagInputChange}
+          onKeyDown={(e) => {
+            if (e.keyCode === 13) {
+              this.props.onSubmit(this.refs.tagInput.getValue());
+              this.setState({tagInput: ''});
+            }
+          }}
+          />
+      </div>
+    );
+  }
+}
+
 class ChapterPage extends Component {
   constructor(params) {
     super(params);
     this.state = {
       comicData: {},
-      tagInput: '',
       tagSelect: -1,
       tagElement: null,
       errorText: ''
     };
 
-    this._handleTagInputChange = this._handleTagInputChange.bind(this);
     this._handleTagInputEnter = this._handleTagInputEnter.bind(this);
-
     // PageResponse
     //   .setQuery('(max-width: 400px)')
     //   .setDefaultStyle(ChapterPageStyle)
@@ -44,37 +83,28 @@ class ChapterPage extends Component {
     this.setState({ comicData: nextProps.comicData });
   }
 
-  _handleTagInputChange() {
-    this.setState({
-      tagInput: this.refs.tagInput.getValue()
-    });
-  }
-
-  _handleTagInputEnter(e) {
-    if (e.keyCode === 13) {
-      let tag = this.state.tagInput.replace(/[?#%\///]/g, '');
-      if (tag)
-        new FetchModule()
-          .setCors('cors')
-          .auth()
-          .setUrl(apiUrl.tag)
-          .setMethod('POST')
-          .setType('json')
-          .replaceVariable({ tagName: tag, comicId: this.props.comicData.id })
-          .send()
-          .then((data) => {
-            if (data.status === 'success') {
-              let comic = this.state.comicData;
-              comic.tags = data.tags;
-              this.setState({
-                comicData: comic,
-                tagInput: ''
-              });
-            } else {
-              this.setState({ errorText: data.message });
-            };
-          });
-    };
+  _handleTagInputEnter(tagName) {
+    let tag = tagName.replace(/[?#%\///]/g, '');
+    if (tag)
+      new FetchModule()
+        .setCors('cors')
+        .auth()
+        .setUrl(apiUrl.tag)
+        .setMethod('POST')
+        .setType('json')
+        .replaceVariable({ tagName: tag, comicId: this.state.comicData.id })
+        .send()
+        .then((data) => {
+          if (data.status === 'success') {
+            let comic = this.state.comicData;
+            comic.tags = data.tags;
+            this.setState({
+              comicData: comic
+            });
+          } else {
+            this.setState({ errorText: data.message });
+          };
+        });
   }
 
   render() {
@@ -127,21 +157,7 @@ class ChapterPage extends Component {
               </div>
               {
                 UserModule.checkIsLogin() &&
-                <div>
-                  <TextField
-                    ref="tagInput"
-                    hintText="輸入 Tag 名稱按 Enter 即可標記"
-                    floatingLabelText="標註 Tag 標籤"
-                    value={this.state.tagInput}
-                    floatingLabelStyle={{ color: '#fff' }}
-                    hintStyle={{ color: '#EEEEEE' }}
-                    underlineStyle={{ borderColor: 'rgb(240, 98, 146)' }}
-                    underlineFocusStyle={{ borderColor: 'rgb(240, 98, 146)' }}
-                    inputStyle={{ color: '#fff' }}
-                    onChange={this._handleTagInputChange}
-                    onKeyDown={this._handleTagInputEnter}
-                    />
-                </div>
+                <TagInput onSubmit={this._handleTagInputEnter} />
               }
             </div>
           </div>
@@ -153,7 +169,6 @@ class ChapterPage extends Component {
             this.props.backEnd &&
             <FloatingActionButton
               secondary={true}
-               
               onTouchTap={() => {
                 browserHistory.push(apiUrl.getReplaceUrl(apiUrl.front.publishChapter, { comicId: this.props.comicData.id }))
               }

@@ -7,15 +7,26 @@ const styles = {
     justifyContent: 'space-around'
   },
 
-  gridList: {
-    marginBottom: 24,
+  tileElement: {
+    display: 'table'
   },
 
-  gridTile: {
+  gridList: {
+    marginBottom: 24
+  },
+
+  gridTileDesktop: {
     width: 200,
     display: 'inline-block',
     marginRight: '5%',
     height: 300
+  },
+
+  gridTileMobile: {
+    width: 120,
+    display: 'inline-block',
+    marginRight: '2.5%',
+    height: 175
   }
 };
 
