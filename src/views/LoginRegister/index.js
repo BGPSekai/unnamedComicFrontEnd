@@ -154,6 +154,9 @@ export default class LoginRegister extends Component {
 
 	_responseGoogle(response) {
 		console.log(response);
+		if (response.profileObj) {
+			console.log('取得 user google 資訊');
+		}
 	}
 
 	render() {
@@ -212,7 +215,14 @@ export default class LoginRegister extends Component {
 									buttonText="Login with Google"
 									onSuccess={this._responseGoogle}
 									onFailure={this._responseGoogle}
+									style={styles.GoogleLogin}
+									>
+									<RaisedButton 
+										fullWidth 
+										label="Google 帳號登入"
+										icon={<img style={{borderRadius: '100%'}} src={'https://google-developers.appspot.com/identity/sign-in/g-normal.png'}/>}
 									/>
+								</GoogleLogin>
 							</Tab>
 							<Tab label="註冊">
 								<TextField

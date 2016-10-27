@@ -49,6 +49,14 @@ const styles = {
 		position: 'absolute',
 		bottom: 0,
 		display: 'none'
+	},
+
+	GoogleLogin: {
+		width: '100%', 
+		background: 'none',
+		border: 'none',
+		padding: '0',
+		marginTop: 5
 	}
 };
 
