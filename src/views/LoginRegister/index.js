@@ -12,6 +12,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back';
 import Checkbox from 'material-ui/Checkbox';
+import GoogleLogin from 'react-google-login';
 import styles from './styles';
 import LoginModule from './LoginModule';
 import RegisterModule from './RegisterModule';
@@ -151,6 +152,10 @@ export default class LoginRegister extends Component {
 		};
 	}
 
+	_responseGoogle(response) {
+		console.log(response);
+	}
+
 	render() {
 		if (this.state.loading) {
 			styles.LinearProgress.display = 'block';
@@ -201,6 +206,12 @@ export default class LoginRegister extends Component {
 									backgroundColor={this.state.loginButtonColor}
 									onMouseDown={this.onSubmit.bind(this, 'login.') }
 									onKeyDown={this.onSubmit.bind(this, 'login.') }
+									/>
+								<GoogleLogin 
+									clientId="889218336554-qt4ge5mk4l9tijl7avfsmu8juv3l6v4r.apps.googleusercontent.com"
+									buttonText="Login with Google"
+									onSuccess={this._responseGoogle}
+									onFailure={this._responseGoogle}
 									/>
 							</Tab>
 							<Tab label="註冊">
