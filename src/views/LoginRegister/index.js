@@ -31,7 +31,13 @@ export default class LoginRegister extends Component {
 			warrning: false,
 			register: {}
 		};
+		this._checkIsLogin();
+	}
 
+	_checkIsLogin() {
+		if (UserModule.checkIsLogin()) {
+			browserHistory.push('/');
+		};
 	}
 
 	handleBackAcation() {
