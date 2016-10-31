@@ -90,6 +90,7 @@ export default class App extends Component {
   render() {
     let MenuElement = [];
     let TitleElement;
+    let isUserLogin = UserModule.checkIsLogin();
     if (this.props.children.props.route.isSearching) {
       TitleElement = (
         <TextField 
@@ -113,6 +114,7 @@ export default class App extends Component {
     };
 
     for (let i in MenuResource) {
+      if (!MenuResource[i].login || (MenuResource[i].login&&isUserLogin))
       MenuElement.push(
       <ListItem key={i} onTouchTap={this.handlePageChange.bind( this, i)}>
         <Href href={i} style={Styles.a}>{MenuResource[i].text}</Href>

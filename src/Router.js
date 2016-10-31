@@ -17,55 +17,56 @@ import Profile from './views/User';
 import UserProfile from './views/User/UserProfile';
 import UserInfo from './views/User/UserInfo';
 import ChangeProfile from './views/User/ChangeProfile';
+import UserFavorite from './views/User/UserFavorite';
 import Logout from './views/User/Logout';
 import Search from './views/Search';
 import SearchBySomething from './views/Search/SearchBySomething';
-
-
 
 class Routers extends Component {
   render() {
     return (
       <Router history={browserHistory}>
-				<Route path="/logout" component={Logout} />
-				<Route path="/login" component={LoginRegister} />
-				<Route path="/register" component={LoginRegister} />
-				<Route path="/" component={App}>
-					<IndexRoute component={Home} />
-					{/* Comic */}
-					<Route path="comic" component={Comic}>
-						<Route path="page/:page" component={Comic} />
-					</Route>
-					<Route path="/comic/:comicId" component={ComicInfo}>
-						<IndexRoute />
-						<Route path="chapter/:chapterId" component={ComicViewer} />
-					</Route>
-					{/* tags */}
-					<Route path="/types" component={Types} />
-					<Route path="/types/:typeName" component={Types} />
-					{/* upload */}
-					<Route path="/upload" component={Upload}>
-						<IndexRoute component={ComicUploadSelect} />
-						<Route path="comic" component={ComicUpload} />
-						<Route path="comic/:comicId" component={ChapterUploadSelect} />
-						<Route path="comic/:comicId/chapter" component={ChapterUploader} />
-						<Route path="comic/:comicId/chapter/:chapterId" component={ChapterEditer} />
-					</Route>
-					{/* Search */}
-					<Route path="/search" component={Search} isSearching={true}>
-						<IndexRoute />
-						<Route path=":searchType" component={SearchBySomething} />
-						<Route path=":searchType/:searchName" component={SearchBySomething} />
-					</Route>
-					{/* profile */}
-					<Route path="/profile" component={Profile}>
-						<IndexRoute component={UserProfile} />
-						<Route path="change" component={ChangeProfile} />
-					</Route>
-					{/* user */}
-					<Route path="/user/:userId" component={UserInfo} />
-				</Route>
-			</Router>
+        <Route path="/logout" component={Logout} />
+        <Route path="/login" component={LoginRegister} />
+        <Route path="/register" component={LoginRegister} />
+        <Route path="/" component={App}>
+          <IndexRoute component={Home} />
+          {/* Comic */}
+          <Route path="comic" component={Comic}>
+            <Route path="page/:page" component={Comic} />
+          </Route>
+          <Route path="/comic/:comicId" component={ComicInfo}>
+            <IndexRoute />
+            <Route path="chapter/:chapterId" component={ComicViewer} />
+          </Route>
+          {/* tags */}
+          <Route path="/types" component={Types} />
+          <Route path="/types/:typeName" component={Types} />
+          {/* upload */}
+          <Route path="/upload" component={Upload}>
+            <IndexRoute component={ComicUploadSelect} />
+            <Route path="comic" component={ComicUpload} />
+            <Route path="comic/:comicId" component={ChapterUploadSelect} />
+            <Route path="comic/:comicId/chapter" component={ChapterUploader} />
+            <Route path="comic/:comicId/chapter/:chapterId" component={ChapterEditer} />
+          </Route>
+          {/* Search */}
+          <Route path="/search" component={Search} isSearching={true}>
+            <IndexRoute />
+            <Route path=":searchType" component={SearchBySomething} />
+            <Route path=":searchType/:searchName" component={SearchBySomething} />
+          </Route>
+          {/* profile */}
+          <Route path="/profile" component={Profile}>
+            <IndexRoute component={UserProfile} />
+            <Route path="change" component={ChangeProfile} />
+						<Route path="favorite" component={UserFavorite} />
+          </Route>
+          {/* user */}
+          <Route path="/user/:userId" component={UserInfo} />
+          {/*<Route path="/user/:userId/favorite" component={UserInfo} /> */}
+        </Route>
+      </Router>
     );
   }
 }
