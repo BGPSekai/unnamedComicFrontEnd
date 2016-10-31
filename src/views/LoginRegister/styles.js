@@ -52,11 +52,11 @@ const styles = {
 	},
 
 	GoogleLogin: {
-		width: '100%', 
-		background: 'none',
-		border: 'none',
-		padding: '0',
-		marginTop: 5
+		display: 'none'
+	},
+
+	GoogleLoginBtn: {
+		marginTop: 10
 	}
 };
 

@@ -210,19 +210,21 @@ export default class LoginRegister extends Component {
 									onMouseDown={this.onSubmit.bind(this, 'login.') }
 									onKeyDown={this.onSubmit.bind(this, 'login.') }
 									/>
-								<GoogleLogin 
+								<RaisedButton 
+									fullWidth 
+									label="Google 帳號登入"
+									icon={<img style={{borderRadius: '100%'}} src={'https://google-developers.appspot.com/identity/sign-in/g-normal.png'}/>}
+									onTouchTap={() => {this.refs['GoogleLoginButton'].onBtnClick()}}
+									style={styles.GoogleLoginBtn}
+									/>
+								<GoogleLogin
+									ref="GoogleLoginButton"
 									clientId="889218336554-qt4ge5mk4l9tijl7avfsmu8juv3l6v4r.apps.googleusercontent.com"
 									buttonText="Login with Google"
 									onSuccess={this._responseGoogle}
 									onFailure={this._responseGoogle}
 									style={styles.GoogleLogin}
-									>
-									<RaisedButton 
-										fullWidth 
-										label="Google 帳號登入"
-										icon={<img style={{borderRadius: '100%'}} src={'https://google-developers.appspot.com/identity/sign-in/g-normal.png'}/>}
 									/>
-								</GoogleLogin>
 							</Tab>
 							<Tab label="註冊">
 								<TextField
