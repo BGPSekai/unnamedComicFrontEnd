@@ -32,7 +32,7 @@ class UserProfile extends Component {
     new FetchModule()
       .setUrl(apiUrl.search.searchByPublisher)
       .replaceVariable({
-        userId: UserModule.getUserInfo('userId'),
+        name: UserModule.getUserInfo('userId'),
         page: 1
       })
       .setCors('cors')
