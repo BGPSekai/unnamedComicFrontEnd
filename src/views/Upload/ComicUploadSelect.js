@@ -30,7 +30,7 @@ export default class ChapterUploadSelect extends Component {
       .setType('json')
       .replaceVariable({
         page: this.state.page,
-        userId: UserModule.getUserInfo('userId')
+        name: UserModule.getUserInfo('userId')
       })
       .send()
       .then( (data) => {

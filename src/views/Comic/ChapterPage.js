@@ -169,6 +169,7 @@ class ChapterPage extends Component {
             this.props.backEnd &&
             <FloatingActionButton
               secondary={true}
+              style={ChapterPageStyle.addChapter}
               onTouchTap={() => {
                 browserHistory.push(apiUrl.getReplaceUrl(apiUrl.front.publishChapter, { comicId: this.props.comicData.id }))
               }

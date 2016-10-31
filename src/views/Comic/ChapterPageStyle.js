@@ -33,8 +33,8 @@ const ChapterPageStyle = {
   },
 
   addChapter: {
-    position: 'absolute',
-    right: 50
+    float: 'right',
+    marginRight: 15
   },
 
   chapterButton: {
