@@ -10,6 +10,10 @@ class UserFavorite extends Component {
     super(props);
 
 		this.state = {
+      page: 1,
+      perPageNumber: 10,
+      allPage: 0,
+      comicIds: [],
 			comics: [],
 			userId: UserModule.getUserInfo('userId')
 		};
@@ -18,20 +22,26 @@ class UserFavorite extends Component {
     new FetchModule()
       .setUrl(apiUrl.user.getFavoriteComic)
       .replaceVariable({
-        userId: this.state.userId,
-        page: 1
+        userId: this.state.userId
       })
       .setCors('cors')
       .setMethod('GET')
       .setType('json')
       .send()
       .then((data) => {
-        this._fetchAllComicData(data.favorites);
+        this.state.comicIds = data.favorites;
+        this.state.allPage = Math.ceil(data.favorites.length / this.state.perPageNumber);
+        this._getNextPageData();
       });
   }
 
-  _fetchAllComicData(comicsData = []) {
-    console.log(comicsData);
+  _getNextPageData() {
+    this._fetchAllComicData((this.state.page - 1) * this.state.perPageNumber , this.state.page * this.state.perPageNumber);
+    this.state.page ++;
+  }
+
+  _fetchAllComicData(index = 0, end = 0) {
+    let comicsData = this.state.comicIds.slice( index, end);
     /* 取得個人漫畫 */
     new FetchModule()
       .setUrl(apiUrl.comic.infos)
@@ -41,8 +51,14 @@ class UserFavorite extends Component {
       .setType('json')
       .send()
       .then((data) => {
+        let tempComic = Object.assign(this.state.comics, {});
+        
+        for (let i in data.infos) {
+          tempComic[ Number(i) + index ] = data.infos[i]; //取代資訊
+        };
+        
         this.setState({
-          comics: data.infos
+          comics: tempComic
         });
       });
   }
@@ -50,7 +66,12 @@ class UserFavorite extends Component {
   render() {
     return (
     	<Container>
-      	<ComicElement comicData={this.state.comics} linkUrl={apiUrl.front.comicInfo} />
+      	<ComicElement 
+          comicData={this.state.comics} 
+          linkUrl={apiUrl.front.comicInfo} 
+          needLoadMore={this.state.page <= this.state.allPage}
+          loadMore={this._getNextPageData.bind(this)}
+          />
       </Container>
     );
   }
