@@ -26,8 +26,23 @@ class UserFavorite extends Component {
       .setType('json')
       .send()
       .then((data) => {
+        this._fetchAllComicData(data.favorites);
+      });
+  }
+
+  _fetchAllComicData(comicsData = []) {
+    console.log(comicsData);
+    /* 取得個人漫畫 */
+    new FetchModule()
+      .setUrl(apiUrl.comic.infos)
+      .setCors('cors')
+      .setMethod('POST')
+      .setData({ comics: comicsData })
+      .setType('json')
+      .send()
+      .then((data) => {
         this.setState({
-          comics: data.comics
+          comics: data.infos
         });
       });
   }
@@ -35,7 +50,7 @@ class UserFavorite extends Component {
   render() {
     return (
     	<Container>
-      	<ComicElement comicData={this.state.comics}/>
+      	<ComicElement comicData={this.state.comics} linkUrl={apiUrl.front.comicInfo} />
       </Container>
     );
   }
