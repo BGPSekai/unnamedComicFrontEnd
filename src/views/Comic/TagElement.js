@@ -65,7 +65,7 @@ class TagElement extends Component {
             <Chip
               backgroundColor={'#F06292'}
               labelStyle={{ color: '#FCE4EC' }}
-              onTouchTap={(e) => {this.setState({'tagElement': e.currentTarget,'tagSelect': i});}}
+              onClick={(e) => {this.setState({'tagElement': e.currentTarget,'tagSelect': i});}}
               style={ChapterPageStyle.tag}
               >
                 {val}
