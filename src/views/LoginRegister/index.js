@@ -16,6 +16,7 @@ import GoogleLogin from 'react-google-login';
 import styles from './styles';
 import LoginModule from './LoginModule';
 import RegisterModule from './RegisterModule';
+import SocialLogin from './SocialLogin';
 import LocalStorage from '../../module/LocalStorage';
 import UserModule from '../../module/UserModule';
 
@@ -92,7 +93,8 @@ export default class LoginRegister extends Component {
 			UserModule.setUserInfo(Object.assign(userData, {
 				remeber: this.refs.remeber.isChecked(),
 				timeStamp: Math.floor(time.getTime() / 1000),
-				jwt: response.token
+				jwt: response.token,
+				from: false
 			}));
 
 			UserModule.updateInfo().then((data) => {
@@ -158,13 +160,6 @@ export default class LoginRegister extends Component {
 		};
 	}
 
-	_responseGoogle(response) {
-		console.log(response);
-		if (response.profileObj) {
-			console.log('取得 user google 資訊');
-		}
-	}
-
 	render() {
 		if (this.state.loading) {
 			styles.LinearProgress.display = 'block';
@@ -227,8 +222,8 @@ export default class LoginRegister extends Component {
 									ref="GoogleLoginButton"
 									clientId="889218336554-qt4ge5mk4l9tijl7avfsmu8juv3l6v4r.apps.googleusercontent.com"
 									buttonText="Login with Google"
-									onSuccess={this._responseGoogle}
-									onFailure={this._responseGoogle}
+									onSuccess={SocialLogin.responseGoogle}
+									onFailure={SocialLogin.responseGoogle}
 									style={styles.GoogleLogin}
 									/>
 							</Tab>

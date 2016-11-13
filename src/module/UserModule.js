@@ -84,6 +84,16 @@ class UserModule {
     return true;
   }
 
+  /**
+   * 回傳是否經由社群登入
+   * @param void
+   * @return boolen
+   */
+  isFromSocial() {
+    let userData = new UserData().getFromJson();
+    return (userData.from === false);
+  }
+
   setUserInfo(data) {
     let userData = new UserData();
     let Data = userData.getFromJson();

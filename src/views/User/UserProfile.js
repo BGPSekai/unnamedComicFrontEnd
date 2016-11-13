@@ -134,9 +134,12 @@ class UserProfile extends Component {
               <span style={styles.userEmail}>
                 {UserModule.getUserInfo('email')}
               </span>
-              <span>
-                <Href href={apiUrl.front.changeUserProfile}><FlatButton style={styles.chgInfoButton}>編輯個人資訊</FlatButton></Href>
-              </span>
+              {
+                UserModule.isFromSocial() &&
+                <span>
+                  <Href href={apiUrl.front.changeUserProfile}><FlatButton style={styles.chgInfoButton}>編輯個人資訊</FlatButton></Href>
+                </span>
+              }
             </div>
             <ComicElement comicData={this.state.comics} linkUrl={apiUrl.front.comicInfo} />
           </Container>
