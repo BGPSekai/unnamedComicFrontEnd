@@ -27,13 +27,78 @@ import PersonIcon from 'material-ui/svg-icons/social/person';
 import PowerSettingsNewIcon from 'material-ui/svg-icons/action/power-settings-new';
 import apiUrl from './res/apiUrl';
 
-export default class App extends Component {
+class AppDrawer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       navOpen: false
     };
-    
+
+    this.handleNeedCloseNav = this.handleNeedCloseNav.bind(this);
+    this.handleNavToggle = this.handleNavToggle.bind(this);
+    this.closeNav = this.closeNav.bind(this);
+
+    this.menu = this.menuItem(); 
+  }
+
+  handlePageChange(page, e) {
+    //this.props.history.push(page); //deprecated
+    if (e&&(e.nativeEvent.which==0||e.nativeEvent.which==1)){
+      this.setState({ navOpen: false });
+      browserHistory.push('/'+page);
+    };
+  }
+
+  handleNavToggle() { 
+    this.setState({navOpen: !this.state.navOpen}) 
+  }
+
+  handleNeedCloseNav() {
+    let widthPersent = 0.16;
+
+    if (window.innerWidth * widthPersent < 256 && this.state.navOpen === true)
+      this.setState({ navOpen: false });
+  }
+
+  closeNav() {
+    if (this.state.navOpen === true)
+    this.setState({ navOpen: false });
+  }
+  
+  menuItem() {
+    let isUserLogin = UserModule.checkIsLogin();
+    let MenuElement = [];
+    for (let i in MenuResource) {
+      if (!MenuResource[i].login || (MenuResource[i].login&&isUserLogin))
+      MenuElement.push(
+      <ListItem key={i} onTouchTap={this.handlePageChange.bind( this, i)}>
+        <Href href={i} style={Styles.a}>{MenuResource[i].text}</Href>
+      </ListItem>);
+    };
+    return MenuElement;
+  }
+
+  render() {
+    return (
+      <Drawer style={Styles.navLeft} open={this.state.navOpen}>
+        <MenuDrawer 
+          title="title" 
+          background={'https://lh3.googleusercontent.com/yDResYVDafsxu1f_74idKOw4MFLi0BiBy51W2oRXVC2S9Uj4XptePeekB0HZMPZM4IrCc6tARQ=w368-h207-p-no'} 
+        />
+        <Subheader>
+          主選單
+        </Subheader>
+        <List>
+          {this.menu}
+        </List>
+      </Drawer>
+    );
+  }
+}
+
+export default class App extends Component {
+  constructor(props) {
+    super(props);
   }
   /**
    * 檢查 search location是否是 search
@@ -44,25 +109,6 @@ export default class App extends Component {
   //     this.state.isSearching = true;
   //   } 
   // }
-
-  handleNavToggle() { 
-    this.setState({navOpen: !this.state.navOpen}) 
-  }
-
-  handleNeedCloseNav() {
-    let widthPersent = 0.16;
-
-    if (window.innerWidth * widthPersent < 256)
-      this.setState({ navOpen: false });
-  }
-
-  handlePageChange(page, e) {
-    //this.props.history.push(page); //deprecated
-    if (e&&(e.nativeEvent.which==0||e.nativeEvent.which==1)){
-      this.setState({ navOpen: false });
-      browserHistory.push('/'+page);
-    };
-  }
 
   _handlePageSearch(e) {
     this.handlePageChange('search', e);
@@ -87,10 +133,24 @@ export default class App extends Component {
     }
   }
 
+  handlePageChange(page, e) {
+    //this.props.history.push(page); //deprecated
+    if (e&&(e.nativeEvent.which==0||e.nativeEvent.which==1)){
+      this.AppDrawer.closeNav();
+      browserHistory.push('/'+page);
+    };
+  }
+
+  handleNavToggle() {
+    this.AppDrawer.handleNavToggle();
+  }
+
+  handleNeedCloseNav() {
+    this.AppDrawer.handleNeedCloseNav();
+  }
+
   render() {
-    let MenuElement = [];
     let TitleElement;
-    let isUserLogin = UserModule.checkIsLogin();
     if (this.props.children.props.route.isSearching) {
       TitleElement = (
         <TextField 
@@ -113,29 +173,10 @@ export default class App extends Component {
       );
     };
 
-    for (let i in MenuResource) {
-      if (!MenuResource[i].login || (MenuResource[i].login&&isUserLogin))
-      MenuElement.push(
-      <ListItem key={i} onTouchTap={this.handlePageChange.bind( this, i)}>
-        <Href href={i} style={Styles.a}>{MenuResource[i].text}</Href>
-      </ListItem>);
-    };
-
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
       <div style={Styles.root}>
-        <Drawer style={Styles.navLeft} open={this.state.navOpen}>
-          <MenuDrawer 
-            title="title" 
-            background={'https://lh3.googleusercontent.com/yDResYVDafsxu1f_74idKOw4MFLi0BiBy51W2oRXVC2S9Uj4XptePeekB0HZMPZM4IrCc6tARQ=w368-h207-p-no'} 
-          />
-          <Subheader>
-            主選單
-          </Subheader>
-          <List>
-            {MenuElement}
-          </List>
-        </Drawer>
+        <AppDrawer ref={(ref) => this.AppDrawer = ref } />
         <div id="header" style={Styles.header}>
           <div style={Styles.appBarOuter}>
             {/* Grid */}
