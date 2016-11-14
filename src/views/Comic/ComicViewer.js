@@ -8,11 +8,37 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back';
+import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
 import Container from '../../components/Container';
 import Image from '../../components/Image';
 import styles from './ComicViewerStyle';
 import FetchModule from '../../module/FetchModule';
 import apiUrl from '../../res/apiUrl';
+
+class ChatElement extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <Toolbar style={styles.chatBar}>
+        <TextField 
+          hintText="來吐槽吧!"
+          hintStyle={{color: '#ccc', padding: '0 20px'}}
+          style={{margin: 0, padding: '0 20px', height: 50}}
+          textareaStyle={{}}
+          inputStyle={styles.chatInput}
+          fullWidth
+          />
+        <ToolbarGroup>
+          <FlatButton label="送出" primary={true} style={{height: 35, margin: '7px 24px'}} />
+        </ToolbarGroup>
+      </Toolbar>
+    );
+  }
+}
 
 class ComicViewer extends Component {
   constructor(props) {
@@ -91,6 +117,11 @@ class ComicViewer extends Component {
             <div style={styles.view}>
               <Container>
                 {ViewerImage}
+              </Container>
+            </div>
+            <div style={styles.chatElement}>
+              <Container style={styles.chatContainer}>
+                <ChatElement />
               </Container>
             </div>
           </div>

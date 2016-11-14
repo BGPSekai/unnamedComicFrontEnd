@@ -33,6 +33,29 @@ const styles = {
     background: '#fff',
     margin: '10px auto',
     boxShadow: '0 0 40px 0.5px #000'
+  },
+
+  chatElement: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    background: 'rgba(0, 0, 0, 0.1)'
+  },
+
+  chatContainer: {
+    minHeight: 30,
+    padding: 0
+  },
+
+  chatBar: {
+    background: 'none',
+    minHeight: 30,
+    height: 'auto'
+  },
+
+  chatInput: {
+    color: '#fff',
+    
   }
 };
 
