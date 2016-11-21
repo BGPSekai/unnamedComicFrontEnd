@@ -6,7 +6,7 @@ const apiUrl = {
     info: `${base}/user`,
     userInfo: `${base}/user/{userId}`,
     uploadUserAvatar: `${base}/user/avatar`,
-    avatar: `${base.replace('/api','')}/public/users/{userId}.{avatarType}`,
+    avatar: `${base.replace('/api','')}/users/{userId}.{avatarType}`,
     resetPassword: `${base}/auth/reset`,
     getFavoriteComic: `${base}/user/{userId}/favorites`
   },
