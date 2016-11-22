@@ -108,31 +108,33 @@ class ChapterEditer extends Component {
     });
   }
 
+  //將所有要上傳 Image 整理一遍, 批次上傳
   *_uploadImage() {
+    const perLoad = 5;  //每次上傳數量
     let pageData = this.state.pageData;
     let max = pageData.length;
+    let counter = 0;
 
     //改成每5比一次批次上傳
-    for (let i = 0; i < max;) {
+    while (counter < max) {
       let uploadImages = [];
       let indexes = [];
-      let counter = 0;
-      let ii = i;
-      
-      while (counter < 5 && ii < max ) {
-        if (pageData[ii] && !pageData[ii].defaultIndex && !pageData[ii].isDelete) {
-          uploadImages.push(pageData[ii].file);
-          indexes.push(i + counter + 1);
-          counter++;
-        }
-        ii++;
-      }
-      //console.log(i+' to '+ii+', max:'+max);
-      i = ii;
+      let i = 0;
 
+      while (i < perLoad && counter < max ) {
+        if (pageData[counter+i] && !pageData[counter+i].defaultIndex && !pageData[counter+i].isDelete) {
+          uploadImages.push(pageData[counter+i].file);
+          indexes.push(counter + i + 1);
+        }
+        i++;
+      }
+      counter += i;
+
+      console.log(counter-perLoad+' to '+(counter+i-perLoad)+', max:'+max);
+      //console.log(indexes, uploadImages);
       if (indexes.length)
       yield {
-        data: { index: indexes, images: uploadImages, newIndex: ii, maxIndex: max },
+        data: { index: indexes, images: uploadImages, newIndex: counter, maxIndex: max },
         fetch: 
         new FetchModule()
           .setUrl(apiUrl.getReplaceUrl(apiUrl.publish.batchChapterPage,
@@ -152,12 +154,11 @@ class ChapterEditer extends Component {
 
   _batchUploadAllImage(images = {}) {
     let imageData = images.next();
-    console.log(imageData);
+    //console.log(imageData);
     if (!imageData.done) {
-      console.log(imageData.value);
+      //console.log(imageData.value);
       if (imageData.value.fetch.then) {
         imageData.value.fetch.then(() => {
-          console.log(imageData.value.data.newIndex);
           
           this.setState({
             formState: 2, 
@@ -183,6 +184,7 @@ class ChapterEditer extends Component {
     };
   }
 
+  //修正已存在圖片的順序
   _uploadPageChange() {
     let pageData = this.state.pageData;
     let max = pageData.length;
@@ -198,8 +200,8 @@ class ChapterEditer extends Component {
         counter++;
       };
     }
-
-    console.log({ new_index: newIndex });
+    
+    //console.log({ new_index: newIndex });
 
     return  {
       fetch: newIndex.length? 
@@ -226,12 +228,12 @@ class ChapterEditer extends Component {
       totalUploadCount: this.state.pageData.filter((val) => { return !val.defaultIndex;}).length
     });
 
-    if (uploadChange.needFetch)
+    if (uploadChange.needFetch) {
       uploadChange.fetch.then((x) => {
         this.setState({formState: 2});
         this._batchUploadAllImage(images);
       });
-    else {
+    } else {
       this.setState({formState: 2});
       this._batchUploadAllImage(images);
     };
