@@ -169,9 +169,7 @@ export default class ChapterUploader extends Component {
       <Container>
         <Card>
           <CardTitle title="新增漫畫章節" subtitle="上傳漫畫圖片" />
-          {
-            this.state.formState === 0 &&
-            <div>
+            <div style={{display: this.state.formState === 0?'block':'none'}}>
               <CardText>
                 <TextField
                   hintText="輸入您的章節名稱"
@@ -206,7 +204,6 @@ export default class ChapterUploader extends Component {
                   />
               </CardActions>
             </div>
-          }
           {
             this.state.formState !== 0 &&
             <Stepper activeStep={this.state.formState - 1}>
