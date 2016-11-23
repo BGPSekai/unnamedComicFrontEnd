@@ -75,7 +75,7 @@ class UserInfo extends Component {
               {
                 User.name &&
                 (
-                  (this.state.avatarType == '') ? 
+                  (this.state.avatarType == null) ? 
                     User.name.substring( 0, 1) :
                     <img src={apiUrl.getReplaceUrl(apiUrl.user.avatar, {
                         userId: User.id,
