@@ -66,7 +66,7 @@ class ComicInfo extends Component {
           chapterData={this.state.chapters}
           linkUrl={apiUrl.front.viewComic}
           />
-        <ComicComment />
+        <ComicComment comicData={this.state.comic} />
       </div>
     );
   }
