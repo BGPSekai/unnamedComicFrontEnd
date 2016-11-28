@@ -7,6 +7,7 @@ import ChapterPage from './ChapterPage';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import Loading from '../../components/Loading';
+import ComicComment from './ComicComment';
 
 class ComicInfo extends Component {
   constructor(props) {
@@ -54,7 +55,7 @@ class ComicInfo extends Component {
     };
 
     return (
-      <div>
+      <div style={{background: '#FF82AC'}}>
         {
           this.props.children && React.cloneElement(this.props.children, {
             comicInfo: this.state
@@ -65,6 +66,7 @@ class ComicInfo extends Component {
           chapterData={this.state.chapters}
           linkUrl={apiUrl.front.viewComic}
           />
+        <ComicComment />
       </div>
     );
   }
