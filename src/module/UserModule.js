@@ -135,7 +135,8 @@ class UserModule {
   updateToken() {
     let data = {
       email: this.getUserInfo('email'),
-      password: this.getUserInfo('password')
+      password: this.getUserInfo('password'),
+      from: this.getUserInfo('from')
     };
 
     return new Promise( (resolve,reject) => {
