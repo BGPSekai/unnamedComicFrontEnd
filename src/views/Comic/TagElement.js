@@ -61,7 +61,7 @@ class TagElement extends Component {
     this.state.tags &&
       this.state.tags.map((val, i) => {
         tagElement.push(
-          <div key={i}>
+          <div key={i} style={{display: 'inline-block'}}>
             <Chip
               backgroundColor={'#F06292'}
               labelStyle={{ color: '#FCE4EC' }}
@@ -91,9 +91,9 @@ class TagElement extends Component {
     );
 
     return (
-      <div>
+      <span>
         {tagElement}
-      </div>
+      </span>
     );
   }
 }

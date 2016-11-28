@@ -8,7 +8,8 @@ const styles = {
   },
 
   tileElement: {
-    display: 'table'
+    display: 'table',
+    width: '100%'
   },
 
   gridList: {
