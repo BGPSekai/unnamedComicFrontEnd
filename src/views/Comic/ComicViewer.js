@@ -10,6 +10,7 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import {Motion, spring, StaggeredMotion} from 'react-motion';
 import Container from '../../components/Container';
 import Image from '../../components/Image';
 import styles from './ComicViewerStyle';
@@ -27,13 +28,12 @@ class ChatElement extends Component {
         <TextField 
           hintText="來吐槽吧!"
           hintStyle={{color: '#ccc', padding: '0 20px'}}
-          style={{margin: 0, padding: '0 20px', height: 50}}
-          textareaStyle={{}}
+          style={{margin: 0, padding: '0 20px', height: 40}}
           inputStyle={styles.chatInput}
           fullWidth
           />
         <ToolbarGroup>
-          <FlatButton label="送出" primary={true} style={{height: 35, margin: '7px 24px'}} />
+          <FlatButton label="送出" primary={true} style={{height: 35, margin: '1px 24px'}} />
         </ToolbarGroup>
       </Toolbar>
     );
@@ -50,6 +50,11 @@ class ComicViewer extends Component {
     
     this._handleChapterChange = this._handleChapterChange.bind(this);
     this._handleToChapterPage = this._handleToChapterPage.bind(this);
+  }
+
+  //切換工具列顯示
+  _toggleControll() {
+
   }
 
   _handleChapterChange(event, index, value) {
@@ -96,25 +101,28 @@ class ComicViewer extends Component {
         ChapterSelecter.push(<MenuItem key={i} value={i + 1} primaryText={`第 ${i + 1} 章 - ${val.name}`} />);
       });
     }
-   
+    
     return (
       <div style={styles.root}>
         {
           this.props.comicInfo &&
           <div>
-            <Toolbar style={styles.viewerBar}>
-              <Container style={{ minHeight: 'auto', padding: 0 }}>
-                <ToolbarGroup firstChild={true}>
-                  <IconButton onTouchTap={this._handleToChapterPage} style={styles.arrowBackIcon}>
-                    <ArrowBackIcon />
-                  </IconButton>
-                  <DropDownMenu value={this.state.chapterId} onChange={this._handleChapterChange}>
-                    {ChapterSelecter}
-                  </DropDownMenu>
-                </ToolbarGroup>
-              </Container>
-            </Toolbar>
-            <div style={styles.view}>
+            <Motion defaultStyle={styles.viewerBar} style={{x: spring(10)}}>
+              {(value) => <div>{value.x}</div>}{/* todo 點擊動畫效果 */}
+            </Motion>
+              <Toolbar style={styles.viewerBar}>
+                <Container style={{ minHeight: 'auto', padding: 0 }}>
+                  <ToolbarGroup firstChild={true}>
+                    <IconButton onTouchTap={this._handleToChapterPage} style={styles.arrowBackIcon}>
+                      <ArrowBackIcon />
+                    </IconButton>
+                    <DropDownMenu value={this.state.chapterId} onChange={this._handleChapterChange}>
+                      {ChapterSelecter}
+                    </DropDownMenu>
+                  </ToolbarGroup>
+                </Container>
+              </Toolbar>
+            <div style={styles.view} onTouchTap={this._toggleControll()}>
               <Container>
                 {ViewerImage}
               </Container>

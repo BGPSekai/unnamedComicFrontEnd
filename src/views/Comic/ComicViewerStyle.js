@@ -19,7 +19,7 @@ const styles = {
     width: '100%',
     left: 0,
     top: 56,
-    height: 'calc(100% - 56px)',
+    height: 'calc(100% - 96px)',
     overflow: 'auto'
   },
 
@@ -43,13 +43,13 @@ const styles = {
   },
 
   chatContainer: {
-    minHeight: 30,
+    minHeight: 15,
     padding: 0
   },
 
   chatBar: {
     background: 'none',
-    minHeight: 30,
+    minHeight: 15,
     height: 'auto'
   },
 
