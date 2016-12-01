@@ -13,13 +13,17 @@ import TextField from 'material-ui/TextField';
 import {Motion, spring, StaggeredMotion} from 'react-motion';
 import Container from '../../components/Container';
 import Image from '../../components/Image';
-import styles from './ComicViewerStyle';
+import styles, { ComicViewerAni } from './ComicViewerStyle';
 import FetchModule from '../../module/FetchModule';
 import apiUrl from '../../res/apiUrl';
 
 class ChatElement extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      showToolBar: true
+    };
+
   }
 
   render() {
@@ -48,13 +52,14 @@ class ComicViewer extends Component {
       chapterId: parseInt(this.props.params.chapterId)
     };
     
+    this._toggleControll = this._toggleControll.bind(this);
     this._handleChapterChange = this._handleChapterChange.bind(this);
     this._handleToChapterPage = this._handleToChapterPage.bind(this);
   }
 
   //切換工具列顯示
   _toggleControll() {
-
+    this.setState({showToolBar: !this.state.showToolBar});
   }
 
   _handleChapterChange(event, index, value) {
@@ -83,7 +88,9 @@ class ComicViewer extends Component {
   render() {
     let ViewerImage = [];
     let ChapterSelecter = [];
-    
+    let toolbarStyle = this.state.showToolBar?ComicViewerAni.viewerBar:ComicViewerAni.viewerBarHide;
+    let chatElementStyle = this.state.showToolBar?ComicViewerAni.chatElement:ComicViewerAni.chatElementHide;
+   
     if (this.props.comicInfo.chapters.length) {
       let chapterInfo = this.props.comicInfo.chapters[this.state.chapterId - 1];
       if (chapterInfo)
@@ -107,31 +114,43 @@ class ComicViewer extends Component {
         {
           this.props.comicInfo &&
           <div>
-            <Motion defaultStyle={styles.viewerBar} style={{x: spring(10)}}>
-              {(value) => <div>{value.x}</div>}{/* todo 點擊動畫效果 */}
+            <Motion defaultStyle={{top: styles.viewerBar.top}} style={toolbarStyle}>
+              {(style) =>
+                <div>
+                  <Toolbar style={Object.assign(styles.viewerBar, style)}>
+                    <Container style={{ minHeight: 'auto', padding: 0 }}>
+                      <ToolbarGroup firstChild={true}>
+                        <IconButton onTouchTap={this._handleToChapterPage} style={styles.arrowBackIcon}>
+                          <ArrowBackIcon />
+                        </IconButton>
+                        <DropDownMenu value={this.state.chapterId} onChange={this._handleChapterChange}>
+                          {ChapterSelecter}
+                        </DropDownMenu>
+                      </ToolbarGroup>
+                    </Container>
+                  </Toolbar>
+                </div>
+              }
             </Motion>
-              <Toolbar style={styles.viewerBar}>
-                <Container style={{ minHeight: 'auto', padding: 0 }}>
-                  <ToolbarGroup firstChild={true}>
-                    <IconButton onTouchTap={this._handleToChapterPage} style={styles.arrowBackIcon}>
-                      <ArrowBackIcon />
-                    </IconButton>
-                    <DropDownMenu value={this.state.chapterId} onChange={this._handleChapterChange}>
-                      {ChapterSelecter}
-                    </DropDownMenu>
-                  </ToolbarGroup>
-                </Container>
-              </Toolbar>
-            <div style={styles.view} onTouchTap={this._toggleControll()}>
+            <div 
+              style={
+                Object.assign(styles.view, this.state.showToolBar?ComicViewerAni.view:ComicViewerAni.fullView)
+              } 
+              onTouchTap={this._toggleControll}
+            >
               <Container>
                 {ViewerImage}
               </Container>
             </div>
-            <div style={styles.chatElement}>
-              <Container style={styles.chatContainer}>
-                <ChatElement />
-              </Container>
-            </div>
+            <Motion defaultStyle={{bottom: 0}} style={chatElementStyle}>
+             {(style) =>
+                <div style={Object.assign(styles.chatElement, style)}>
+                  <Container style={styles.chatContainer}>
+                    <ChatElement />
+                  </Container>
+                </div>
+             }
+            </Motion>
           </div>
         }
       </div>

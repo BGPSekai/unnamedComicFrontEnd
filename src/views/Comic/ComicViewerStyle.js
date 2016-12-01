@@ -1,3 +1,4 @@
+import { spring } from 'react-motion';
 /* inline style file */
 const styles = {
   root: {
@@ -11,7 +12,9 @@ const styles = {
   },
 
   viewerBar: {
-    height: 56
+    position: 'relative',
+    height: 56,
+    top: 0
   },
 
   view: {
@@ -54,9 +57,38 @@ const styles = {
   },
 
   chatInput: {
-    color: '#fff',
-    
+    color: '#fff'
   }
 };
 
 export default styles;
+
+let ComicViewerAni = {
+  viewerBar: {
+    top: spring(0)
+  },
+
+  viewerBarHide: {
+    top: spring(-56)
+  },
+
+  chatElement: {
+    bottom: spring(0)
+  },
+
+  chatElementHide: {
+    bottom: spring(-40)
+  },
+
+  fullView: {
+    top: 0, 
+    height: 'calc(100%)' 
+  },
+
+  view: {
+    top: 56, 
+    height: 'calc(100% - 96px)'
+  }
+};
+
+export { ComicViewerAni };
