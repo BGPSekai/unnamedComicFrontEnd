@@ -14,7 +14,8 @@ const styles = {
   viewerBar: {
     position: 'relative',
     height: 56,
-    top: 0
+    top: 0,
+    zIndex: 10
   },
 
   view: {
@@ -57,7 +58,8 @@ const styles = {
   },
 
   chatInput: {
-    color: '#fff'
+    color: '#fff',
+    padding: '0px 10px'
   }
 };
 

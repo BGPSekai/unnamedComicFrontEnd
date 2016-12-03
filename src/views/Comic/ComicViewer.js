@@ -9,13 +9,15 @@ import MenuItem from 'material-ui/MenuItem';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back';
 import FlatButton from 'material-ui/FlatButton';
-import TextField from 'material-ui/TextField';
+import TextInput from '../../components/TextInput';
 import {Motion, spring, StaggeredMotion} from 'react-motion';
 import Container from '../../components/Container';
 import Image from '../../components/Image';
 import styles, { ComicViewerAni } from './ComicViewerStyle';
 import FetchModule from '../../module/FetchModule';
 import apiUrl from '../../res/apiUrl';
+import ChatViewer from './ChatViewer';
+import HtmlControl from '../../module/HtmlControl';
 
 class ChatElement extends Component {
   constructor(props) {
@@ -26,18 +28,45 @@ class ChatElement extends Component {
 
   }
 
+  sendComment() {
+    console.log(this.props);
+    if (this.refs.commentText.getValue()) {
+      new FetchModule()
+        .setUrl(apiUrl.comic.comment)
+        .setData({
+          comic_id: this.props.comicId,
+          chapter_id: this.props.chapterId,
+          comment: this.refs.commentText.getValue()
+        })
+        .auth()
+        .setMethod('POST')
+        .setType('json')
+        .send()
+        .then((data) => {
+          this.props.chatViewer.loadCommentData();
+          this.refs.commentText.clear();
+        });
+    };
+  }
+
   render() {
     return (
       <Toolbar style={styles.chatBar}>
-        <TextField 
+        <TextInput
+          ref="commentText" 
           hintText="來吐槽吧!"
-          hintStyle={{color: '#ccc', padding: '0 20px'}}
+          hintStyle={{color: '#ccc', padding: '0 10px'}}
           style={{margin: 0, padding: '0 20px', height: 40}}
           inputStyle={styles.chatInput}
           fullWidth
           />
         <ToolbarGroup>
-          <FlatButton label="送出" primary={true} style={{height: 35, margin: '1px 24px'}} />
+          <FlatButton 
+            label="送出" 
+            primary={true} 
+            style={{height: 35, margin: '1px 24px'}} 
+            onTouchTap={this.sendComment.bind(this)} 
+            />
         </ToolbarGroup>
       </Toolbar>
     );
@@ -52,6 +81,8 @@ class ComicViewer extends Component {
       chapterId: parseInt(this.props.params.chapterId)
     };
     
+    HtmlControl.bodyFocusMode(true);
+    
     this._toggleControll = this._toggleControll.bind(this);
     this._handleChapterChange = this._handleChapterChange.bind(this);
     this._handleToChapterPage = this._handleToChapterPage.bind(this);
@@ -60,6 +91,11 @@ class ComicViewer extends Component {
   //切換工具列顯示
   _toggleControll() {
     this.setState({showToolBar: !this.state.showToolBar});
+  }
+
+  //顯示 chatviewer
+  _openChatViewer() {
+    this.refs.ChatViewer.forceOpen();
   }
 
   _handleChapterChange(event, index, value) {
@@ -72,6 +108,7 @@ class ComicViewer extends Component {
   }
 
   _handleToChapterPage() {
+    HtmlControl.bodyFocusMode(false);
     browserHistory.push(
         apiUrl.getReplaceUrl(apiUrl.front.comicInfo,
           { comicId: this.props.params.comicId}
@@ -114,6 +151,7 @@ class ComicViewer extends Component {
         {
           this.props.comicInfo &&
           <div>
+            <ChatViewer ref="ChatViewer" chapterInfo={this.props.comicInfo.chapters[this.state.chapterId - 1]} />
             <Motion defaultStyle={{top: styles.viewerBar.top}} style={toolbarStyle}>
               {(style) =>
                 <div>
@@ -126,6 +164,8 @@ class ComicViewer extends Component {
                         <DropDownMenu value={this.state.chapterId} onChange={this._handleChapterChange}>
                           {ChapterSelecter}
                         </DropDownMenu>
+                        <ToolbarSeparator />
+                        <FlatButton label="查看留言" onTouchTap={this._openChatViewer.bind(this)} />
                       </ToolbarGroup>
                     </Container>
                   </Toolbar>
@@ -146,7 +186,11 @@ class ComicViewer extends Component {
              {(style) =>
                 <div style={Object.assign(styles.chatElement, style)}>
                   <Container style={styles.chatContainer}>
-                    <ChatElement />
+                    <ChatElement 
+                      chatViewer={this.refs.ChatViewer}
+                      comicId={this.props.params.comicId} 
+                      chapterId={this.props.params.chapterId} 
+                      />
                   </Container>
                 </div>
              }
