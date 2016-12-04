@@ -58,6 +58,18 @@ const styles = {
   avatarImage: {
     width: '100%',
     height: '100%'
+  },
+
+  comeFromChip: {
+    display: 'inline-block', 
+    margin: '0px 5px',
+    backgroundColor: '#2f78ed'
+  },
+
+  comeFromChipLabel: {
+    fontSize: 10, 
+    color: '#fff',
+    padding: '0px 10px'
   }
 };
 

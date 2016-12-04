@@ -5,6 +5,7 @@ import Dialog from 'material-ui/Dialog';
 import Avatar from 'material-ui/Avatar';
 import Paper from 'material-ui/Paper';
 import Slider from 'material-ui/Slider';
+import Chip from 'material-ui/Chip';
 import Href from '../../components/Href';
 import AvatarEditor from 'react-avatar-editor';
 import Container from '../../components/Container';
@@ -133,6 +134,16 @@ class UserProfile extends Component {
               {UserModule.getUserInfo('userName')}
               <span style={styles.userEmail}>
                 {UserModule.getUserInfo('email')}
+                {
+                  UserModule.getUserInfo('from') !== '' &&
+                  <Chip 
+                    style={styles.comeFromChip}
+                    labelStyle={styles.comeFromChipLabel}
+                    backgroundColor={styles.comeFromChip.backgroundColor}
+                  >
+                    {UserModule.getUserInfo('from')}
+                  </Chip>
+                }
               </span>
               {
                 UserModule.isFromSocial() &&
