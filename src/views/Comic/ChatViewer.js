@@ -60,7 +60,7 @@ class ChatViewer extends Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if (!this.state.id) {
+    if (!this.state.id||this.state.id != nextProps.chapterInfo.id) {
       this.state.id = nextProps.chapterInfo.id;
       this.loadCommentData();
     } 

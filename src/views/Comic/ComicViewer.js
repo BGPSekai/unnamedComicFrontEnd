@@ -29,13 +29,11 @@ class ChatElement extends Component {
   }
 
   sendComment() {
-    console.log(this.props);
     if (this.refs.commentText.getValue()) {
       new FetchModule()
         .setUrl(apiUrl.comic.comment)
         .setData({
-          comic_id: this.props.comicId,
-          chapter_id: this.props.chapterId,
+          chapter_id: this.props.chapterInfo.id,
           comment: this.refs.commentText.getValue()
         })
         .auth()
@@ -110,9 +108,9 @@ class ComicViewer extends Component {
   _handleToChapterPage() {
     HtmlControl.bodyFocusMode(false);
     browserHistory.push(
-        apiUrl.getReplaceUrl(apiUrl.front.comicInfo,
-          { comicId: this.props.params.comicId}
-        )
+      apiUrl.getReplaceUrl(apiUrl.front.comicInfo,
+        { comicId: this.props.params.comicId}
+      )
     );
   }
 
@@ -188,8 +186,7 @@ class ComicViewer extends Component {
                   <Container style={styles.chatContainer}>
                     <ChatElement 
                       chatViewer={this.refs.ChatViewer}
-                      comicId={this.props.params.comicId} 
-                      chapterId={this.props.params.chapterId} 
+                      chapterInfo={this.props.comicInfo.chapters[this.state.chapterId - 1]} 
                       />
                   </Container>
                 </div>
