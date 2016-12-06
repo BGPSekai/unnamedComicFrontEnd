@@ -106,13 +106,14 @@ export default class ChapterUploader extends Component {
         if (this.state.currentUploadCount === this.state.totalUploadCount) {
           this.setState({
             formState: 3
+          },() => {
+            //換頁
+            this.handlePageChange(
+              apiUrl.getReplaceUrl( 
+                apiUrl.front.publishChapterSelecter, 
+                {comicId: this.props.routeParams.comicId}
+            ));
           });
-          //換頁
-          this.handlePageChange(
-            apiUrl.getReplaceUrl( 
-              apiUrl.front.publishChapterSelecter, 
-              {comicId: this.props.routeParams.comicId}
-          ));
         };
         
         if (ImageData.value.data.index.length > 0)
@@ -121,13 +122,14 @@ export default class ChapterUploader extends Component {
     } else {
       this.setState({
         formState: 3
+      },() => {
+        //換頁
+        this.handlePageChange(
+          apiUrl.getReplaceUrl( 
+            apiUrl.front.publishChapterSelecter, 
+            {comicId: this.props.routeParams.comicId}
+        ));
       });
-      //換頁
-      this.handlePageChange(
-        apiUrl.getReplaceUrl( 
-          apiUrl.front.publishChapterSelecter, 
-          {comicId: this.props.routeParams.comicId}
-      ));
     };
   }
 

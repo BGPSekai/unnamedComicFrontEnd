@@ -41,7 +41,6 @@ class ComicComment extends Component {
       .setType('json')
       .send()
       .then((data) => {
-        console.log(data);
         this.setState({
           comment: data.comments,
           pages: data.pages
