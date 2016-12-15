@@ -162,6 +162,7 @@ class ChapterPage extends Component {
               }
             </div>
           </div>
+<<<<<<< HEAD
         </Container>
         <div style={ChapterPageStyle.secendSection}>
           <Container style={ChapterPageStyle.secendSectionContainer}>
@@ -169,6 +170,8 @@ class ChapterPage extends Component {
           </Container>
         </div>
         <Container style={ChapterPageStyle.chapterSelectContainer}>
+=======
+>>>>>>> develop
           {
             this.props.backEnd &&
             <FloatingActionButton
@@ -182,6 +185,16 @@ class ChapterPage extends Component {
               <ContentAdd />
             </FloatingActionButton>
           }
+<<<<<<< HEAD
+=======
+        </Container>
+        <div style={ChapterPageStyle.secendSection}>
+          <Container style={ChapterPageStyle.secendSectionContainer}>
+            <FlatButton label="檢舉" backgroundColor={ChapterPageStyle.secendSectionButton.background} />
+          </Container>
+        </div>
+        <Container style={ChapterPageStyle.chapterSelectContainer}>
+>>>>>>> develop
           {
             UserModule.checkIsLogin() &&
             <ComicFavorite style={ChapterPageStyle.addChapter} comicId={this.state.comicData.id} />
