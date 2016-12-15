@@ -18,6 +18,7 @@ export default class ComicUpload extends Component {
     this.state = {
       previewImg: '',
       types: [],
+      error: [],
       typeValue: 1
     };
 
@@ -81,6 +82,10 @@ export default class ComicUpload extends Component {
               comicId: data.comic.id
             }
           ));
+        } else {
+          this.setState({
+            'error':  data.message
+          });
         };
       });
   }
@@ -144,6 +149,11 @@ export default class ComicUpload extends Component {
               secondary={true} 
               onTouchTap={this._onSubmit}
             />
+            {
+              this.state.error.map(( val, i) => {
+                return (<div key={i} style={{color: 'red'}}>{val}</div>);
+              })
+            }
           </CardActions>
         </Card>
       </Container>

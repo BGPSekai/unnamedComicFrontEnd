@@ -49,6 +49,27 @@ const ChapterPageStyle = {
     wordBreak: 'break-all'
   },
 
+  secendSectionContainer: {
+    minHeight: 0,
+    paddingTop: 0,
+    paddingBottom: 0
+  },
+
+  secendSectionButton: {
+    
+  },
+
+  chapterSelectContainer: {
+    minHeight: 0
+  },
+
+  secendSection: {
+    background: '#ffc4dc',
+    padding: '5px',
+    minHeight: 10,
+    boxShadow: '0 0px 0px 0 rgba(0, 0, 0, 0.05) , 0 2px 20px 0 rgba(0, 0, 0, 0.1) '
+  },
+
   tagWrapper: {
     display: 'flex',
     flexWrap: 'wrap'

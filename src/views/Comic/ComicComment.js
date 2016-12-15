@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import { browserHistory } from 'react-router';
 import Avatar from 'material-ui/Avatar';
 import Paper from 'material-ui/Paper';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
@@ -23,6 +24,10 @@ class ComicComment extends Component {
     };
 
     this._submitComment = this._submitComment.bind(this);
+  }
+
+  _gotoUserPage(id) {
+    browserHistory.push(apiUrl.getReplaceUrl(apiUrl.front.getUserInfo, {userId: id}));
   }
 
   componentWillReceiveProps(nextProps) {
@@ -74,7 +79,11 @@ class ComicComment extends Component {
     return this.state.comment.map((value, index) => {
       return (
         <div key={index}>
-          <IconButton tooltip={value.comment_by.name} style={{width: 40,height: 40,boxSizing: 'content-box'}}>
+          <IconButton 
+            tooltip={value.comment_by.name} 
+            style={{width: 40,height: 40,boxSizing: 'content-box'}}
+            onTouchTap={this._gotoUserPage.bind(this, value.comment_by.id)}
+          >
           {
             (value.comment_by.avatar == null) ? 
               <Avatar>{value.comment_by.name.substring(0, 1)}</Avatar> :
