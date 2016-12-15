@@ -151,6 +151,7 @@ class ChapterPage extends Component {
                 }
               </p>
               <p>{this.props.comicData.summary}</p>
+              <p>收藏數：{this.props.comicData.favorites}</p>
               <div style={ChapterPageStyle.tagWrapper}>
                 <span style={ChapterPageStyle.tagTab}>標籤：</span>
                 <TagElement tags={this.state.comicData.tags} comicId={this.props.comicData.id} />
@@ -161,10 +162,13 @@ class ChapterPage extends Component {
               }
             </div>
           </div>
-          {
-            UserModule.checkIsLogin() &&
-            <ComicFavorite style={ChapterPageStyle.addChapter} comicId={this.state.comicData.id} />
-          }
+        </Container>
+        <div style={ChapterPageStyle.secendSection}>
+          <Container style={ChapterPageStyle.secendSectionContainer}>
+            <FlatButton label="檢舉" backgroundColor={ChapterPageStyle.secendSectionButton.background} />
+          </Container>
+        </div>
+        <Container style={ChapterPageStyle.chapterSelectContainer}>
           {
             this.props.backEnd &&
             <FloatingActionButton
@@ -177,6 +181,10 @@ class ChapterPage extends Component {
               >
               <ContentAdd />
             </FloatingActionButton>
+          }
+          {
+            UserModule.checkIsLogin() &&
+            <ComicFavorite style={ChapterPageStyle.addChapter} comicId={this.state.comicData.id} />
           }
           <Paper style={ChapterPageStyle.mainPaper}>
             {this.props.chapterData.map((value, i) => {

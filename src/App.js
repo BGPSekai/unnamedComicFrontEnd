@@ -13,6 +13,7 @@ import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import SearchIcon from 'material-ui/svg-icons/action/search';
+import SettingsIcon from 'material-ui/svg-icons/action/settings';
 import FileUploadIcon from 'material-ui/svg-icons/file/file-upload';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
@@ -233,6 +234,7 @@ export default class App extends Component {
                   onChange={(e, value) => this.handlePageChange.call(this, value)}
                 >
                   <Href href="/profile" style={Styles.a}><MenuItem primaryText="關於我" value="profile" leftIcon={<PersonIcon />} /></Href>
+                  <Href href="/setting" style={Styles.a}><MenuItem primaryText="設定" value="profile" leftIcon={<SettingsIcon />} /></Href>
                   <Href href="/logout" style={Styles.a}><MenuItem primaryText="登出"  value="logout" leftIcon={<PowerSettingsNewIcon />}/></Href>
                 </IconMenu>
               </div>
