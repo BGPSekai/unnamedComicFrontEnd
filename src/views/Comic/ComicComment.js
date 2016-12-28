@@ -10,7 +10,9 @@ import FlatButton from 'material-ui/FlatButton';
 import Container from '../../components/Container';
 import ComicCommentStyle from './ComicCommentStyle';
 import TextInput from '../../components/TextInput';
+import {ChatElement} from './ChatViewer';
 import FetchModule from '../../module/FetchModule';
+import UserModule from '../../module/UserModule';
 import apiUrl from '../../res/apiUrl';
 
 class ComicComment extends Component {
@@ -19,7 +21,7 @@ class ComicComment extends Component {
     this.ele = {};
     this.state = {
       comment: [],
-      pages: 0,
+      pages: 1,
       error: []
     };
 
@@ -40,7 +42,7 @@ class ComicComment extends Component {
       .setUrl(apiUrl.comic.listComicComments)
       .replaceVariable({
         id: this.props.comicData.id,
-        page: 0
+        page: 1
       })
       .setMethod('GET')
       .setType('json')
@@ -78,24 +80,7 @@ class ComicComment extends Component {
   _renderComments() {
     return this.state.comment.map((value, index) => {
       return (
-        <div key={index}>
-          <IconButton 
-            tooltip={value.comment_by.name} 
-            style={{width: 40,height: 40,boxSizing: 'content-box'}}
-            onTouchTap={this._gotoUserPage.bind(this, value.comment_by.id)}
-          >
-          {
-            (value.comment_by.avatar == null) ? 
-              <Avatar>{value.comment_by.name.substring(0, 1)}</Avatar> :
-              <Avatar src={apiUrl.getReplaceUrl(apiUrl.user.avatar, {
-                  userId: value.comment_by.id,
-                  avatarType: value.comment_by.avatar
-                })}
-              />
-          }
-          </IconButton>
-          <span style={ComicCommentStyle.userComment}> {value.comment}</span>
-        </div>
+        <ChatElement commentData={value} key={index} />
       );
     });
   }

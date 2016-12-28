@@ -3,19 +3,55 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import Avatar from 'material-ui/Avatar';
+import TextField from 'material-ui/TextField';
+import Href from '../../components/Href';
+import TextInput from '../../components/TextInput';
 import ComicCommentStyle from './ComicCommentStyle';
 import FetchModule from '../../module/FetchModule';
+import UserModule from '../../module/UserModule';
 import apiUrl from '../../res/apiUrl';
 
 class ChatElement extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      mode: 0
+    };
+
+    this.editMode = this.editMode.bind(this);
+    this.commentData = Object.assign({}, props.commentData);
+  }
+
+  editMode() {
+    if (this.state.mode) {
+      this.changeComment().then((data) => {
+        this.commentData = data.comment;
+        this.setState({mode: 0});
+      });
+    } else {
+      this.setState({mode: 1});
+    };
+  }
+
+  changeComment() {
+    let value = this.commentData;
+    return new FetchModule()
+      .setUrl(apiUrl.comment.update)
+      .setMethod('POST')
+      .auth()
+      .setType('json')
+      .setData({
+        id: value.id,
+        comment: this.refs['commentText'].getValue()
+      })
+      .send();
   }
 
   render() {
-    let value = this.props.commentData;
+    let value = this.commentData;
     return (
         <div>
+          <Href href={apiUrl.getReplaceUrl(apiUrl.front.getUserInfo, {userId: value.comment_by.id})}>
           <IconButton tooltip={value.comment_by.name} style={{width: 40,height: 40,boxSizing: 'content-box'}}>
           {
             (value.comment_by.avatar == null) ? 
@@ -27,7 +63,38 @@ class ChatElement extends Component {
               />
           }
           </IconButton>
-          <span style={ComicCommentStyle.userComment}> {value.comment}</span>
+          </Href>
+          <div style={ComicCommentStyle.commentArea}>
+            {
+              this.state.mode == 0 &&
+              <div>
+                <span style={ComicCommentStyle.userComment}> {value.comment}</span>
+                {
+                  UserModule.getUserInfo('userId') == value.comment_by.id &&
+                  <span style={ComicCommentStyle.editComment} onTouchTap={this.editMode}>
+                  修改
+                  </span>
+                }
+              </div>
+            }
+            {
+              this.state.mode == 1 &&
+              <div>
+                <span style={ComicCommentStyle.userComment}> 
+                   <TextInput
+                      ref="commentText"
+                      hintText="修改評論"
+                      default={value.comment}
+                      fullWidth
+                      autoFocus
+                    />
+                </span>
+                <span style={ComicCommentStyle.editComment} onTouchTap={this.editMode}>
+                修改
+                </span>
+              </div>
+            }
+          </div>
         </div>
       );
   }
@@ -102,4 +169,4 @@ class ChatViewer extends Component {
   }
 }
 
-export default ChatViewer;
+export {ChatViewer as default, ChatElement};

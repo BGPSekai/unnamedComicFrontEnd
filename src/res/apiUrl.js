@@ -23,6 +23,10 @@ const apiUrl = {
     listChapterComments: `${base}/comment/chapter/{id}/{page}`
   },
 
+  comment: {
+    update: `${base}/comment`
+  },
+
   type: `${base}/type`,
 
   tag: `${base}/tag/{tagName}/{comicId}`,

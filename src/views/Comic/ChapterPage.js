@@ -165,6 +165,7 @@ class ChapterPage extends Component {
         </Container>
         <div style={ChapterPageStyle.secendSection}>
           <Container style={ChapterPageStyle.secendSectionContainer}>
+            <FlatButton label="上傳" backgroundColor={ChapterPageStyle.secendSectionButton.background} />
             <FlatButton label="檢舉" backgroundColor={ChapterPageStyle.secendSectionButton.background} />
           </Container>
         </div>

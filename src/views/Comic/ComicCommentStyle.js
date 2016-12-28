@@ -39,7 +39,27 @@ const ComicCommentStyle = {
   },
 
   userComment: {
-    padding: '2px 5px'
+    padding: '2px 5px',
+    display: 'inline-block',
+    width: 'calc(100% - 50px)'
+  },
+
+  editComment: {
+    display: 'inline-block',
+    position: 'absolute',
+    bottom: 0,
+    top: 0,
+    height: 18,
+    margin: 'auto',
+    float: 'right',
+    fontSize: 15,
+    cursor: 'pointer'
+  },
+
+  commentArea: {
+    width: 'calc(100% - 64px)',
+    display: 'inline-block',
+    position: 'relative'
   }
 };
 

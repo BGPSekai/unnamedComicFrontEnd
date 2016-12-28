@@ -135,7 +135,7 @@ class UserProfile extends Component {
               <span style={styles.userEmail}>
                 {UserModule.getUserInfo('email')}
                 {
-                  UserModule.getUserInfo('from') !== '' &&
+                  UserModule.getUserInfo('from') &&
                   <Chip 
                     style={styles.comeFromChip}
                     labelStyle={styles.comeFromChipLabel}
