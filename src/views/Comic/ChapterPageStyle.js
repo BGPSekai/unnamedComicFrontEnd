@@ -8,28 +8,21 @@ const ChapterPageStyle = {
     overflow: 'auto'
   },
 
-  infomation: {
-    minHeight: 300
-  },
-
-  imageBlock: {
-    width: '37%',
-    minWidth: 150,
-    height: 283,
-    display: 'inline-block'
-  },
-
   img: {
     maxWidth: '100%',
-    maxHeight: '100%'
+    maxHeight: 300,
+    width: 'auto',
+    height: 'auto'
   },
 
-  nameInfo: {
-    display: 'inline-block',
-    width: '60%',
-    verticalAlign: 'top',
-    color: '#FFFFFF',
-    padding: '10px 5px'
+  imgWrapper: {
+    display: 'inline-block', 
+    width: 'auto', 
+    height: 'auto'
+  },
+
+  nameInfo: { 
+    color: '#FFFFFF'
   },
 
   addChapter: {

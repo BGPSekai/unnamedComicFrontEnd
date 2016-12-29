@@ -45,7 +45,7 @@ export default class Home extends Component {
           <Container>
             <h3>
               最新更新
-              <Href href="/comic">更多 > </Href>
+              <Href href="/comic" style={styles.headerLink}>更多 > </Href>
             </h3>
             <ComicElement linkUrl={apiUrl.front.comicInfo} comicData={this.state.lastComics} />
           </Container>

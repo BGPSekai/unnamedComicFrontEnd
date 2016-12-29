@@ -103,7 +103,7 @@ class UserModule {
   }
   /**
    * 更新使用者資料
-   * 重點是不會去自動更新 token (須修正)
+   * 會去自動更新 token 
    * @param null
    * @return Fetch Promise
    */
@@ -115,6 +115,7 @@ class UserModule {
     return new Promise( (resolve,reject) => {
       new FetchModule()
       .setUrl(`${apiUrl.user.info}?token=${data.token}`)
+      .auth()
       .setCors('cors')
       .setMethod('GET')
       .setType('json')

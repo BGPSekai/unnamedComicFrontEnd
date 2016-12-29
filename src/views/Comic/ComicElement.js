@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import { Grid, Row, Col } from 'react-bootstrap';
 import { GridTile } from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -22,7 +23,7 @@ class TileElement extends Component {
          actionIcon={<IconButton></IconButton>}
          style={this.props.style.gridStyle}
        >
-         <img src={apiUrl.comic.cover.replace('{id}',this.props.comic.id)} />
+         <img src={apiUrl.comic.cover.replace('{id}',this.props.comic.id)}/>
        </GridTile>
     );
   }
@@ -33,22 +34,22 @@ class ComicElement extends Component {
   constructor(props){
     super(props);
     this.state = {
-      gridStyle: window.innerWidth>500?styles.gridTileDesktop:styles.gridTileMobile
+      gridStyle: styles.gridTile
     };
-    var mq = window.matchMedia( '(max-width: 500px)' );
-    mq.addListener(this._widthChange.bind(this));
+    //var mq = window.matchMedia( '(max-width: 500px)' );
+    //mq.addListener(this._widthChange.bind(this));
   }
 
   _widthChange(mq) {
     if (mq.matches){
-      this.setState({gridStyle: styles.gridTileMobile});
+      
     } else {
-      this.setState({gridStyle: styles.gridTileDesktop});
+      
     };
   }
 
   componentDidMount() {
-    this._scrollEvent();  
+    //this._scrollEvent();  
   }
 
   _scrollEvent() {
@@ -72,27 +73,28 @@ class ComicElement extends Component {
   
   render() {
     return (
-      <div ref="tileElement" style={styles.tileElement} onScroll={this._scrollEvent.bind(this)}>
+      <Grid ref="tileElement" style={styles.tileElement} fluid>
         {
           this.props.comicData.map((comic) => {
             if (this.props.linkUrl)
               return (
-                <Href 
-                  href={this.props.linkUrl.replace('{comicId}', comic.id)}
-                  key={comic.id}
-                >
-                  <TileElement key={comic.id} comic={comic} style={{gridStyle: this.state.gridStyle}}/>
-                </Href>
+                <Col xs={6} sm={3} lg={2} key={comic.id} style={{position: 'relative', display:'inline-block'}}>
+                  <Href 
+                    href={this.props.linkUrl.replace('{comicId}', comic.id)}
+                  >
+                    <TileElement key={comic.id} comic={comic} style={{gridStyle: styles.gridTile}}/>
+                  </Href>
+                </Col>
               );
             else 
-              return (<TileElement key={comic.id} comic={comic} style={{gridStyle: this.state.gridStyle}}/>);
+              return (<TileElement key={comic.id} comic={comic} style={{gridStyle: styles.gridTile}}/>);
           })
         }
         {
           this.props.needLoadMore &&
           <RaisedButton label="載入更多" fullWidth={true} onTouchTap={this.props.loadMore} />
         }
-      </div>
+      </Grid>
     );
   }
 }

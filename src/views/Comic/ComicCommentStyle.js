@@ -35,7 +35,7 @@ const ComicCommentStyle = {
 
   wrapper: {
     padding: 20,
-    background: '#fcfcfc'
+    background: 'rgb(254, 254, 254)'
   },
 
   userComment: {

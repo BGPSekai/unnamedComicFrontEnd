@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
+import { Grid } from 'react-bootstrap';
 
 export default class Container extends Component {
   render() {
     
     let styles = {
-      width: '95%',
+      width: '99%',
+      height: '100%',
       maxWidth: '1080px',
       minHeight: '300px',
       marginLeft: 'auto',
       marginRight: 'auto',
       boxSizing: 'border-box',
-      padding: '20px',
+      paddingTop: 10,
+      paddingBottom: 15,
+      minHeight: 300,
       position: 'relative'
     };
 
@@ -19,9 +23,9 @@ export default class Container extends Component {
     }
 
     return (
-      <div style={styles}>
+      <Grid style={styles} fluid>
         {this.props.children}
-      </div>
+      </Grid>
     );
 
   }

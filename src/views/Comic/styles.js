@@ -8,7 +8,6 @@ const styles = {
   },
 
   tileElement: {
-    display: 'table',
     width: '100%'
   },
 
@@ -16,18 +15,10 @@ const styles = {
     marginBottom: 24
   },
 
-  gridTileDesktop: {
-    width: 200,
+  gridTile: {
+    width: '100%',
     display: 'inline-block',
-    marginRight: '5%',
-    height: 300
-  },
-
-  gridTileMobile: {
-    width: 120,
-    display: 'inline-block',
-    marginRight: '2.5%',
-    height: 175
+    height: 200
   }
 };
 
