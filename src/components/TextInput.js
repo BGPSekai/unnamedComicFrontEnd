@@ -5,7 +5,7 @@ class TextInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: ''
+      text: props.default
     };
 
     this.clear = this.clear.bind(this);
@@ -22,6 +22,10 @@ class TextInput extends Component {
 
   _change() {
     this.setState({text: this.input.getValue()});
+  }
+
+  getValue() {
+    return this.input.getValue();
   }
 
   render() {

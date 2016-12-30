@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
+import { Col } from 'react-bootstrap';
 import Paper from 'material-ui/Paper';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
@@ -129,8 +130,9 @@ class ChapterPage extends Component {
             {this.state.errorText}
           </Dialog>
         <Container>
-          <div style={ChapterPageStyle.infomation}>
-            <div style={ChapterPageStyle.imageBlock}>
+          <Col xs={8} xsOffset={2} sm={5} smOffset={0} md={4}>
+            <div style={{textAlign: 'center'}}>
+              <Paper zDepth={2} style={ChapterPageStyle.imgWrapper}>
               {
                 this.props.comicData.id &&
                 <img
@@ -138,33 +140,39 @@ class ChapterPage extends Component {
                   style={ChapterPageStyle.img}
                   />
               }
+              </Paper>
             </div>
-            <div style={ChapterPageStyle.nameInfo}>
-              <h3>{this.props.comicData.name}</h3>
-              <p>作者：{this.props.comicData.author}</p>
-              <p>上傳者：
-                {
-                  this.props.comicData.publish_by &&
-                  <Href style={ChapterPageStyle.link} href={apiUrl.getReplaceUrl(apiUrl.front.getUserInfo, {userId : this.props.comicData.publish_by.id})}>
-                    {this.props.comicData.publish_by.name}
-                  </Href>
-                }
-              </p>
-              <p>{this.props.comicData.summary}</p>
-              <div style={ChapterPageStyle.tagWrapper}>
-                <span style={ChapterPageStyle.tagTab}>標籤：</span>
-                <TagElement tags={this.state.comicData.tags} comicId={this.props.comicData.id} />
-              </div>
+          </Col>
+          <Col xs={12} sm={7} md={8} style={ChapterPageStyle.nameInfo}>
+            <h3>{this.props.comicData.name}</h3>
+            <p>作者：{this.props.comicData.author}</p>
+            <p>上傳者：
               {
-                UserModule.checkIsLogin() &&
-                <TagInput onSubmit={this._handleTagInputEnter} />
+                this.props.comicData.publish_by &&
+                <Href style={ChapterPageStyle.link} href={apiUrl.getReplaceUrl(apiUrl.front.getUserInfo, {userId : this.props.comicData.publish_by.id})}>
+                  {this.props.comicData.publish_by.name}
+                </Href>
               }
+            </p>
+            <p>{this.props.comicData.summary}</p>
+            <p>收藏數：{this.props.comicData.favorites}</p>
+            <div style={ChapterPageStyle.tagWrapper}>
+              <span style={ChapterPageStyle.tagTab}>標籤：</span>
+              <TagElement tags={this.state.comicData.tags} comicId={this.props.comicData.id} />
             </div>
-          </div>
-          {
-            UserModule.checkIsLogin() &&
-            <ComicFavorite style={ChapterPageStyle.addChapter} comicId={this.state.comicData.id} />
-          }
+            {
+              UserModule.checkIsLogin() &&
+              <TagInput onSubmit={this._handleTagInputEnter} />
+            }
+          </Col>
+        </Container>
+        <div style={ChapterPageStyle.secendSection}>
+          <Container style={ChapterPageStyle.secendSectionContainer}>
+            <FlatButton label="上傳" backgroundColor={ChapterPageStyle.secendSectionButton.background} />
+            <FlatButton label="檢舉" backgroundColor={ChapterPageStyle.secendSectionButton.background} />
+          </Container>
+        </div>
+        <Container style={ChapterPageStyle.chapterSelectContainer}>
           {
             this.props.backEnd &&
             <FloatingActionButton
@@ -177,6 +185,10 @@ class ChapterPage extends Component {
               >
               <ContentAdd />
             </FloatingActionButton>
+          }
+          {
+            UserModule.checkIsLogin() &&
+            <ComicFavorite style={ChapterPageStyle.addChapter} comicId={this.state.comicData.id} />
           }
           <Paper style={ChapterPageStyle.mainPaper}>
             {this.props.chapterData.map((value, i) => {

@@ -21,6 +21,7 @@ import UserFavorite from './views/User/UserFavorite';
 import Logout from './views/User/Logout';
 import Search from './views/Search';
 import SearchBySomething from './views/Search/SearchBySomething';
+import Setting from './views/Setting';
 
 class Routers extends Component {
   render() {
@@ -65,6 +66,8 @@ class Routers extends Component {
           {/* user */}
           <Route path="/user/:userId" component={UserInfo} />
           {/*<Route path="/user/:userId/favorite" component={UserInfo} /> */}
+          {/* setting */}
+          <Route path="/setting" component={Setting} />
         </Route>
       </Router>
     );

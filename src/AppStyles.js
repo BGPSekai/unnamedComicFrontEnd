@@ -26,7 +26,7 @@ const appStyle = {
 
   title: {
     color: '#FCE4EC',
-    fontSize: '1.2rem',
+    fontSize: '1.7rem',
     textDecoration: 'none'
   },
 

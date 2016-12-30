@@ -11,7 +11,7 @@
         "icon": "",
         "text": "所有類型"
     },
-    "/profile/favorite": {
+    "profile/favorite": {
         "login": "true",
         "icon": "",
         "text": "我喜愛的漫畫"

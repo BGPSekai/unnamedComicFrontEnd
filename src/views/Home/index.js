@@ -3,6 +3,7 @@ import FetchModule from '../../module/FetchModule';
 import apiUrl from '../../res/apiUrl';
 import Container from '../../components/Container';
 import ComicElement from '../Comic/ComicElement';
+import Href from '../../components/Href';
 import styles from './styles';
 
 export default class Home extends Component {
@@ -38,16 +39,19 @@ export default class Home extends Component {
     return (
       <div>
         <Container style={styles.mHeader}>
-        	活動專區
+        	<h3>活動專區</h3>
         </Container>
         <div style={styles.mSecend}>
           <Container>
-            <div>最新更新</div>
+            <h3>
+              最新更新
+              <Href href="/comic" style={styles.headerLink}>更多 > </Href>
+            </h3>
             <ComicElement linkUrl={apiUrl.front.comicInfo} comicData={this.state.lastComics} />
           </Container>
         </div>
         <Container>
-        	  熱門標籤
+        	<h3>熱門標籤</h3>
         </Container>
       </div>
     );
