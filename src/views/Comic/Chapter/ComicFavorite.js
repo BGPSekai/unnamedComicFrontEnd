@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import FavoriteIcon from 'material-ui/svg-icons/action/favorite';
-import UserModule from '../../module/UserModule';
-import FetchModule from '../../module/FetchModule';
-import apiUrl from '../../res/apiUrl';
+import UserModule from '../../../module/UserModule';
+import FetchModule from '../../../module/FetchModule';
+import apiUrl from '../../../res/apiUrl';
 
 class ComicFavorite extends Component {
     constructor(props){

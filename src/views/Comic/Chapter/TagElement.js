@@ -4,9 +4,9 @@ import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Chip from 'material-ui/Chip';
-import FetchModule from '../../module/FetchModule';
-import apiUrl from '../../res/apiUrl';
-import { ChapterPageStyle, smallChapterPageStyle } from './ChapterPageStyle';
+import FetchModule from '../../../module/FetchModule';
+import apiUrl from '../../../res/apiUrl';
+import { ChapterStyle, smallChapterStyle } from './Style';
 
 class TagElement extends Component {
   constructor(props) {
@@ -66,7 +66,7 @@ class TagElement extends Component {
               backgroundColor={'#F06292'}
               labelStyle={{ color: '#FCE4EC' }}
               onClick={(e) => {this.setState({'tagElement': e.currentTarget,'tagSelect': i});}}
-              style={ChapterPageStyle.tag}
+              style={ChapterStyle.tag}
               >
                 {val}
               </Chip>

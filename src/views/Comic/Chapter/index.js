@@ -7,15 +7,16 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import Dialog from 'material-ui/Dialog';
-import FetchModule from '../../module/FetchModule';
-import Container from '../../components/Container';
-import { ChapterPageStyle, smallChapterPageStyle } from './ChapterPageStyle';
-import Href from '../../components/Href';
-import apiUrl from '../../res/apiUrl';
-import UserModule from '../../module/UserModule';
-import PageResponse from '../../module/PageResponse';
+import FetchModule from '../../../module/FetchModule';
+import Container from '../../../components/Container';
+import { ChapterStyle, smallChapterStyle } from './Style';
+import Href from '../../../components/Href';
+import apiUrl from '../../../res/apiUrl';
+import UserModule from '../../../module/UserModule';
+import PageResponse from '../../../module/PageResponse';
 import TagElement from './TagElement';
 import ComicFavorite from './ComicFavorite';
+import Toolbar from './Toolbar';
 
 class TagInput extends Component {
   constructor(props) {
@@ -72,10 +73,10 @@ class ChapterPage extends Component {
     this._handleTagInputEnter = this._handleTagInputEnter.bind(this);
     // PageResponse
     //   .setQuery('(max-width: 400px)')
-    //   .setDefaultStyle(ChapterPageStyle)
-    //   .on(smallChapterPageStyle, (s) => {
+    //   .setDefaultStyle(ChapterStyle)
+    //   .on(smallChapterStyle, (s) => {
     //     console.log(s);
-    //     ChapterPageStyle = s;
+    //     ChapterStyle = s;
     //     //this.forceUpdate();
     //   });
   }
@@ -110,7 +111,7 @@ class ChapterPage extends Component {
 
   render() {
     return (
-      <div style={ChapterPageStyle.root}>
+      <div style={ChapterStyle.root}>
         <Dialog
             title="警告"
             actions={
@@ -132,32 +133,32 @@ class ChapterPage extends Component {
         <Container>
           <Col xs={8} xsOffset={2} sm={5} smOffset={0} md={4}>
             <div style={{textAlign: 'center'}}>
-              <Paper zDepth={2} style={ChapterPageStyle.imgWrapper}>
+              <Paper zDepth={2} style={ChapterStyle.imgWrapper}>
               {
                 this.props.comicData.id &&
                 <img
                   src={apiUrl.getReplaceUrl(apiUrl.comic.cover, { id: this.props.comicData.id }) }
-                  style={ChapterPageStyle.img}
+                  style={ChapterStyle.img}
                   />
               }
               </Paper>
             </div>
           </Col>
-          <Col xs={12} sm={7} md={8} style={ChapterPageStyle.nameInfo}>
+          <Col xs={12} sm={7} md={8} style={ChapterStyle.nameInfo}>
             <h3>{this.props.comicData.name}</h3>
             <p>作者：{this.props.comicData.author}</p>
             <p>上傳者：
               {
                 this.props.comicData.publish_by &&
-                <Href style={ChapterPageStyle.link} href={apiUrl.getReplaceUrl(apiUrl.front.getUserInfo, {userId : this.props.comicData.publish_by.id})}>
+                <Href style={ChapterStyle.link} href={apiUrl.getReplaceUrl(apiUrl.front.getUserInfo, {userId : this.props.comicData.publish_by.id})}>
                   {this.props.comicData.publish_by.name}
                 </Href>
               }
             </p>
             <p>{this.props.comicData.summary}</p>
             <p>收藏數：{this.props.comicData.favorites}</p>
-            <div style={ChapterPageStyle.tagWrapper}>
-              <span style={ChapterPageStyle.tagTab}>標籤：</span>
+            <div style={ChapterStyle.tagWrapper}>
+              <span style={ChapterStyle.tagTab}>標籤：</span>
               <TagElement tags={this.state.comicData.tags} comicId={this.props.comicData.id} />
             </div>
             {
@@ -166,18 +167,15 @@ class ChapterPage extends Component {
             }
           </Col>
         </Container>
-        <div style={ChapterPageStyle.secendSection}>
-          <Container style={ChapterPageStyle.secendSectionContainer}>
-            <FlatButton label="上傳" backgroundColor={ChapterPageStyle.secendSectionButton.background} />
-            <FlatButton label="檢舉" backgroundColor={ChapterPageStyle.secendSectionButton.background} />
-          </Container>
+        <div style={ChapterStyle.secendSection}>
+          <Toolbar />
         </div>
-        <Container style={ChapterPageStyle.chapterSelectContainer}>
+        <Container style={ChapterStyle.chapterSelectContainer}>
           {
             this.props.backEnd &&
             <FloatingActionButton
               secondary={true}
-              style={ChapterPageStyle.addChapter}
+              style={ChapterStyle.addChapter}
               onTouchTap={() => {
                 browserHistory.push(apiUrl.getReplaceUrl(apiUrl.front.publishChapter, { comicId: this.props.comicData.id }))
               }
@@ -188,9 +186,9 @@ class ChapterPage extends Component {
           }
           {
             UserModule.checkIsLogin() &&
-            <ComicFavorite style={ChapterPageStyle.addChapter} comicId={this.state.comicData.id} />
+            <ComicFavorite style={ChapterStyle.addChapter} comicId={this.state.comicData.id} />
           }
-          <Paper style={ChapterPageStyle.mainPaper}>
+          <Paper style={ChapterStyle.mainPaper}>
             {this.props.chapterData.map((value, i) => {
               return (
                 <Href
@@ -198,7 +196,7 @@ class ChapterPage extends Component {
                   underLine={false}
                   href={apiUrl.getReplaceUrl(this.props.linkUrl, { comicId: this.props.comicData.id, chapterId: i + 1 }) }
                   >
-                  <FlatButton label={`${i + 1} - ${value.name}`} style={ChapterPageStyle.chapterButton} />
+                  <FlatButton label={`${i + 1} - ${value.name}`} style={ChapterStyle.chapterButton} />
                 </Href>);
             }) }
           </Paper>

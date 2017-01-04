@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ChapterPage from '../Comic/ChapterPage';
+import Chapter from '../Comic/Chapter';
 import FetchModule from '../../module/FetchModule';
 import apiUrl from '../../res/apiUrl';
 
@@ -27,7 +27,7 @@ class ChapterUploadSelect extends Component {
   render() {
     return (
       <div>
-        <ChapterPage 
+        <Chapter 
           comicData={this.state.comic} 
           chapterData={this.state.chapters}
           linkUrl={apiUrl.front.chapterEdit}

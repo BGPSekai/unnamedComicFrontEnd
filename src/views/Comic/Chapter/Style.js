@@ -1,5 +1,5 @@
 /* inline style file */
-const ChapterPageStyle = {
+const ChapterStyle = {
   root: {
     background: '#FF82AC',
     backgroundSize: 'cover',
@@ -45,7 +45,9 @@ const ChapterPageStyle = {
   secendSectionContainer: {
     minHeight: 0,
     paddingTop: 0,
-    paddingBottom: 0
+    paddingBottom: 0,
+    paddingLeft: 15,
+    paddingRight: 15
   },
 
   secendSectionButton: {
@@ -87,4 +89,4 @@ const smallChapterPageStyle = {
   }
 };
 
-export { ChapterPageStyle, smallChapterPageStyle};
+export { ChapterStyle, smallChapterPageStyle};
