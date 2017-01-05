@@ -131,7 +131,7 @@ class UserProfile extends Component {
               }
             </Avatar>
             <div style={styles.userData}>
-              {UserModule.getUserInfo('userName')}
+              <div style={styles.userName}>{UserModule.getUserInfo('userName')}</div>
               <span style={styles.userEmail}>
                 {UserModule.getUserInfo('email')}
                 {

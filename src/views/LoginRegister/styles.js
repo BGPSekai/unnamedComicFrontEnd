@@ -24,7 +24,7 @@ const styles = {
 		background: '#fff',
 		marginLeft: 'auto',
 		marginRight: 'auto',
-		bottom: '-30%',
+		bottom: '20%',
 		position: 'relative',
 		boxShadow: '0px 1px 14px rgba(0,0,0,0.12)',
 		marginBottom: '50px'

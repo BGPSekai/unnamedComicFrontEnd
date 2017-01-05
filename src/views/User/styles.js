@@ -17,23 +17,30 @@ const styles = {
   userData: {
     width: 'calc(95% - 110px)',
     display: 'inline-block',
-    
     verticalAlign: 'top',
-    padding: 5,
     color: '#77787b',
     fontSize: '1.5rem'
   },
 
   avatar: {
     margin: 0,
-    top: -70,
+    top: -60,
     border: '5px solid #ffffff',
     position: 'relative',
     overflow: 'hidden'
   },
 
+  userName: {
+    position: 'absolute',
+    top: -45,
+    margin: '3px 10px',
+    color: 'white',
+    fontSize: '3rem',
+    textShadow: '#222 1px 0 10px' 
+  },
+
   userEmail: {
-    fontSize: '0.8rem',
+    fontSize: '1rem',
     padding: '0 10px'
   },
 

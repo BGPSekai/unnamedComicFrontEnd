@@ -1,5 +1,4 @@
 /* inline style file */
-/* inline style file */
 const styles = {
   root: {
     display: 'flex',

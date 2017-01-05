@@ -87,7 +87,7 @@ class UserInfo extends Component {
               }
             </Avatar>
             <div style={styles.userData}>
-              {User.name}
+              <div style={styles.userName}>{User.name}</div>
               <span style={styles.userEmail}>
                 {User.email}
               </span>
