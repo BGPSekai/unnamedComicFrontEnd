@@ -1,5 +1,8 @@
 import 'whatwg-fetch';
-import UserModel from './UserModule';
+import UserModel from '../UserModule';
+import Ajax from './Ajax';
+
+const _getProgressFunc = Symbol();
 
 export default class FetchModule {
   constructor() {
@@ -17,6 +20,8 @@ export default class FetchModule {
     });
     this._tempData = tempData;
     this._needAuth = false;
+    this._getProgress = false;
+    this[_getProgressFunc] = () => {};
   }
 
   setType(type) {
@@ -53,6 +58,16 @@ export default class FetchModule {
    */
   auth() {
     this._needAuth = true;
+    return this;
+  }
+  /**
+   * 取得上下載中資訊 ( 使用 xhr 而不是 Fetch ) 
+   * @param function 
+   * @return this class
+   */
+  getProgress(func = () => {}) {
+    this._getProgress = true;
+    this[_getProgressFunc] = func;
     return this;
   }
   /**
@@ -105,15 +120,19 @@ export default class FetchModule {
     };
 
     return new Promise((resolve, reject) => {
-      if (this._needAuth && UserModel.checkHasExpired()) {
-        UserModel.updateToken().then(() => {
-          url.searchParams.delete('token');
-          url.searchParams.append('token', UserModel.getUserInfo('jwt'));
-          this._fetch(url, init, resolve, reject);
-        });
+      if (this._getProgress) {
+        new Ajax(url, init, this[_getProgressFunc], resolve, reject);
       } else {
-        this._fetch(url, init, resolve, reject);
-      };
+        if (this._needAuth && UserModel.checkHasExpired()) {
+          UserModel.updateToken().then(() => {
+            url.searchParams.delete('token');
+            url.searchParams.append('token', UserModel.getUserInfo('jwt'));
+            this._fetch(url, init, resolve, reject);
+          });
+        } else {
+          this._fetch(url, init, resolve, reject);
+        };
+      }
     });
   }
 
@@ -162,7 +181,7 @@ export default class FetchModule {
         // if (!response.ok) {
         //   throw Error(response.statusText);
         // }
-        this.consume(response.clone());
+        //this.consume(response.clone());
         if (this._tempData.type === 'application/json' && response.json)
           resolve(this._parseJSON(response), response);
         else if (this._tempData.type === 'blob' && response.blob)

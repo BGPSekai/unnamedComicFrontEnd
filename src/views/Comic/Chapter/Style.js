@@ -10,7 +10,6 @@ const ChapterStyle = {
 
   img: {
     maxWidth: '100%',
-    maxHeight: 300,
     width: 'auto',
     height: 'auto'
   },

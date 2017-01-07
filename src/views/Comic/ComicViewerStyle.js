@@ -84,7 +84,7 @@ let ComicViewerAni = {
 
   fullView: {
     top: 0, 
-    height: 'calc(100%)' 
+    height: '100%' 
   },
 
   view: {

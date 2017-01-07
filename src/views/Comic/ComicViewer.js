@@ -12,7 +12,7 @@ import FlatButton from 'material-ui/FlatButton';
 import TextInput from '../../components/TextInput';
 import {Motion, spring, StaggeredMotion} from 'react-motion';
 import Container from '../../components/Container';
-import Image from '../../components/Image';
+import Image,{ PreLoader } from '../../components/Image';
 import styles, { ComicViewerAni } from './ComicViewerStyle';
 import FetchModule from '../../module/FetchModule';
 import apiUrl from '../../res/apiUrl';
@@ -130,13 +130,15 @@ class ComicViewer extends Component {
       let chapterInfo = this.props.comicInfo.chapters[this.state.chapterId - 1];
       if (chapterInfo)
         for (let i = 1; i <= chapterInfo.pages; i++) {
-          ViewerImage.push(
-            <Image
-              src={`${apiUrl.getReplaceUrl(apiUrl.comic.view, { page: i, token: chapterInfo.token })}`}
-              style={styles.image}
-              key={`${this.props.params.chapterId}-${i}`}
-              />
-          );
+          ViewerImage.push(apiUrl.getReplaceUrl(apiUrl.comic.view, { page: i, token: chapterInfo.token }));
+          // ViewerImage.push(
+          //   <Image
+          //     src={`${apiUrl.getReplaceUrl(apiUrl.comic.view, { page: i, token: chapterInfo.token })}`}
+          //     style={styles.image}
+          //     key={`${this.props.params.chapterId}-${i}`}
+          //     withPercent
+          //     />
+          // );
         };
 
       this.props.comicInfo.chapters.map((val, i) => {
@@ -177,7 +179,10 @@ class ComicViewer extends Component {
               onTouchTap={this._toggleControll}
             >
               <Container>
-                {ViewerImage}
+                {/*ViewerImage*/}
+                <PreLoader urls={ViewerImage}>
+                  <Image style={{margin: '10px 0'}} withPercent/>
+                </PreLoader>
               </Container>
             </div>
             <Motion defaultStyle={{bottom: 0}} style={chatElementStyle}>

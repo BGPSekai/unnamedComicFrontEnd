@@ -9,6 +9,7 @@ import TextField from 'material-ui/TextField';
 import Dialog from 'material-ui/Dialog';
 import FetchModule from '../../../module/FetchModule';
 import Container from '../../../components/Container';
+import Image from '../../../components/Image';
 import { ChapterStyle, smallChapterStyle } from './Style';
 import Href from '../../../components/Href';
 import apiUrl from '../../../res/apiUrl';
@@ -136,9 +137,10 @@ class ChapterPage extends Component {
               <Paper zDepth={2} style={ChapterStyle.imgWrapper}>
               {
                 this.props.comicData.id &&
-                <img
+                <Image
                   src={apiUrl.getReplaceUrl(apiUrl.comic.cover, { id: this.props.comicData.id }) }
                   style={ChapterStyle.img}
+                  withPercent
                   />
               }
               </Paper>
