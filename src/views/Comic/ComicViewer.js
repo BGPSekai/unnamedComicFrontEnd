@@ -130,7 +130,7 @@ class ComicViewer extends Component {
       let chapterInfo = this.props.comicInfo.chapters[this.state.chapterId - 1];
       if (chapterInfo)
         for (let i = 1; i <= chapterInfo.pages; i++) {
-          ViewerImage.push(apiUrl.getReplaceUrl(apiUrl.comic.view, { page: i, token: chapterInfo.token }));
+          ViewerImage.push(apiUrl.getReplaceUrl(apiUrl.comic.view, { page: i, chapter:chapterInfo.id}));
           // ViewerImage.push(
           //   <Image
           //     src={`${apiUrl.getReplaceUrl(apiUrl.comic.view, { page: i, token: chapterInfo.token })}`}

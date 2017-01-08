@@ -15,7 +15,7 @@ const apiUrl = {
     list: `${base}/comic/page/{page}`,
     cover: `${base}/comic/{id}/cover`,
     info: `${base}/comic/{id}`,
-    view: `${base}/comic/chapter/{page}?token={token}`,
+    view: `${base}/comic/chapter/{chapter}/{page}`,
     favorite: `${base}/favorite/{comicId}`,
     infos: `${base}/comic/info`,
     comment: `${base}/comment`,

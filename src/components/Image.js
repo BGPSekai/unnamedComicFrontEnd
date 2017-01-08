@@ -22,6 +22,14 @@ class PreLoader extends Component {
     if (nextProps.urls.length != this.props.urls.length) {
       this.props = nextProps;
       this.catchData();
+    } else {
+      for (let i in nextProps.urls) { //是否一致判斷
+        if (nextProps.urls[i] != this.props.urls[i]) { //找到不一致點
+          this.props = nextProps;
+          this.catchData();
+          break;
+        };
+      };
     }
   }
   //預先處理資料與 render
@@ -59,6 +67,7 @@ class PreLoader extends Component {
     temp = loader.next();
     tempValue = temp.value;
     if (tempValue && this.state.loading && tempValue.finish === 0) { //檢查此圖片是否已載入
+      if (this.image[tempValue.index])
       this.image[tempValue.index].callLoader(tempValue)
       .then((e) => {
         this.onLoad(e);
@@ -79,7 +88,6 @@ class PreLoader extends Component {
 
   resolvePreload() {
     if (this.props.urls.length>0) {
-      console.log(this.props.urls.length);
       this.state.loading = true;
       let loader = this.imageLoader();
       this.callLoader(loader);
