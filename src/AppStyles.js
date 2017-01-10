@@ -12,6 +12,7 @@ const appStyle = {
   },
 
   main: {
+    background: 'rgb( 250, 250, 248)'
   },
 
   a: {

@@ -122,7 +122,7 @@ class Img extends Component {
   }
 
   onSuccess(e, tempValue, resolve) {
-    this.setState({finish: 1});
+    this.setState({finish: 1, url: tempValue.url});
     resolve.call(e);
   }
 
@@ -184,7 +184,7 @@ class Img extends Component {
         <img
         className={this.props.className || ''}
         style={style}
-        src={this.props.src||((this.state.finish == 1)?this.state.url:'')}
+        src={((this.state.finish == 1)?this.state.url:this.props.src)}
         />
       </div>
     );
