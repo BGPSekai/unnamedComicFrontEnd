@@ -5,6 +5,7 @@ import ActionDelete from 'material-ui/svg-icons/action/delete';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import Checkbox from 'material-ui/Checkbox';
 
 class GridItem extends Component {
   render() {
@@ -29,6 +30,7 @@ class SortableGrid extends Component {
       draggingIndex: null,
       changeDialogShow: false,
       defaultOrder: -1,
+      insert: false,
       listData: this.props.listData
     };
     
@@ -75,13 +77,16 @@ class SortableGrid extends Component {
     };
   }
 
-  _closeOrderDialog(change = false) {
+  _closeOrderDialog(change = false, insert = false) {
     let listDatas = this.state.listData; //直接更動資料
     let newIndex = this.refs.orderNumber.getValue() - 1;
     let oldIndex = this.state.defaultOrder;
     newIndex = (newIndex < listDatas.length)? newIndex : listDatas.length - 1;
-    if ( change && newIndex < listDatas.length && newIndex != oldIndex) {
-      let temp = listDatas[oldIndex];
+    let temp = listDatas[oldIndex];
+    if (change && insert && newIndex != oldIndex) {
+      listDatas = listDatas.splice( oldIndex, 1);
+      listDatas = listDatas.splice( newIndex, 0, temp);
+    }else if ( change && newIndex < listDatas.length && newIndex != oldIndex) {
       listDatas[oldIndex] = listDatas[newIndex];
       listDatas[newIndex] = temp;
     };
@@ -181,7 +186,7 @@ class SortableGrid extends Component {
             <FlatButton
               label="修改"
               primary={true}
-              onTouchTap={this._closeOrderDialog.bind(this, true)}
+              onTouchTap={this._closeOrderDialog.bind(this, true, this.state.insert)}
             />
           ]}
           modal={false}
@@ -200,6 +205,7 @@ class SortableGrid extends Component {
             fullWidth
             autoFocus
           />
+          <Checkbox onCheck={(e, isChecked) => {this.state.insert = isChecked;}} label="插入(不插入則使用對調)" />
         </Dialog>
         <div className="grid">
           {listItems}

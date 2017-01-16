@@ -80,7 +80,7 @@ class ComicComment extends Component {
   _renderComments() {
     return this.state.comment.map((value, index) => {
       return (
-        <ChatElement commentData={value} key={index} />
+        <ChatElement commentData={value} key={value.id} />
       );
     });
   }

@@ -48,7 +48,7 @@ class ChapterEditer extends Component {
       yield {
         defaultIndex: i,
         isDelete: false,
-        image: apiUrl.getReplaceUrl(apiUrl.comic.view, {page: i, token: this.state.chapterInfo.token}),
+        image: apiUrl.getReplaceUrl(apiUrl.comic.view, {page: i, chapter: this.state.chapterInfo.id}),
         file: {
           name : `原始第 ${i} 張照片`,
           // testIng: 
