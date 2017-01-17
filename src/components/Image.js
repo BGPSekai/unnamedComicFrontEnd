@@ -8,7 +8,8 @@ class PreLoader extends Component {
     this.image = [];
     this.state = {
       imageCache: [],
-      loading: false
+      loading: false,
+      show: 0
     };
   }
 
@@ -18,7 +19,28 @@ class PreLoader extends Component {
     }
   }
 
+  _controlImageMount() {
+    let imageStyle = this.props.children.props.style;
+    let cache = [];
+    let imageCache;
+    // 判斷單張圖切換
+    if (this.props.showOne) {
+      for (let i in this.state.imageCache) {
+        imageCache = this.state.imageCache[i];
+        cache[i] = Object.assign(imageCache,{
+          imgElement: React.cloneElement(this.props.children, 
+            {key: i, preload: true, show:(i == this.state.show)? true: false, style: imageStyle, ref: (data) => {this.image[i] = data}}
+          )
+        });
+      }
+      this.setState({imageCache: cache});
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
+    if(nextProps.show != this.props.show) {
+      this.setState({show: nextProps.show}, this._controlImageMount.bind(this));
+    };
     if (nextProps.urls.length != this.props.urls.length) {
       this.props = nextProps;
       this.catchData();
@@ -35,10 +57,12 @@ class PreLoader extends Component {
   //預先處理資料與 render
   catchData(func) {
     let cache = [];
+    let imageStyle = this.props.children.props.style;
+
     for (let i in this.props.urls) {
       cache[i] = Object.assign(
         { finish: 0, loadPercent: 0, url: '', index: i,
-          imgElement: React.cloneElement(this.props.children, {key: i, preload: true, ref: (data) => {this.image[i] = data}})
+          imgElement: React.cloneElement(this.props.children, {key: i, preload: true, style: imageStyle, ref: (data) => {this.image[i] = data}})
         },
         {url: this.props.urls[i]}
       );
@@ -67,22 +91,23 @@ class PreLoader extends Component {
     temp = loader.next();
     tempValue = temp.value;
     if (tempValue && this.state.loading && tempValue.finish === 0) { //檢查此圖片是否已載入
-      if (this.image[tempValue.index])
-      this.image[tempValue.index].callLoader(tempValue)
-      .then((e) => {
-        this.onLoad(e);
-        temp.value.finish = 1;
-        if (!temp.done)
-          setTimeout(this.callLoader.bind(this, loader), 1000);
-        else this.state.loading = false;
-      })
-      .catch((e) => {
-        this.onError(e);
-        temp.value.finish = 2;
-        if (!temp.done)
-          setTimeout(this.callLoader.bind(this, loader), 200);
-        else this.state.loading = false;
-      });
+      if (this.image[tempValue.index]) {
+        this.image[tempValue.index].callLoader(tempValue)
+        .then((e) => {
+          this.onLoad(e);
+          temp.value.finish = 1;
+          if (!temp.done)
+            setTimeout(this.callLoader.bind(this, loader), 1000);
+          else this.state.loading = false;
+        })
+        .catch((e) => {
+          this.onError(e);
+          temp.value.finish = 2;
+          if (!temp.done)
+            setTimeout(this.callLoader.bind(this, loader), 200);
+          else this.state.loading = false;
+        });
+      }
     }
   }
 
@@ -91,6 +116,7 @@ class PreLoader extends Component {
       this.state.loading = true;
       let loader = this.imageLoader();
       this.callLoader(loader);
+      this._controlImageMount();// image controll
     }
   }
 
@@ -118,7 +144,7 @@ class Img extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    
+    //console.log(nextProps);
   }
 
   onSuccess(e, tempValue, resolve) {
@@ -169,7 +195,7 @@ class Img extends Component {
       margin: 'auto'
     };
     return (
-      <div style={Object.assign({position: 'relative', background: '#e0e0e0'}, this.props.style)}>
+      <div style={Object.assign({position: 'relative', background: '#e0e0e0', display: (this.props.show==false)?'none':'block'}, this.props.style)}>
         {
           (!this.state.finish && this.props.preload) &&
           <div style={loaderStyle}>

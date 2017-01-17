@@ -34,8 +34,8 @@ class Setting extends Component {
             <Subheader>閱讀</Subheader>
             <Toggle
               label="上下捲動閱讀模式"
-              defaultToggled={this._setting.readMode?true:false}
-              onToggle={this.toggleSetting.bind(this, 'readMode')}
+              defaultToggled={this._setting.scrollReadMode?true:false}
+              onToggle={this.toggleSetting.bind(this, 'scrollReadMode')}
             />
           </CardText>
         </Card>

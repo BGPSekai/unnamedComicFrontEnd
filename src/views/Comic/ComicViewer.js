@@ -13,11 +13,12 @@ import TextInput from '../../components/TextInput';
 import {Motion, spring, StaggeredMotion} from 'react-motion';
 import Container from '../../components/Container';
 import Image,{ PreLoader } from '../../components/Image';
-import styles, { ComicViewerAni } from './ComicViewerStyle';
+import styles, { ComicViewerAni, imageSwitchStyle, imageScrollStyle } from './ComicViewerStyle';
 import FetchModule from '../../module/FetchModule';
 import apiUrl from '../../res/apiUrl';
 import ChatViewer from './ChatViewer';
 import HtmlControl from '../../module/HtmlControl';
+import LocalStorage from '../../module/LocalStorage';
 
 class ChatElement extends Component {
   constructor(props) {
@@ -76,7 +77,9 @@ class ComicViewer extends Component {
     super(props);
 
     this.state = {
-      chapterId: parseInt(this.props.params.chapterId)
+      chapterId: parseInt(this.props.params.chapterId),
+      scrollReadMode: LocalStorage.getObject('userSetting').scrollReadMode||false,
+      show: 0
     };
     
     HtmlControl.bodyFocusMode(true);
@@ -84,6 +87,7 @@ class ComicViewer extends Component {
     this._toggleControll = this._toggleControll.bind(this);
     this._handleChapterChange = this._handleChapterChange.bind(this);
     this._handleToChapterPage = this._handleToChapterPage.bind(this);
+    this._handleImageControll = this._handleImageControll.bind(this);
   }
 
   //切換工具列顯示
@@ -114,6 +118,15 @@ class ComicViewer extends Component {
     );
   }
 
+  _handleImageControll(offset = 0) {
+    let chapterInfo = this.props.comicInfo.chapters[this.state.chapterId - 1];
+    let next = this.state.show + offset;
+    if (next >= 0 && next < chapterInfo.pages)
+      this.setState({
+        show: this.state.show + offset
+      });
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.chapterId !== this.props.params.chapterId) {
       this.setState({ chapterId: parseInt(nextProps.params.chapterId) });
@@ -125,7 +138,8 @@ class ComicViewer extends Component {
     let ChapterSelecter = [];
     let toolbarStyle = this.state.showToolBar?ComicViewerAni.viewerBar:ComicViewerAni.viewerBarHide;
     let chatElementStyle = this.state.showToolBar?ComicViewerAni.chatElement:ComicViewerAni.chatElementHide;
-   
+    let imageStyle = (this.state.scrollReadMode)? imageScrollStyle: imageSwitchStyle;
+    
     if (this.props.comicInfo.chapters.length) {
       let chapterInfo = this.props.comicInfo.chapters[this.state.chapterId - 1];
       if (chapterInfo)
@@ -172,16 +186,23 @@ class ComicViewer extends Component {
                 </div>
               }
             </Motion>
+            {
+              !this.state.scrollReadMode &&
+              <div>
+                <div style={styles.imageControlL} onTouchTap={this._handleImageControll.bind(this, -1)}></div>
+                <div style={styles.imageControlR} onTouchTap={this._handleImageControll.bind(this, 1)}></div>
+              </div>
+            }
             <div 
               style={
                 Object.assign(styles.view, this.state.showToolBar?ComicViewerAni.view:ComicViewerAni.fullView)
-              } 
+              }
               onTouchTap={this._toggleControll}
             >
               <Container>
                 {/*ViewerImage*/}
-                <PreLoader urls={ViewerImage}>
-                  <Image style={{margin: '10px 0'}} withPercent/>
+                <PreLoader urls={ViewerImage} showOne={!this.state.scrollReadMode} show={this.state.show}>
+                  <Image style={imageStyle} withPercent/>
                 </PreLoader>
               </Container>
             </div>

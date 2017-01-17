@@ -25,7 +25,7 @@ class LocalStorage {
   get(name) {
     return this[_lS].getItem(name);
   }
-
+  //取得物件形式的資料
   getObject(name) {
     return new DataTranslate(this.get(name)||'{}').toObject();
   }

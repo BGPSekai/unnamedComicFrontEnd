@@ -27,6 +27,24 @@ const styles = {
     overflow: 'auto'
   },
 
+  imageControlL: {
+    width: '33%',
+    height: '100%',
+    position: 'absolute',
+    cursor: 'pointer',
+    zIndex: 5,
+    left: 0
+  },
+
+  imageControlR: {
+    width: '33%',
+    height: '100%',
+    position: 'absolute',
+    cursor: 'pointer',
+    zIndex: 5,
+    right: 0
+  },
+
   arrowBackIcon: {
     padding: 15
   },
@@ -94,3 +112,19 @@ let ComicViewerAni = {
 };
 
 export { ComicViewerAni };
+
+//閱讀圖片樣式
+let imageSwitchStyle = {
+  position: 'absolute',
+  width: '100%',
+  maxWidth: '100%',
+  maxHeight: '100%',
+  verticalAlign: 'middle',
+  margin: 'auto'
+};
+
+let imageScrollStyle = {
+  margin: '10px 0'
+};
+
+export { imageSwitchStyle, imageScrollStyle };
