@@ -121,10 +121,12 @@ class ComicViewer extends Component {
   _handleImageControll(offset = 0) {
     let chapterInfo = this.props.comicInfo.chapters[this.state.chapterId - 1];
     let next = this.state.show + offset;
-    if (next >= 0 && next < chapterInfo.pages)
+    if (next >= 0 && next < chapterInfo.pages) {
       this.setState({
         show: this.state.show + offset
       });
+      this.refs.imageLayOut.scrollTop = 0;
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -198,6 +200,7 @@ class ComicViewer extends Component {
                 Object.assign(styles.view, this.state.showToolBar?ComicViewerAni.view:ComicViewerAni.fullView)
               }
               onTouchTap={this._toggleControll}
+              ref="imageLayOut"
             >
               <Container>
                 {/*ViewerImage*/}

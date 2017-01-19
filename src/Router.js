@@ -4,7 +4,7 @@ import App from './App';
 import Home from './views/Home';
 import LoginRegister from './views/LoginRegister';
 import Upload from './views/Upload';
-import ComicUploadSelect from './views/Upload/ComicUploadSelect';
+import ComicUploadSelect from './views/Upload/UploadManage/ComicUploadSelect';
 import ComicUpload from './views/Upload/ComicUpload';
 import ChapterUploader from './views/Upload/ChapterUploader';
 import ChapterUploadSelect from './views/Upload/ChapterUploadSelect';
@@ -22,6 +22,7 @@ import Logout from './views/User/Logout';
 import Search from './views/Search';
 import SearchBySomething from './views/Search/SearchBySomething';
 import Setting from './views/Setting';
+import UserSetting from './views/Setting/UserSetting';
 
 class Routers extends Component {
   render() {
@@ -67,7 +68,9 @@ class Routers extends Component {
           <Route path="/user/:userId" component={UserInfo} />
           {/*<Route path="/user/:userId/favorite" component={UserInfo} /> */}
           {/* setting */}
-          <Route path="/setting" component={Setting} />
+          <Route path="/setting" component={Setting} >
+            <IndexRoute component={UserSetting} />
+          </Route>
         </Route>
       </Router>
     );

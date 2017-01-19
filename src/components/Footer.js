@@ -8,7 +8,11 @@ render() {
     let Styles = {
       footer: {
         background: '#f6f9fa',
-        color: '#101010'
+        color: '#101010',
+        width: '100%',
+        position: 'absolute',
+        bottom: 0,
+        height: '100px'
       },
 
       container: {
@@ -37,8 +41,8 @@ render() {
     };
 
     return (
-        <div>
-          <div id="footer" style={Styles.footer}>
+        <div style={Styles.footer}>
+          <div id="footer">
             <Container style={Styles.container}>
               <div style={Styles.column}>
                 <div>帳號</div>

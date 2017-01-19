@@ -47,6 +47,7 @@ const apiUrl = {
   front: {
     type: '/types/{typeName}',
     viewComic: '/comic/{comicId}/chapter/{chapterId}',
+    comicUpload: '/upload/comic',
     search: '/search',
     searchByName: '/search/name/{name}/{page}',
     searchByTag: '/search/tag/{name}/{page}',
@@ -56,7 +57,14 @@ const apiUrl = {
     publishChapter: '/upload/comic/{comicId}/chapter',
     chapterEdit: '/upload/comic/{comicId}/chapter/{chapterId}',
     changeUserProfile: '/profile/change',
-    getUserInfo: '/user/{userId}'
+    getUserInfo: '/user/{userId}',
+    upload: {
+      index: '/upload',
+      comic: '/upload/comic',
+      shared: '',
+      manage: '',
+      shareAccess: ''
+    }
   },
   /**
    * 取得替代後 Url

@@ -1,6 +1,8 @@
 const appStyle = {
   root: {
-    color: '#424242'
+    color: '#424242',
+    minHeight: '100%',
+    position: 'relative'
   },
 
   header: {
@@ -12,7 +14,8 @@ const appStyle = {
   },
 
   main: {
-    background: 'rgb( 250, 250, 248)'
+    background: 'rgb( 250, 250, 248)',
+    padding: '0px 0px 100px 0px'
   },
 
   a: {
