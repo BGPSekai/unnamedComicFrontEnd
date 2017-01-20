@@ -151,9 +151,9 @@ class ChapterPage extends Component {
             <p>作者：{this.props.comicData.author}</p>
             <p>上傳者：
               {
-                this.props.comicData.publish_by &&
-                <Href style={ChapterStyle.link} href={apiUrl.getReplaceUrl(apiUrl.front.getUserInfo, {userId : this.props.comicData.publish_by.id})}>
-                  {this.props.comicData.publish_by.name}
+                this.props.comicData.published_by &&
+                <Href style={ChapterStyle.link} href={apiUrl.getReplaceUrl(apiUrl.front.getUserInfo, {userId : this.props.comicData.published_by.id})}>
+                  {this.props.comicData.published_by.name}
                 </Href>
               }
             </p>

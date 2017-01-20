@@ -51,14 +51,14 @@ class ChatElement extends Component {
     let value = this.commentData;
     return (
         <div>
-          <Href href={apiUrl.getReplaceUrl(apiUrl.front.getUserInfo, {userId: value.comment_by.id})}>
-          <IconButton tooltip={value.comment_by.name} style={{width: 40,height: 40,boxSizing: 'content-box'}}>
+          <Href href={apiUrl.getReplaceUrl(apiUrl.front.getUserInfo, {userId: value.commented_by.id})}>
+          <IconButton tooltip={value.commented_by.name} style={{width: 40,height: 40,boxSizing: 'content-box'}}>
           {
-            (value.comment_by.avatar == null) ? 
-              <Avatar>{value.comment_by.name.substring(0, 1)}</Avatar> :
+            (value.commented_by.avatar == null) ? 
+              <Avatar>{value.commented_by.name.substring(0, 1)}</Avatar> :
               <Avatar src={apiUrl.getReplaceUrl(apiUrl.user.avatar, {
-                  userId: value.comment_by.id,
-                  avatarType: value.comment_by.avatar
+                  userId: value.commented_by.id,
+                  avatarType: value.commented_by.avatar
                 })}
               />
           }
@@ -70,7 +70,7 @@ class ChatElement extends Component {
               <div>
                 <span style={ComicCommentStyle.userComment}> {value.comment}</span>
                 {
-                  UserModule.getUserInfo('userId') == value.comment_by.id &&
+                  UserModule.getUserInfo('userId') == value.commented_by.id &&
                   <span style={ComicCommentStyle.editComment} onTouchTap={this.editMode}>
                   修改
                   </span>
