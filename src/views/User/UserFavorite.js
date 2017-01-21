@@ -3,7 +3,8 @@ import Container from '../../components/Container';
 import ComicElement from '../Comic/ComicElement';
 import UserModule from '../../module/UserModule';
 import FetchModule  from '../../module/FetchModule';
-import apiUrl from '../../res/apiUrl';
+import apiUrl from 'res/apiUrl';
+import Setting from 'res/Setting';
 
 class UserFavorite extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class UserFavorite extends Component {
 
 		this.state = {
       page: 1,
-      perPageNumber: 10,
+      perPageNumber: Setting.loadItem,
       allPage: 0,
       comicIds: [],
 			comics: [],

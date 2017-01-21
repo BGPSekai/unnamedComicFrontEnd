@@ -126,6 +126,7 @@ export default class LoginRegister extends Component {
 					ele.focus();
 			}
 		};
+		this.setState({ msg: null}); //去除警告
 	}
 
 	handleRegisterChange(e, refs) {

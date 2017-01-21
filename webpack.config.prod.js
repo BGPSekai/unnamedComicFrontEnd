@@ -7,6 +7,11 @@ module.exports = {
   entry: [
     './src/index'
   ],
+  resolve: {
+    root: [
+      path.resolve('./src')
+    ]
+  },
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',

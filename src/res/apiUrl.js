@@ -61,9 +61,9 @@ const apiUrl = {
     upload: {
       index: '/upload',
       comic: '/upload/comic',
-      shared: '',
-      manage: '',
-      shareAccess: ''
+      shared: '/upload/shared',
+      manage: '/upload/manage',
+      shareAccess: '/upload/shareAccess'
     }
   },
   /**

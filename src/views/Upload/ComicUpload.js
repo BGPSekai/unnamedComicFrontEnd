@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
-import {Card, CardActions, CardMedia, CardTitle, CardText} from 'material-ui/Card';;
+import {Card, CardActions, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import { Col } from 'react-bootstrap';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import LinearProgress from 'material-ui/LinearProgress';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import Checkbox from 'material-ui/Checkbox';
 import Container from '../../components/Container';
 import FileUpload from '../../components/FileUpload';
+import TypeSelecter from 'components/TypeSelecter';
 import FetchModule from '../../module/FetchModule';
 import apiUrl from '../../res/apiUrl';
 import styles from './styles';
@@ -19,7 +22,7 @@ export default class ComicUpload extends Component {
       previewImg: '',
       types: [],
       error: [],
-      typeValue: 1
+      typeValue: null
     };
 
     this._changePreviewImg = this._changePreviewImg.bind(this);
@@ -34,7 +37,7 @@ export default class ComicUpload extends Component {
       .setMethod('GET')
       .send()
       .then((data) => {
-        this.setState(data);
+        this.setState({ types: data.types });
       });
   }
 
@@ -102,18 +105,6 @@ export default class ComicUpload extends Component {
               ref="name"
               fullWidth
             /><br />
-            <SelectField 
-              ref="type" 
-              value={this.state.typeValue} 
-              fullWidth
-              onChange={this._handleTypeChange}  
-            >
-            {
-              this.state.types.map(( data, i) => {
-                return <MenuItem value={data.id} key={i} primaryText={data.name} />
-              })
-            }
-            </SelectField><br />
             <TextField 
               hintText="漫畫作者"
               floatingLabelText="漫畫作者(輸入名稱)"
@@ -129,6 +120,37 @@ export default class ComicUpload extends Component {
               rows={2}
               rowsMax={4}
             /><br />
+            <Col xs={6}>
+              <div style={styles.shareSettingHeader}>共享設定</div>
+              <Checkbox label="關閉 tag 標記功能" />
+              <Checkbox label="禁止漫畫共享功能" />
+            </Col>
+            <Col xs={6}>
+              <div style={styles.shareSettingHeader}>漫畫發佈狀態</div>
+              <SelectField
+                value={0}
+                fullwidth
+                >
+                <MenuItem value={0} primaryText="未發佈" />
+                <MenuItem value={1} primaryText="已發佈" />
+              </SelectField>
+            </Col>
+            <SelectField 
+              ref="type"
+              floatingLabelText="添加 Type"
+              floatingLabelFixed
+              hintText="請選擇"
+              value={this.state.typeValue} 
+              fullWidth
+              onChange={this._handleTypeChange}
+            >
+            {
+              this.state.types.map(( data, i) => {
+                return <MenuItem value={data.id} key={i} primaryText={data.name} />
+              })
+            }
+            </SelectField><br />
+            <TypeSelecter />
             <FileUpload 
               ref="cover"
               multiple={false}

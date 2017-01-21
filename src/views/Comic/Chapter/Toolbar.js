@@ -23,7 +23,7 @@ class Toolbar extends Component {
   }
 
   getReport() {
-    this._DialogContent = ['您確定要檢舉這部漫畫嗎？','惡意檢舉可能會導致您的帳號遭到停權'];
+    this._DialogContent = ['您確定要檢舉這部漫畫嗎？','惡意檢舉可能會導致您的帳號遭到停權!'];
     this.setState({open: true});
   }
 

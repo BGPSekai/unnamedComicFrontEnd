@@ -4,12 +4,12 @@ import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import Avatar from 'material-ui/Avatar';
 import TextField from 'material-ui/TextField';
-import Href from '../../components/Href';
-import TextInput from '../../components/TextInput';
+import Href from 'components/Href';
+import TextInput from 'components/TextInput';
+import FetchModule from 'module/FetchModule';
+import UserModule from 'module/UserModule';
 import ComicCommentStyle from './ComicCommentStyle';
-import FetchModule from '../../module/FetchModule';
-import UserModule from '../../module/UserModule';
-import apiUrl from '../../res/apiUrl';
+import apiUrl from 'res/apiUrl';
 
 class ChatElement extends Component {
   constructor(props) {
@@ -133,8 +133,8 @@ class ChatViewer extends Component {
     } 
   }
 
-  loadCommentData(page = 0) {
-    (page)? this.setState({page: page}):0;
+  loadCommentData(pageNum = 0) {
+    (pageNum)? this.setState({page: pageNum}):0;
     new FetchModule()
       .setUrl(apiUrl.comic.listChapterComments)
       .replaceVariable({id: this.state.id, page: this.state.page})
@@ -143,7 +143,7 @@ class ChatViewer extends Component {
       .send()
       .then((data) => {
         if (data.status == 'success')
-          this.setState({comments: page?this.state.comments.concat(data.comments):data.comments});
+          this.setState({comments: pageNum?this.state.comments.concat(data.comments):data.comments});
       })
   }
 

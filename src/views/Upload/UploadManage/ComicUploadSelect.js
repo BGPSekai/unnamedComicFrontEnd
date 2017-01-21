@@ -5,12 +5,12 @@ import Paper from 'material-ui/Paper';
 import { List, ListItem } from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
 import Divider from 'material-ui/Divider';
-import Href from '../../../components/Href';
-import Container from '../../../components/Container';
-import FetchModule from '../../../module/FetchModule';
-import UserModule from '../../../module/UserModule';
-import apiUrl from '../../../res/apiUrl';
-import ComicElement from '../../Comic/ComicElement';
+import Href from 'components/Href';
+import Container from 'components/Container';
+import FetchModule from 'module/FetchModule';
+import UserModule from 'module/UserModule';
+import apiUrl from 'res/apiUrl';
+import ComicElement from 'views/Comic/ComicElement';
 import styles from '../styles';
 
 class MenuList extends Component {
@@ -20,7 +20,7 @@ class MenuList extends Component {
 
   render() {
     return (
-      <Paper>
+      <Paper style={{ marginBottom: 15}}>
         <List>
           <Href href={apiUrl.front.upload.index}><ListItem primaryText="我的漫畫" /></Href>
           <Href href={apiUrl.front.upload.shared}><ListItem primaryText="與我共用" /></Href>
@@ -28,14 +28,16 @@ class MenuList extends Component {
             primaryText="共用管理"
             primaryTogglesNestedList={true}
             nestedItems={[
-              <Href key={1} href={apiUrl.front.upload.shareAccess}>
+              <Href key={1} style={{ display: 'block'}} href={apiUrl.front.upload.shareAccess}>
                 <ListItem
                   primaryText="共用要求"
+                  style={styles.listItem}
                   />
               </Href>,
               <Href key={2} href={apiUrl.front.upload.manage}>
                 <ListItem
                   primaryText="共用管理"
+                  style={styles.listItem}
                   />
               </Href>
             ]}
@@ -95,10 +97,10 @@ export default class ChapterUploadSelect extends Component {
   render() {
     return (
       <Container style={styles.container}>
-        <Col md={3}>
+        <Col sm={3}>
           <MenuList />
         </Col>
-        <Col md={9}>
+        <Col sm={9}>
           <RaisedButton 
             label="新增漫畫" 
             primary={true} 
