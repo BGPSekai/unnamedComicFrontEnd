@@ -3,11 +3,11 @@ import { browserHistory } from 'react-router';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Step, Stepper, StepLabel} from 'material-ui/Stepper';
-import Container from '../../components/Container';
-import FileUpload from '../../components/FileUpload';
-import SortableList from '../../components/SorttableList';
-import FetchModule from '../../module/FetchModule';
-import apiUrl from '../../res/apiUrl';
+import Container from 'components/Container';
+import FileUpload from 'components/FileUpload';
+import SortableList from 'components/SorttableList';
+import FetchModule from 'module/FetchModule';
+import apiUrl from 'res/apiUrl';
 
 class ChapterEditer extends Component {
   constructor(props) {

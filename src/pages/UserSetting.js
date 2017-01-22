@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import Container from '../../components/Container';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import Checkbox from 'material-ui/Checkbox';
 import Toggle from 'material-ui/Toggle';
 import Subheader from 'material-ui/Subheader';
-import LocalStorage from '../../module/LocalStorage';
+import Container from 'components/Container';
+import LocalStorage from 'module/LocalStorage';
 
 class UserSetting extends Component {
 	constructor(params) {

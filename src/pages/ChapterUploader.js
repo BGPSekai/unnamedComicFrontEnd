@@ -5,12 +5,12 @@ import {Step, Stepper, StepLabel} from 'material-ui/Stepper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import LinearProgress from 'material-ui/LinearProgress';
-import Container from '../../components/Container';
-import FileUpload from '../../components/FileUpload';
-import FetchModule from '../../module/FetchModule';
-import SortableList from '../../components/SorttableList';
-import apiUrl from '../../res/apiUrl';
-import styles from './styles';
+import Container from 'components/Container';
+import FileUpload from 'components/FileUpload';
+import SortableList from 'components/SorttableList';
+import FetchModule from 'module/FetchModule';
+import apiUrl from 'res/apiUrl';
+import styles from 'views/Upload/styles';
 
 export default class ChapterUploader extends Component {
   constructor(props) {

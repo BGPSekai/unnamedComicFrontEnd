@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import Chapter from '../Comic/Chapter';
-import FetchModule from '../../module/FetchModule';
-import apiUrl from '../../res/apiUrl';
+import Chapter from 'views/Comic/Chapter';
+import FetchModule from 'module/FetchModule';
+import apiUrl from 'res/apiUrl';
 
 class ChapterUploadSelect extends Component {
   constructor(props) {

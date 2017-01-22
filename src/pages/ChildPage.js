@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import Container from '../../components/Container';
+import Container from 'components/Container';
 
-class Search extends Component {
+class ChildPage extends Component {
   render() {
     return (
       <Container>
@@ -11,4 +11,4 @@ class Search extends Component {
   }
 }
 
-export default Search;
+export default ChildPage;

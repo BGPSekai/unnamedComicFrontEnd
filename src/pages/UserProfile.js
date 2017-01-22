@@ -1,19 +1,19 @@
 import React, {Component} from 'react';
-import FileUpload from '../../components/FileUpload';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import Avatar from 'material-ui/Avatar';
 import Paper from 'material-ui/Paper';
 import Slider from 'material-ui/Slider';
 import Chip from 'material-ui/Chip';
-import Href from '../../components/Href';
+import Href from 'components/Href';
 import AvatarEditor from 'react-avatar-editor';
-import Container from '../../components/Container';
-import ComicElement from '../Comic/ComicElement';
-import UserModule from '../../module/UserModule';
-import FetchModule from '../../module/FetchModule';
-import apiUrl from '../../res/apiUrl';
-import styles from './styles';
+import Container from 'components/Container';
+import FileUpload from 'components/FileUpload';
+import ComicElement from 'views/Comic/ComicElement';
+import UserModule from 'module/UserModule';
+import FetchModule from 'module/FetchModule';
+import apiUrl from 'res/apiUrl';
+import styles from 'views/User/styles';
 
 class UserProfile extends Component {
   constructor(props) {
