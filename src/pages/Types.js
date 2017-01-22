@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import FloatButton from 'material-ui/FlatButton';
-import Container from '../../components/Container';
-import Href from '../../components/Href';
-import ComicElement from '../Comic/ComicElement';
-import FetchModule from '../../module/FetchModule';
-import apiUrl from '../../res/apiUrl';
+import Container from 'components/Container';
+import Href from 'components/Href';
+import ComicElement from 'views/Comic/ComicElement';
+import FetchModule from 'module/FetchModule';
+import apiUrl from 'res/apiUrl';
 
 class Types extends Component {
   constructor(props) {

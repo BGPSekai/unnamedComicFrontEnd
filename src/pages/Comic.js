@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import GridList from 'material-ui/GridList';
-import Container from '../../components/Container';
-import ComicElement from './ComicElement';
-import styles from './styles';
-import apiUrl from '../../res/apiUrl';
-import FetchModule from '../../module/FetchModule';
+import Container from 'components/Container';
+import ComicElement from 'views/Comic/ComicElement';
+import styles from 'views/Comic//styles';
+import apiUrl from 'res/apiUrl';
+import FetchModule from 'module/FetchModule';
 
 export default class Comic extends Component {
   constructor(props) {

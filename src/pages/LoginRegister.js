@@ -6,19 +6,19 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import TextField from 'material-ui/TextField';
 import LinearProgress from 'material-ui/LinearProgress';
-import Container from '../../components/Container';
-import ContextualBg from '../../components/ContextualBg';
 import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back';
 import Checkbox from 'material-ui/Checkbox';
 import GoogleLogin from 'react-google-login';
-import styles from './styles';
-import LoginModule from './LoginModule';
-import RegisterModule from './RegisterModule';
-import SocialLogin from './SocialLogin';
-import LocalStorage from '../../module/LocalStorage';
-import UserModule from '../../module/UserModule';
+import LocalStorage from 'module/LocalStorage';
+import UserModule from 'module/UserModule';
+import ContextualBg from 'components/ContextualBg';
+import Container from 'components/Container';
+import styles from 'views/LoginRegister/styles';
+import LoginModule from 'views/LoginRegister/LoginModule';
+import RegisterModule from 'views/LoginRegister/RegisterModule';
+import SocialLogin from 'views/LoginRegister/SocialLogin';
 
 export default class LoginRegister extends Component {
 	constructor(props) {

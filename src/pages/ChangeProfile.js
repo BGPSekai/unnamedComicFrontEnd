@@ -4,11 +4,11 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
-import Container from '../../components/Container';
-import FetchModule from '../../module/FetchModule';
-import UserModule from '../../module/UserModule';
-import apiUrl from '../../res/apiUrl';
-import defaultStyle from './styles';
+import Container from 'components/Container';
+import FetchModule from 'module/FetchModule';
+import UserModule from 'module/UserModule';
+import apiUrl from 'res/apiUrl';
+import styles from 'views/User/styles';
 
 class ChangeProfile extends Component {
   constructor(props) {
@@ -50,10 +50,10 @@ class ChangeProfile extends Component {
   render() {
     return (
       <div>
-        <div style={defaultStyle.avatarBackgroundCover}>
+        <div style={styles.avatarBackgroundCover}>
           {/* Banner 放置區 */}
         </div>
-        <Paper style={defaultStyle.userProfile}>
+        <Paper style={styles.userProfile}>
           <Container>
             <h2>修改個人資料</h2>
             <Divider />

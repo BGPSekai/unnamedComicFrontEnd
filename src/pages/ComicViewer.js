@@ -9,16 +9,16 @@ import MenuItem from 'material-ui/MenuItem';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back';
 import FlatButton from 'material-ui/FlatButton';
-import TextInput from '../../components/TextInput';
+import TextInput from 'components/TextInput';
 import {Motion, spring, StaggeredMotion} from 'react-motion';
-import Container from '../../components/Container';
-import Image,{ PreLoader } from '../../components/Image';
-import styles, { ComicViewerAni, imageSwitchStyle, imageScrollStyle } from './ComicViewerStyle';
-import FetchModule from '../../module/FetchModule';
-import apiUrl from '../../res/apiUrl';
-import ChatViewer from './ChatViewer';
-import HtmlControl from '../../module/HtmlControl';
-import LocalStorage from '../../module/LocalStorage';
+import Container from 'components/Container';
+import Image,{ PreLoader } from 'components/Image';
+import styles, { ComicViewerAni, imageSwitchStyle, imageScrollStyle } from 'views/Comic/ComicViewerStyle';
+import FetchModule from 'module/FetchModule';
+import apiUrl from 'res/apiUrl';
+import HtmlControl from 'module/HtmlControl';
+import LocalStorage from 'module/LocalStorage';
+import ChatViewer from 'views/Comic/ChatViewer';
 
 class ChatElement extends Component {
   constructor(props) {

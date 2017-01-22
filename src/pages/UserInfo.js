@@ -4,13 +4,13 @@ import FlatButton from 'material-ui/FlatButton';
 import Avatar from 'material-ui/Avatar';
 import Paper from 'material-ui/Paper';
 import Dialog from 'material-ui/Dialog';
-import Href from '../../components/Href';
-import Container from '../../components/Container';
-import ComicElement from '../Comic/ComicElement';
-import UserModule from '../../module/UserModule';
-import FetchModule from '../../module/FetchModule';
-import apiUrl from '../../res/apiUrl';
-import styles from './styles';
+import Href from 'components/Href';
+import Container from 'components/Container';
+import ComicElement from 'views/Comic/ComicElement';
+import UserModule from 'module/UserModule';
+import FetchModule from 'module/FetchModule';
+import apiUrl from 'res/apiUrl';
+import styles from 'views/User/styles';
 
 class UserInfo extends Component {
   constructor(props) {

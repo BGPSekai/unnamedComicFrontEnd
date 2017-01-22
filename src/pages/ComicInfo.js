@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import { browserHistory } from 'react-router';
-import FetchModule from '../../module/FetchModule';
-import apiUrl from '../../res/apiUrl';
-import Container from '../../components/Container';
-import Chapter from './Chapter';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import Loading from '../../components/Loading';
-import ComicComment from './ComicComment';
+import FetchModule from 'module/FetchModule';
+import apiUrl from 'res/apiUrl';
+import Container from 'components/Container';
+import Loading from 'components/Loading';
+import Chapter from 'views/Comic/Chapter';
+import ComicComment from 'views/Comic/ComicComment';
 
 class ComicInfo extends Component {
   constructor(props) {

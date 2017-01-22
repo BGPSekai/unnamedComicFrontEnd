@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {browserHistory, LinK} from 'react-router';
+import {browserHistory, Link} from 'react-router';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';

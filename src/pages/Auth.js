@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import UserModule from '../../module/UserModule';
+import UserModule from 'module/UserModule';
 
-class Setting extends Component {
+class Auth extends Component {
   render() {
     return (
       <div>
@@ -18,4 +18,4 @@ class Setting extends Component {
   }
 }
 
-export default Setting;
+export default Auth;

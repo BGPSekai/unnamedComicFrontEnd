@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import ComicElement from '../Comic/ComicElement';
-import FetchModule from '../../module/FetchModule';
-import apiUrl from '../../res/apiUrl';
+import ComicElement from 'views/Comic/ComicElement';
+import FetchModule from 'module/FetchModule';
+import apiUrl from 'res/apiUrl';
 
 class SearchBySomething extends Component {
   constructor(props) {

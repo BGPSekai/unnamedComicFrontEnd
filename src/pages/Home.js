@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import FetchModule from '../../module/FetchModule';
-import apiUrl from '../../res/apiUrl';
-import Container from '../../components/Container';
-import ComicElement from '../Comic/ComicElement';
-import Href from '../../components/Href';
-import styles from './styles';
+import FetchModule from 'module/FetchModule';
+import apiUrl from 'res/apiUrl';
+import Container from 'components/Container';
+import Href from 'components/Href';
+import ComicElement from 'views/Comic/ComicElement';
+import styles from 'views/Home/styles';
 
 export default class Home extends Component {
   constructor(props) {

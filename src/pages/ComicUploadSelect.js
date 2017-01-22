@@ -11,7 +11,7 @@ import FetchModule from 'module/FetchModule';
 import UserModule from 'module/UserModule';
 import apiUrl from 'res/apiUrl';
 import ComicElement from 'views/Comic/ComicElement';
-import styles from '../styles';
+import styles from 'views/Comic/styles';
 
 class MenuList extends Component {
   constructor(props) {

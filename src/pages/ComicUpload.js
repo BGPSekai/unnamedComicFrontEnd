@@ -8,12 +8,12 @@ import LinearProgress from 'material-ui/LinearProgress';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Checkbox from 'material-ui/Checkbox';
-import Container from '../../components/Container';
-import FileUpload from '../../components/FileUpload';
-import TypeSelecter from 'components/TypeSelecter';
-import FetchModule from '../../module/FetchModule';
-import apiUrl from '../../res/apiUrl';
-import styles from './styles';
+import Container from 'components/Container';
+import FileUpload from 'components/FileUpload';
+import FetchModule from 'module/FetchModule';
+import apiUrl from 'res/apiUrl';
+import TypeSelecter from 'views/Comic/TypeSelecter';
+import styles from 'views/Upload/styles';
 
 export default class ComicUpload extends Component {
   constructor(props) {
@@ -129,7 +129,7 @@ export default class ComicUpload extends Component {
               <div style={styles.shareSettingHeader}>漫畫發佈狀態</div>
               <SelectField
                 value={0}
-                fullwidth
+                fullWidth
                 >
                 <MenuItem value={0} primaryText="未發佈" />
                 <MenuItem value={1} primaryText="已發佈" />
