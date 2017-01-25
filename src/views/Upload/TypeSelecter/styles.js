@@ -3,9 +3,14 @@ const styles = {
   selectedField: {
     background: '#ffe0e8',
     width: '100%',
-    minHeight: 30,
+    minHeight: 40,
     borderRadius: 2,
-    display: 'block'
+    padding: 5,
+    display: 'flex'
+  },
+  
+  chip: {
+    margin: 4
   }
 };
 

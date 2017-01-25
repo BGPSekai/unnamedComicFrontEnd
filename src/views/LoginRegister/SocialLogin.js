@@ -42,22 +42,23 @@ class SocialLogin {
         from: 'Google'
 			};
 			
-      this._sendRegister(userData).then((data) => {
-          this._sendLogin(userData).then((response) => {
-  
-            if (response.status === 'success') {
-              UserModule.setUserInfo(Object.assign(userData, {
-                remeber: true,
-                timeStamp: Math.floor(new Date().getTime() / 1000),
-                jwt: response.token
-              }));
+      this._sendLogin(userData).then((response) => {
 
-              UserModule.updateInfo().then((data) => {
-                browserHistory.push('/');
-              });
-            };
+        if (response.status === 'success') {
+          UserModule.setUserInfo(Object.assign(userData, {
+            remeber: true,
+            timeStamp: Math.floor(new Date().getTime() / 1000),
+            jwt: response.token
+          }));
+
+          UserModule.updateInfo().then((data) => {
+            browserHistory.push('/');
           });
+        };
       });
+      // 不需要經過註冊即可登入 social 帳號
+      // this._sendRegister(userData).then((data) => {
+      // });
 		}
 
 	}

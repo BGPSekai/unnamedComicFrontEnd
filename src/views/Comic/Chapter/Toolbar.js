@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
-import Conatainer from '../../../components/Container';
+import Href from 'components/Href';
+import Conatainer from 'components/Container';
+import UserModule from 'module/UserModule';
 import { ChapterStyle } from './Style';
 
 class Toolbar extends Component {
@@ -17,13 +19,21 @@ class Toolbar extends Component {
     this.closeDialog = this.closeDialog.bind(this);
   }
 
+  needLogin() {
+    if (!UserModule.checkIsLogin()) {
+      this._DialogContent = ['請先', <Href href="/login">登入</Href>];
+    }
+  }
+
   getUploadPermissions() {
     this._DialogContent = ['您確定要從原上傳者取得上傳權限嗎？'];
+    this.needLogin();
     this.setState({open: true});
   }
 
   getReport() {
     this._DialogContent = ['您確定要檢舉這部漫畫嗎？','惡意檢舉可能會導致您的帳號遭到停權!'];
+    this.needLogin();
     this.setState({open: true});
   }
 

@@ -12,9 +12,9 @@ class UserFavorite extends Component {
 
 		this.state = {
       page: 1,
-      perPageNumber: Setting.loadItem,
+      //perPageNumber: Setting.loadItem,
       allPage: 0,
-      comicIds: [],
+      //comicIds: [],
 			comics: [],
 			userId: UserModule.getUserInfo('userId')
 		};
@@ -30,12 +30,14 @@ class UserFavorite extends Component {
       .setType('json')
       .send()
       .then((data) => {
-        this.state.comicIds = data.favorites;
-        this.state.allPage = Math.ceil(data.favorites.length / this.state.perPageNumber);
-        this._getNextPageData();
+        //this.state.comicIds = data.favorites;
+        //this.state.allPage = Math.ceil(data.favorites.length / this.state.perPageNumber);
+        //this._getNextPageData();
+        this.setState({comics: data.favorites});
       });
   }
 
+  //原 loadmore 功能 ( 已遭 api 禁用 )
   _getNextPageData() {
     this._fetchAllComicData((this.state.page - 1) * this.state.perPageNumber , this.state.page * this.state.perPageNumber);
     this.state.page ++;
@@ -69,10 +71,14 @@ class UserFavorite extends Component {
     	<Container>
       	<ComicElement 
           comicData={this.state.comics} 
-          linkUrl={apiUrl.front.comicInfo} 
-          needLoadMore={this.state.page <= this.state.allPage}
-          loadMore={this._getNextPageData.bind(this)}
+          linkUrl={apiUrl.front.comicInfo}
           />
+          {
+            /*linkUrl={apiUrl.front.comicInfo} 
+            needLoadMore={this.state.page <= this.state.allPage}
+            loadMore={this._getNextPageData.bind(this)}
+            */
+          }
       </Container>
     );
   }

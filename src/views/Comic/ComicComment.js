@@ -7,13 +7,14 @@ import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import Container from '../../components/Container';
+import Container from 'components/Container';
 import ComicCommentStyle from './ComicCommentStyle';
-import TextInput from '../../components/TextInput';
+import TextInput from 'components/TextInput';
+import FetchModule from 'module/FetchModule';
+import UserModule from 'module/UserModule';
+import apiUrl from 'res/apiUrl';
+import Href from 'components/Href';
 import {ChatElement} from './ChatViewer';
-import FetchModule from '../../module/FetchModule';
-import UserModule from '../../module/UserModule';
-import apiUrl from '../../res/apiUrl';
 
 class ComicComment extends Component {
   constructor(props) {
@@ -95,30 +96,40 @@ class ComicComment extends Component {
                 text={`評論 ( ${((this.state.pages?this.state.pages:1)-1)*10}+ ) `} 
                 />
             </ToolbarGroup>
-            <ToolbarGroup>
-              <ToolbarSeparator />
-              <RaisedButton 
-                label="留言" 
-                backgroundColor={ComicCommentStyle.addCommentButtonBackground}
-                labelStyle={ComicCommentStyle.addCommentButton}
-                onTouchTap={this._submitComment}
-                />
-            </ToolbarGroup>
+            {
+              UserModule.checkIsLogin() && 
+              <ToolbarGroup>
+                <ToolbarSeparator />
+                <RaisedButton 
+                  label="留言" 
+                  backgroundColor={ComicCommentStyle.addCommentButtonBackground}
+                  labelStyle={ComicCommentStyle.addCommentButton}
+                  onTouchTap={this._submitComment}
+                  />
+              </ToolbarGroup>
+            }
+            {
+              !UserModule.checkIsLogin() && 
+              <span>要使用留言功能請先<Href href="/login">登入</Href></span>
+            }
           </Toolbar>
-          <div style={ComicCommentStyle.commentTextField}>
-            <div style={ComicCommentStyle.textfieldWarpper}>
-              <TextInput 
-                hintText="來吐槽吧"
-                underlineStyle={ComicCommentStyle.textfieldunderline}
-                underlineFocusStyle={ComicCommentStyle.textfieldunderline}
-                fullWidth  
-                multiLine={true}
-                rows={1}
-                rowsMax={4}
-                ref={(ele) => this.ele.comment = ele }
-                />
+          {
+            UserModule.checkIsLogin() && 
+            <div style={ComicCommentStyle.commentTextField}>
+              <div style={ComicCommentStyle.textfieldWarpper}>
+                <TextInput 
+                  hintText="來吐槽吧"
+                  underlineStyle={ComicCommentStyle.textfieldunderline}
+                  underlineFocusStyle={ComicCommentStyle.textfieldunderline}
+                  fullWidth  
+                  multiLine={true}
+                  rows={1}
+                  rowsMax={4}
+                  ref={(ele) => this.ele.comment = ele }
+                  />
+              </div>
             </div>
-          </div>
+          }
           <div style={ComicCommentStyle.wrapper}>
             {this._renderComments()}
           </div>

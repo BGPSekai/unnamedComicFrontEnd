@@ -12,7 +12,7 @@ import Container from 'components/Container';
 import FileUpload from 'components/FileUpload';
 import FetchModule from 'module/FetchModule';
 import apiUrl from 'res/apiUrl';
-import TypeSelecter from 'views/Comic/TypeSelecter';
+import TypeSelecter from 'views/Upload/TypeSelecter';
 import styles from 'views/Upload/styles';
 
 export default class ComicUpload extends Component {
@@ -22,13 +22,16 @@ export default class ComicUpload extends Component {
       previewImg: '',
       types: [],
       error: [],
-      typeValue: null
+      publishState: 0,
+      tagShare: true,
+      comicShare: true
     };
 
     this._changePreviewImg = this._changePreviewImg.bind(this);
     this._onChange = this._onChange.bind(this);
     this._onSubmit = this._onSubmit.bind(this);
     this._handleTypeChange = this._handleTypeChange.bind(this);
+    this._handlePublishStateChange = this._handlePublishStateChange.bind(this);
 
     new FetchModule()
       .setUrl(apiUrl.type)
@@ -46,7 +49,11 @@ export default class ComicUpload extends Component {
   }
 
   _handleTypeChange(event, index, value) {
-    this.setState({typeValue: value});
+    this.refs.typeSelecter.pushType(this.state.types[value-1]);
+  }
+
+  _handlePublishStateChange(event, index, value) {
+    this.setState({publishState: value});
   }
 
   _changePreviewImg(data) {
@@ -66,9 +73,9 @@ export default class ComicUpload extends Component {
       author: this.refs.author.getValue(),
       summary: this.refs.summary.getValue(),
       cover: this.refs.cover.getFile(0),
-      type: this.state.typeValue
+      types: this.refs.typeSelecter.getTypes()
     };
-
+  
     new FetchModule()
       .setUrl(apiUrl.publish.comic)
       .auth()
@@ -130,6 +137,8 @@ export default class ComicUpload extends Component {
               <SelectField
                 value={0}
                 fullWidth
+                onChange={this._handlePublishStateChange}
+                value={this.state.publishState}
                 >
                 <MenuItem value={0} primaryText="未發佈" />
                 <MenuItem value={1} primaryText="已發佈" />
@@ -140,17 +149,17 @@ export default class ComicUpload extends Component {
               floatingLabelText="添加 Type"
               floatingLabelFixed
               hintText="請選擇"
-              value={this.state.typeValue} 
+              value={null} 
               fullWidth
               onChange={this._handleTypeChange}
             >
             {
               this.state.types.map(( data, i) => {
-                return <MenuItem value={data.id} key={i} primaryText={data.name} />
+                return <MenuItem value={data.id} key={data.id} primaryText={data.name} />
               })
             }
             </SelectField><br />
-            <TypeSelecter />
+            <TypeSelecter ref="typeSelecter" />
             <FileUpload 
               ref="cover"
               multiple={false}
