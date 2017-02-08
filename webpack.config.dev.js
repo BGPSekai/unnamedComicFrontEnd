@@ -28,7 +28,8 @@ module.exports = {
     new webpack.NoErrorsPlugin(),
     new DotenvPlugin({
       sample: './.env.default',
-      path: './.env'
+      path: './.env',
+      silent: true
     })
   ],
   module: {
