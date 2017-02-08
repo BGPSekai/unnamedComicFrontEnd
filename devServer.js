@@ -1,13 +1,13 @@
 var path = require('path');
 var express = require('express');
 var webpack = require('webpack');
-var DashboardPlugin = require('webpack-dashboard/plugin');
+//var DashboardPlugin = require('webpack-dashboard/plugin');
 var config = require('./webpack.config.dev');
 
 var app = express();
 var compiler = webpack(config);
 
-compiler.apply(new DashboardPlugin());
+//compiler.apply(new DashboardPlugin());
 
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
