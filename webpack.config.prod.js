@@ -40,7 +40,7 @@ module.exports = {
       { test: /\.json$/, loader: 'json' },
       {
         test: /\.js$/,
-        loaders: ['babel'],
+        loaders: ['babel-loader'],
         include: path.join(__dirname, 'src')
     }]
   }
