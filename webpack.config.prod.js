@@ -31,8 +31,7 @@ module.exports = {
     }),
     new DotenvPlugin({
       sample: './.env.default',
-      path: './.env',
-      silent: true
+      path: './.env'
     })
   ],
   module: {
