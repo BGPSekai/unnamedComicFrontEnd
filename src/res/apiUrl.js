@@ -1,4 +1,4 @@
-let base = process.env.API_URL;
+let base = process.env.REACT_APP_API_URL;
 const apiUrl = {
   auth: `${base}/auth`,
   register: `${base}/auth/register`,
@@ -73,7 +73,8 @@ const apiUrl = {
    */
   getReplaceUrl: (url = '', replaceData = {}) => {
     for (let i in replaceData) {
-      url = url.replace(`{${i}}`, replaceData[i]);
+      if (Object.prototype.hasOwnProperty.call(replaceData, i))
+        url = url.replace(`{${i}}`, replaceData[i]);
     }
     return url;
   }

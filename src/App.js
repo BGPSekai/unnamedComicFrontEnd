@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {browserHistory, Link} from 'react-router';
+import { browserHistory } from 'react-router';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
@@ -16,7 +16,6 @@ import SearchIcon from 'material-ui/svg-icons/action/search';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
 import FileUploadIcon from 'material-ui/svg-icons/file/file-upload';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MenuResource from './res/menu.json';
 import Styles from './AppStyles';
@@ -44,7 +43,7 @@ class AppDrawer extends Component {
 
   handlePageChange(page, e) {
     //this.props.history.push(page); //deprecated
-    if (e&&(e.nativeEvent.which==0||e.nativeEvent.which==1)){
+    if (e&&(e.nativeEvent.which === 0||e.nativeEvent.which === 1)){
       this.setState({ navOpen: false });
       browserHistory.push('/'+page);
     };
@@ -98,9 +97,6 @@ class AppDrawer extends Component {
 }
 
 export default class App extends Component {
-  constructor(props) {
-    super(props);
-  }
   /**
    * 檢查 search location是否是 search
    * 是則顯示 search bar  
@@ -136,7 +132,7 @@ export default class App extends Component {
 
   handlePageChange(page, e) {
     //this.props.history.push(page); //deprecated
-    if (e&&(e.nativeEvent.which==0||e.nativeEvent.which==1)){
+    if (e&&(e.nativeEvent.which === 0||e.nativeEvent.which === 1)){
       this.AppDrawer.closeNav();
       browserHistory.push('/'+page);
     };
@@ -169,7 +165,7 @@ export default class App extends Component {
     } else {
       TitleElement = (
         <Href href="/" style={Styles.title} onTouchTap={this.handlePageChange.bind( this, '')}>
-          {process.env.WEBSITE_TITLE}
+          {process.env.REACT_APP_WEBSITE_TITLE}
         </Href>
       );
     };
@@ -223,7 +219,7 @@ export default class App extends Component {
                         <Avatar style={Styles.avatar} size={40}>
                           {
                             (UserModule.getUserInfo('avatar')) ?
-                            <img style={Styles.avatarImg} src={apiUrl.getReplaceUrl(apiUrl.user.avatar, {userId: UserModule.getUserInfo('userId'),avatarType: UserModule.getUserInfo('avatar')})+'?time='+ Math.ceil(Date.now()/10000)} /> :
+                            <img style={Styles.avatarImg} src={apiUrl.getReplaceUrl(apiUrl.user.avatar, {userId: UserModule.getUserInfo('userId'),avatarType: UserModule.getUserInfo('avatar')})+'?time='+ Math.ceil(Date.now()/10000)} alt={UserModule.getUserInfo('userName')} /> :
                             UserModule.getUserInfo('userName').substring( 0, 1)
                           }
                         </Avatar>
