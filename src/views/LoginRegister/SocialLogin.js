@@ -32,6 +32,7 @@ class SocialLogin {
 
   responseGoogle(response) {
 		let userData = {}, profileObj = response.profileObj;
+    console.log(profileObj);
 		if (response.profileObj) {
 			//console.log('取得 user google 資訊');
 			userData = {
