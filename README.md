@@ -3,16 +3,16 @@
 的 es6 語法
 
 >使用方法 : 
-先配置 .env 檔, 複製 .env.default 的內容到底下後修改,然
+先配置 .env 檔, 複製 .env.default 的內容到底下後修改(或者給予環境變數),然
 後執行以下指令
 
 
-`npm install`
+`npm install` 或者 `yarn`
 
-`npm start`
+`npm start` 或者 `yarn start`
 
 
-利用 [react-es6-webpack-boilerplate](https://github.com/a9650615/react-es6-webpack-boilerplate) 包搭建
+利用 [Create React App](https://github.com/facebookincubator/create-react-app) 包搭建
 
 其他依賴包
 - [React-router](https://github.com/ReactTraining/react-router)
