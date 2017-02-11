@@ -1,6 +1,6 @@
 import NodeRSA from 'node-rsa';
+import apiUrl from 'res/apiUrl';
 import LocalStorage from './LocalStorage';
-import apiUrl from '../res/apiUrl';
 import FetchModule from './FetchModule';
 
 class UserData {
@@ -45,9 +45,6 @@ class UserData {
 }
 
 class UserModule {
-  constructor() {
-
-  }
   /**
    * 清除使用者資料
    */
@@ -77,8 +74,8 @@ class UserModule {
    */
   checkHasExpired() {
     let userData = new UserData().getFromJson();
-    let time = Math.floor(new Date().getTime()/1000)
-    if (this.checkIsLogin() && (time - userData.timeStamp) < process.env.USER_EXPIRED * 60) {
+    let time = Math.floor(new Date().getTime()/1000);
+    if (this.checkIsLogin() && (time - userData.timeStamp) < process.env.REACT_APP_USER_EXPIRED * 60) {
       return false;
     };
     return true;
@@ -111,10 +108,10 @@ class UserModule {
     let data = {
       token: this.getUserInfo('jwt')
     };
-
+    
     return new Promise( (resolve,reject) => {
       new FetchModule()
-      .setUrl(`${apiUrl.user.info}?token=${data.token}`)
+      .setUrl(apiUrl.user.info)
       .auth()
       .setCors('cors')
       .setMethod('GET')
@@ -137,6 +134,7 @@ class UserModule {
     let data = {
       email: this.getUserInfo('email'),
       password: this.getUserInfo('password'),
+      name: this.getUserInfo('name'),
       from: this.getUserInfo('from')
     };
 
@@ -165,4 +163,4 @@ class UserModule {
   }
 }
 
-export default new UserModule;
+export default new UserModule();

@@ -1,7 +1,7 @@
 import {browserHistory} from 'react-router';
-import FetchModule from '../../module/FetchModule';
-import apiUrl from '../../res/apiUrl';
-import UserModule from '../../module/UserModule';
+import FetchModule from 'module/FetchModule';
+import apiUrl from 'res/apiUrl';
+import UserModule from 'module/UserModule';
 
 class SocialLogin {
 
@@ -9,17 +9,7 @@ class SocialLogin {
     this.responseGoogle = this.responseGoogle.bind(this);
   }
  
- //檢測是否註冊及註冊帳號
-	_sendRegister(data) {
-		return new FetchModule()
-      .setUrl(apiUrl.register)
-      .setCors('cors')
-      .setData(data)
-      .setMethod('POST')
-      .setType('json')
-      .send();
-	}
-
+  //登入 Social 帳號
   _sendLogin(data) {
 		return new FetchModule()
       .setUrl(apiUrl.auth)
@@ -44,7 +34,6 @@ class SocialLogin {
 			};
 			
       this._sendLogin(userData).then((response) => {
-
         if (response.status === 'success') {
           UserModule.setUserInfo(Object.assign(userData, {
             remeber: true,
@@ -56,6 +45,7 @@ class SocialLogin {
             browserHistory.push('/');
           });
         };
+
       });
       // 不需要經過註冊即可登入 social 帳號
       // this._sendRegister(userData).then((data) => {
@@ -66,4 +56,4 @@ class SocialLogin {
 
 }
 
-export default new SocialLogin;
+export default new SocialLogin();

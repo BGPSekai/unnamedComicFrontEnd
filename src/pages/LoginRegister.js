@@ -11,7 +11,6 @@ import IconButton from 'material-ui/IconButton';
 import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back';
 import Checkbox from 'material-ui/Checkbox';
 import GoogleLogin from 'react-google-login';
-import LocalStorage from 'module/LocalStorage';
 import UserModule from 'module/UserModule';
 import ContextualBg from 'components/ContextualBg';
 import Container from 'components/Container';
@@ -64,7 +63,8 @@ export default class LoginRegister extends Component {
 				warrning: false
 			});
 			for (let i in this.state.register) {
-				this.state.register[i] = '';
+				if(this.state.register.hasOwnProperty(i))
+				  this.state.register[i] = '';
 			}
 			this.setState({
 				register: this.state.register
@@ -129,10 +129,12 @@ export default class LoginRegister extends Component {
 		this.setState({ msg: null}); //去除警告
 	}
 
+  //處理輸入更換事件
 	handleRegisterChange(e, refs) {
-		this.state.register[refs] = e.target.value;
+    let registerData = this.state.register;
+		registerData[refs] = e.target.value;
 		this.setState({
-			register: this.state.register
+			register: registerData
 		});
 	}
 
@@ -216,6 +218,8 @@ export default class LoginRegister extends Component {
 									ref="GoogleLoginButton"
 									clientId="889218336554-qt4ge5mk4l9tijl7avfsmu8juv3l6v4r.apps.googleusercontent.com"
 									buttonText="Login with Google"
+									scope="profile"
+									fetchBasicProfile={true}
 									onSuccess={SocialLogin.responseGoogle}
 									onFailure={SocialLogin.responseGoogle}
 									style={styles.GoogleLogin}
@@ -223,7 +227,7 @@ export default class LoginRegister extends Component {
 								<RaisedButton 
 									fullWidth 
 									label="Google 帳號登入"
-									icon={<img style={{borderRadius: '100%'}} src={'https://google-developers.appspot.com/identity/sign-in/g-normal.png'}/>}
+									icon={<img style={{borderRadius: '100%'}} src={'https://google-developers.appspot.com/identity/sign-in/g-normal.png'} alt="Google Login Icon"/>}
 									onTouchTap={() => {this.refs['GoogleLoginButton'].signIn()}}
 									style={styles.GoogleLoginBtn}
 									/>
