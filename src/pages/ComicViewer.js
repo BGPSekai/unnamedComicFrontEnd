@@ -138,8 +138,9 @@ class ComicViewer extends Component {
     let toolbarStyle = this.state.showToolBar?ComicViewerAni.viewerBar:ComicViewerAni.viewerBarHide;
     let chatElementStyle = this.state.showToolBar?ComicViewerAni.chatElement:ComicViewerAni.chatElementHide;
     let imageStyle = (this.state.scrollReadMode)? imageScrollStyle: imageSwitchStyle;
-    
-    if (this.props.comicInfo.chapters.length) {
+    let props = this.props;
+    console.log(props);
+    if (props.comicInfo.chapters && props.comicInfo.chapters.length) {
       let chapterInfo = this.props.comicInfo.chapters[this.state.chapterId - 1];
       if (chapterInfo)
         for (let i = 1; i <= chapterInfo.pages; i++) {
@@ -162,9 +163,9 @@ class ComicViewer extends Component {
     return (
       <div style={styles.root}>
         {
-          this.props.comicInfo &&
+          props.comicInfo.hasOwnProperty('chapters') &&
           <div>
-            <ChatViewer ref="ChatViewer" chapterInfo={this.props.comicInfo.chapters[this.state.chapterId - 1]} />
+            <ChatViewer ref="ChatViewer" chapterInfo={props.comicInfo.chapters[this.state.chapterId - 1]} />
             <Motion defaultStyle={{top: styles.viewerBar.top}} style={toolbarStyle}>
               {(style) =>
                 <div>

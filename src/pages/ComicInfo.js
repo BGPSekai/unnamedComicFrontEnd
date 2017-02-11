@@ -11,8 +11,7 @@ class ComicInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      comic: {},
-      chapters: []
+      comic: {}
     };
 
   }
@@ -24,7 +23,7 @@ class ComicInfo extends Component {
       .setType('json')
       .send()
       .then((data) => {
-        this.setState(data);
+        this.setState({ comic: data.comic });
       });
   }
 
@@ -45,18 +44,17 @@ class ComicInfo extends Component {
               primary={true}
               onTouchTap={this._handleClose}
               />
-          }
-          >
+          }>
           {this.state.message}
         </Dialog>
       );
     };
-
+    
     return (
       <div style={{background: '#FF82AC'}}>
         {
           this.props.children && React.cloneElement(this.props.children, {
-            comicInfo: this.state
+            comicInfo: this.state.comic
           })
         }
         <Chapter
