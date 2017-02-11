@@ -106,7 +106,7 @@ export default class FetchModule {
 
     /* [bug] fetch 無法送出真正 put,delete method 應對 laravel 暫時解決方式 */
     
-    if (sendMethod!='GET'&&sendMethod!='POST') {
+    if (sendMethod !== 'GET' && sendMethod !== 'POST') {
       data.append('_method', sendMethod.toLowerCase());
       sendMethod = 'POST';
     }
@@ -155,7 +155,7 @@ export default class FetchModule {
         }
         // retrieve the multi-byte chunk of data
         var chunk = result.value;
-        var text = '';
+        //var text = '';
         // since the chunk can be multiple bytes, iterate through
         // each byte while skipping the byte order mark
         // (assuming UTF-8 with single-byte chars)

@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Col } from 'react-bootstrap';
 import { GridTile } from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -23,7 +22,7 @@ class TileElement extends Component {
          actionIcon={<IconButton></IconButton>}
          style={this.props.style.gridStyle}
        >
-         <img src={apiUrl.comic.cover.replace('{id}',this.props.comic.id)}/>
+         <img src={apiUrl.comic.cover.replace('{id}',this.props.comic.id)} alt="cover"/>
        </GridTile>
     );
   }
@@ -53,7 +52,7 @@ class ComicElement extends Component {
   }
 
   _scrollEvent() {
-    let scrollHeight = this.refs.tileElement.scrollHeight;
+    /*let scrollHeight = this.refs.tileElement.scrollHeight;
     let nowScroll = 0;
     ['mousewheel','touchmove'].map((eventType) => {
       this.refs.tileElement.addEventListener(eventType, (e) => {
@@ -67,7 +66,7 @@ class ComicElement extends Component {
           //console.log('換頁囉');
         };
       });
-    });
+    });*/
     
   }
   

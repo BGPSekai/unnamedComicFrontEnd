@@ -1,16 +1,13 @@
 import React, {Component} from 'react';
 import { browserHistory } from 'react-router';
 import IconButton from 'material-ui/IconButton';
-import FontIcon from 'material-ui/FontIcon';
-import RaisedButton from 'material-ui/RaisedButton';
-import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
-import SelectField from 'material-ui/SelectField';
+import { Toolbar, ToolbarGroup, ToolbarSeparator } from 'material-ui/Toolbar';
 import MenuItem from 'material-ui/MenuItem';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back';
 import FlatButton from 'material-ui/FlatButton';
 import TextInput from 'components/TextInput';
-import {Motion, spring, StaggeredMotion} from 'react-motion';
+import { Motion } from 'react-motion';
 import Container from 'components/Container';
 import Image,{ PreLoader } from 'components/Image';
 import styles, { ComicViewerAni, imageSwitchStyle, imageScrollStyle } from 'views/Comic/ComicViewerStyle';
@@ -77,7 +74,7 @@ class ComicViewer extends Component {
     super(props);
 
     this.state = {
-      chapterId: parseInt(this.props.params.chapterId),
+      chapterId: parseInt(this.props.params.chapterId, 10),
       scrollReadMode: LocalStorage.getObject('userSetting').scrollReadMode||false,
       show: 0
     };
@@ -131,7 +128,7 @@ class ComicViewer extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.chapterId !== this.props.params.chapterId) {
-      this.setState({ chapterId: parseInt(nextProps.params.chapterId) });
+      this.setState({ chapterId: parseInt(nextProps.params.chapterId, 10) });
     };
   }
 
@@ -157,8 +154,8 @@ class ComicViewer extends Component {
           // );
         };
 
-      this.props.comicInfo.chapters.map((val, i) => {
-        ChapterSelecter.push(<MenuItem key={i} value={i + 1} primaryText={`第 ${i + 1} 章 - ${val.name}`} />);
+      ChapterSelecter = this.props.comicInfo.chapters.map((val, i) => {
+        return(<MenuItem key={i} value={i + 1} primaryText={`第 ${i + 1} 章 - ${val.name}`} />);
       });
     }
     

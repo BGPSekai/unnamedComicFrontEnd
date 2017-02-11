@@ -10,11 +10,10 @@ import Dialog from 'material-ui/Dialog';
 import FetchModule from '../../../module/FetchModule';
 import Container from '../../../components/Container';
 import Image from '../../../components/Image';
-import { ChapterStyle, smallChapterStyle } from './Style';
+import { ChapterStyle } from './Style';
 import Href from '../../../components/Href';
 import apiUrl from '../../../res/apiUrl';
 import UserModule from '../../../module/UserModule';
-import PageResponse from '../../../module/PageResponse';
 import TagElement from './TagElement';
 import ComicFavorite from './ComicFavorite';
 import Toolbar from './Toolbar';
@@ -126,7 +125,7 @@ class ChapterPage extends Component {
               ]
             }
             modal={false}
-            open={this.state.errorText != ''}
+            open={this.state.errorText !== ''}
             onRequestClose={() => this.setState({ errorText: '' }) }
             >
             {this.state.errorText}

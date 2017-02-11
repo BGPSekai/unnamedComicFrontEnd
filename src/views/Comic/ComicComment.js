@@ -1,12 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import { browserHistory } from 'react-router';
-import Avatar from 'material-ui/Avatar';
 import Paper from 'material-ui/Paper';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
-import TextField from 'material-ui/TextField';
-import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
 import Container from 'components/Container';
 import ComicCommentStyle from './ComicCommentStyle';
 import TextInput from 'components/TextInput';

@@ -44,7 +44,7 @@ class Types extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.params.typeName != this.state.typeData.name) {
+    if (nextProps.params.typeName !== this.state.typeData.name) {
       this.setState({ typeData: this._getTypeData(nextProps.params.typeName), comics: [], page: 1 });
       this._getComicData(this._getTypeData(nextProps.params.typeName));
     }

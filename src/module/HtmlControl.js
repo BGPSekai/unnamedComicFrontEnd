@@ -13,4 +13,4 @@ class HtmlControl {
   }
 }
 
-export default new HtmlControl;
+export default new HtmlControl();

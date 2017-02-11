@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {browserHistory, LinK} from 'react-router';
+import {browserHistory} from 'react-router';
 
 class Href extends Component {
   _handlePageChange( page = '', e) {

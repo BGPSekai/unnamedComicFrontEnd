@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import {Card, CardHeader} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Step, Stepper, StepLabel} from 'material-ui/Stepper';
 import Container from 'components/Container';
@@ -34,7 +34,7 @@ class ChapterEditer extends Component {
       .setType('json')
       .send()
       .then((data) => {
-        this.setState({ chapterInfo: data.chapters[this.props.params.chapterId - 1] });
+        this.setState({ chapterInfo: data.comic.chapters[this.props.params.chapterId - 1] });
         this._getAllUploadedImage(this._getImageData());
       });
   }
@@ -87,18 +87,20 @@ class ChapterEditer extends Component {
     this.refs.imageUploader.getAllImagePreview(0, (array = []) => {
       let putData = [];
 
-      array.map((data, i) => {
-        putData[i] = {
-          file: files[i],
-          isDelete: false,
-          defaultIndex: null,
-          image: data
-        };
-      });
+      for (let i in array) {
+        if (array.hasOwnProperty(i))
+          putData[i] = {
+            file: files[i],
+            isDelete: false,
+            defaultIndex: null,
+            image: array[i]
+          };
+      }
       
       this.setState({
         pageData: this.state.pageData.concat(putData)
       });
+
     });
   }
 
@@ -249,7 +251,7 @@ class ChapterEditer extends Component {
               subtitle="章節編輯"
             />
             {
-              this.state.formState == 0 &&
+              this.state.formState === 0 &&
               <div>
                 <FileUpload
                 ref="imageUploader"

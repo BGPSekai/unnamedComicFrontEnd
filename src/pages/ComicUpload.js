@@ -4,7 +4,6 @@ import {Card, CardActions, CardMedia, CardTitle, CardText} from 'material-ui/Car
 import { Col } from 'react-bootstrap';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import LinearProgress from 'material-ui/LinearProgress';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Checkbox from 'material-ui/Checkbox';
@@ -135,7 +134,6 @@ export default class ComicUpload extends Component {
             <Col xs={6}>
               <div style={styles.shareSettingHeader}>漫畫發佈狀態</div>
               <SelectField
-                value={0}
                 fullWidth
                 onChange={this._handlePublishStateChange}
                 value={this.state.publishState}
@@ -171,7 +169,7 @@ export default class ComicUpload extends Component {
             <CardMedia 
               overlay={<CardTitle title="封面圖片預覽" />}
             >
-              <img src={this.state.previewImg} style={styles.coverImgPreview}/>
+              <img src={this.state.previewImg} style={styles.coverImgPreview} role="presentation"/>
             </CardMedia>
           </CardText>
           <CardActions>

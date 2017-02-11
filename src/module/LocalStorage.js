@@ -45,10 +45,11 @@ class LocalStorage {
   
   set(data = {}) {
     for (let i in data) {
+      if (data.hasOwnProperty(i))
       this[_lS].setItem( i, data[i]);
     };
   }
 
 }
 
-export default new LocalStorage;
+export default new LocalStorage();

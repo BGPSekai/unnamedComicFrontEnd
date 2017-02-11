@@ -4,7 +4,6 @@ import {Card, CardActions, CardTitle, CardText} from 'material-ui/Card';
 import {Step, Stepper, StepLabel} from 'material-ui/Stepper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import LinearProgress from 'material-ui/LinearProgress';
 import Container from 'components/Container';
 import FileUpload from 'components/FileUpload';
 import SortableList from 'components/SorttableList';
@@ -43,7 +42,9 @@ export default class ChapterUploader extends Component {
           file: files[i],
           image: data
         };
+        return putData;
       });
+
       concatData = this.state.uploadList.concat(putData);
       this.setState({
         uploadList: concatData,

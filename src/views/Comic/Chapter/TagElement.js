@@ -6,7 +6,7 @@ import MenuItem from 'material-ui/MenuItem';
 import Chip from 'material-ui/Chip';
 import FetchModule from '../../../module/FetchModule';
 import apiUrl from '../../../res/apiUrl';
-import { ChapterStyle, smallChapterStyle } from './Style';
+import { ChapterStyle } from './Style';
 
 class TagElement extends Component {
   constructor(props) {
@@ -35,7 +35,7 @@ class TagElement extends Component {
 
   _tagAction(action){
     let tagIndex = this.state.tagSelect;
-    let tagName = this.state.tags[tagIndex];
+    let tagName = this.state.tags[tagIndex].name;
     
     switch (action){
       case 'delete':
@@ -53,14 +53,16 @@ class TagElement extends Component {
           page: ''
         }));
         break;
+      default:;break;
     }
   }
 
   render() {
     let tagElement = [];
-    this.state.tags &&
-      this.state.tags.map((val, i) => {
-        tagElement.push(
+    
+    if(this.state.tags)
+      tagElement = this.state.tags.map((val, i) => {
+        return(
           <div key={i} style={{display: 'inline-block'}}>
             <Chip
               backgroundColor={'#F06292'}
@@ -68,7 +70,7 @@ class TagElement extends Component {
               onClick={(e) => {this.setState({'tagElement': e.currentTarget,'tagSelect': i});}}
               style={ChapterStyle.tag}
               >
-                {val}
+                {val.name}
               </Chip>
           </div>
         );

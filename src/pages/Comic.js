@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import GridList from 'material-ui/GridList';
 import Container from 'components/Container';
 import ComicElement from 'views/Comic/ComicElement';
 import styles from 'views/Comic//styles';

@@ -4,8 +4,6 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import FetchModule from 'module/FetchModule';
 import apiUrl from 'res/apiUrl';
-import Container from 'components/Container';
-import Loading from 'components/Loading';
 import Chapter from 'views/Comic/Chapter';
 import ComicComment from 'views/Comic/ComicComment';
 
@@ -63,7 +61,7 @@ class ComicInfo extends Component {
         }
         <Chapter
           comicData={this.state.comic}
-          chapterData={this.state.chapters}
+          chapterData={this.state.comic.chapters}
           linkUrl={apiUrl.front.viewComic}
           />
         <ComicComment comicData={this.state.comic} />

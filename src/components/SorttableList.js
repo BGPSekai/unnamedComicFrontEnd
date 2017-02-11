@@ -81,12 +81,12 @@ class SortableGrid extends Component {
     let listDatas = this.state.listData; //直接更動資料
     let newIndex = this.refs.orderNumber.getValue() - 1;
     let oldIndex = this.state.defaultOrder;
-    newIndex = (newIndex < listDatas.length)? newIndex : listDatas.length - 1;
     let temp = listDatas[oldIndex];
-    if (change && insert && newIndex != oldIndex) {
+    newIndex = (newIndex < listDatas.length)? newIndex : listDatas.length - 1;
+    if (change && insert && newIndex !== oldIndex) {
       listDatas = listDatas.splice( oldIndex, 1);
       listDatas = listDatas.splice( newIndex, 0, temp);
-    }else if ( change && newIndex < listDatas.length && newIndex != oldIndex) {
+    } else if ( change && newIndex < listDatas.length && newIndex !== oldIndex) {
       listDatas[oldIndex] = listDatas[newIndex];
       listDatas[newIndex] = temp;
     };
@@ -131,7 +131,7 @@ class SortableGrid extends Component {
       }
     };
     let re_index = 0;
-    let listItems = this.state.listData.map(function(item, i) {
+    let listItems = this.state.listData.map((item, i) => {
       if (item.image){
         re_index++;
         return (
@@ -160,7 +160,8 @@ class SortableGrid extends Component {
                       bottom: 0,
                       margin: 'auto'
                     }} 
-                    src={item.image} 
+                    src={item.image}
+                    alt={`img ${i}`}
                   />
                 </span>
                 <span style={styles.name}>
@@ -171,6 +172,7 @@ class SortableGrid extends Component {
             </SortableGridItem>
         );
       };
+      return null;
     }, this);
 
     return (
@@ -201,11 +203,11 @@ class SortableGrid extends Component {
             min="1"
             max={this.state.listData.length}
             defaultValue={this.state.defaultOrder+1}
-            onKeyDown={(e) => {(e.keyCode === 13)?this._closeOrderDialog(true):''}}
+            onKeyDown={(e) => {if (e.keyCode === 13)this._closeOrderDialog(true)}}
             fullWidth
             autoFocus
           />
-          <Checkbox onCheck={(e, isChecked) => {this.state.insert = isChecked;}} label="插入(不插入則使用對調)" />
+          <Checkbox onCheck={(e, isChecked) => {this.setState({ insert: isChecked });}} label="插入(不插入則使用對調)" />
         </Dialog>
         <div className="grid">
           {listItems}

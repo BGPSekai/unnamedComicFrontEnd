@@ -3,7 +3,6 @@ import Container from 'components/Container';
 import UserModule from 'module/UserModule';
 import FetchModule  from 'module/FetchModule';
 import apiUrl from 'res/apiUrl';
-import Setting from 'res/Setting';
 import ComicElement from 'views/Comic/ComicElement';
 
 class UserFavorite extends Component {

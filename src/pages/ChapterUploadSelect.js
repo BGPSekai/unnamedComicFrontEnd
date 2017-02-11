@@ -29,7 +29,7 @@ class ChapterUploadSelect extends Component {
       <div>
         <Chapter 
           comicData={this.state.comic} 
-          chapterData={this.state.chapters}
+          chapterData={this.state.comic.chapters}
           linkUrl={apiUrl.front.chapterEdit}
           backEnd
         />

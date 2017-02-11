@@ -3,7 +3,6 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import Avatar from 'material-ui/Avatar';
-import TextField from 'material-ui/TextField';
 import Href from 'components/Href';
 import TextInput from 'components/TextInput';
 import FetchModule from 'module/FetchModule';
@@ -66,11 +65,11 @@ class ChatElement extends Component {
           </Href>
           <div style={ComicCommentStyle.commentArea}>
             {
-              this.state.mode == 0 &&
+              this.state.mode === 0 &&
               <div>
                 <span style={ComicCommentStyle.userComment}> {value.comment}</span>
                 {
-                  UserModule.getUserInfo('userId') == value.commented_by.id &&
+                  UserModule.getUserInfo('userId') === value.commented_by.id &&
                   <span style={ComicCommentStyle.editComment} onTouchTap={this.editMode}>
                   修改
                   </span>
@@ -78,7 +77,7 @@ class ChatElement extends Component {
               </div>
             }
             {
-              this.state.mode == 1 &&
+              this.state.mode === 1 &&
               <div>
                 <span style={ComicCommentStyle.userComment}> 
                    <TextInput
@@ -127,14 +126,15 @@ class ChatViewer extends Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if (!this.state.id||this.state.id != nextProps.chapterInfo.id) {
+    if (!this.state.id||this.state.id !== nextProps.chapterInfo.id) {
       this.state.id = nextProps.chapterInfo.id;
       this.loadCommentData();
     } 
   }
 
   loadCommentData(pageNum = 0) {
-    (pageNum)? this.setState({page: pageNum}):0;
+    if (pageNum) 
+      this.setState({page: pageNum});
     new FetchModule()
       .setUrl(apiUrl.comic.listChapterComments)
       .replaceVariable({id: this.state.id, page: this.state.page})
@@ -142,7 +142,7 @@ class ChatViewer extends Component {
       .setMethod('GET')
       .send()
       .then((data) => {
-        if (data.status == 'success')
+        if (data.status === 'success')
           this.setState({comments: pageNum?this.state.comments.concat(data.comments):data.comments});
       })
   }

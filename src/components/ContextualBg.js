@@ -12,6 +12,7 @@ export default class ContextualBg extends Component {
     };
 
     for (let i in this.props.style) {
+      if (this.props.style.hasOwnProperty(i))
       styles[i] = this.props.style[i];
     }
 
@@ -28,7 +29,7 @@ export default class ContextualBg extends Component {
           })
         }
         {
-          typeof this.props.msg == 'string' &&
+          typeof this.props.msg === 'string' &&
           <p>{this.props.msg}</p>
         }
       </div>

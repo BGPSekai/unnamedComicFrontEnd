@@ -29,7 +29,7 @@ class PreLoader extends Component {
         imageCache = this.state.imageCache[i];
         cache[i] = Object.assign(imageCache,{
           imgElement: React.cloneElement(this.props.children, 
-            {key: i, preload: true, show:(i == this.state.show)? true: false, style: imageStyle, ref: (data) => {this.image[i] = data}}
+            {key: i, preload: true, show:(i === this.state.show)? true: false, style: imageStyle, ref: (data) => {this.image[i] = data}}
           )
         });
       }
@@ -38,15 +38,15 @@ class PreLoader extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.show != this.props.show) {
+    if(nextProps.show !== this.props.show) {
       this.setState({show: nextProps.show}, this._controlImageMount.bind(this));
     };
-    if (nextProps.urls.length != this.props.urls.length) {
+    if (nextProps.urls.length !== this.props.urls.length) {
       this.props = nextProps;
       this.catchData();
     } else {
       for (let i in nextProps.urls) { //是否一致判斷
-        if (nextProps.urls[i] != this.props.urls[i]) { //找到不一致點
+        if (nextProps.urls[i] !== this.props.urls[i]) { //找到不一致點
           this.props = nextProps;
           this.catchData();
           break;
@@ -195,7 +195,7 @@ class Img extends Component {
       margin: 'auto'
     };
     return (
-      <div style={Object.assign({position: 'relative', background: '#e0e0e0', display: (this.props.show==false)?'none':'block'}, this.props.style)}>
+      <div style={Object.assign({position: 'relative', background: '#e0e0e0', display: (this.props.show === false)?'none':'block'}, this.props.style)}>
         {
           (!this.state.finish && this.props.preload) &&
           <div style={loaderStyle}>
@@ -210,7 +210,7 @@ class Img extends Component {
         <img
         className={this.props.className || ''}
         style={style}
-        src={((this.state.finish == 1)?this.state.url:this.props.src)}
+        src={((this.state.finish === 1)?this.state.url:this.props.src)}
         />
       </div>
     );

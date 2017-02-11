@@ -8,7 +8,6 @@ export default class Container extends Component {
       width: '99%',
       height: '100%',
       maxWidth: '1080px',
-      minHeight: '300px',
       marginLeft: 'auto',
       marginRight: 'auto',
       boxSizing: 'border-box',

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Router, {browserHistory} from 'react-router';
+import {browserHistory} from 'react-router';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';

@@ -1,10 +1,7 @@
-import FetchModule from '../../module/FetchModule';
-import apiUrl from '../../res/apiUrl';
+import FetchModule from 'module/FetchModule';
+import apiUrl from 'res/apiUrl';
 
 class RegisterModule {
-  constructor() {
-  }
-
   postData(data) {
     return new FetchModule()
       .setUrl(apiUrl.register)
@@ -16,4 +13,4 @@ class RegisterModule {
   }
 }
 
-export default new RegisterModule; 
+export default new RegisterModule(); 

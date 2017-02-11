@@ -111,9 +111,9 @@ class UserProfile extends Component {
             <Avatar 
               size={100} 
               style={styles.avatar}
-              onMouseEnter = {() => this.setState({avatarHover: true})}
-              onMouseLeave = {() => this.setState({avatarHover: false})}
-              onTouchTap = {()=>this.setState({avatarChanger: true})}
+              onMouseEnter={() => this.setState({avatarHover: true})}
+              onMouseLeave={() => this.setState({avatarHover: false})}
+              onTouchTap={()=>this.setState({avatarChanger: true})}
               >
               {
                 (!UserModule.getUserInfo('avatar')) ? 
@@ -123,6 +123,7 @@ class UserProfile extends Component {
                       avatarType: UserModule.getUserInfo('avatar')
                     })+'?time='+ Date.now()} 
                     style={styles.avatarImage}
+                    alt="avatar"
                   />
               }
               {

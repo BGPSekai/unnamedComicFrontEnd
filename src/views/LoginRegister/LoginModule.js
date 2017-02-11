@@ -4,9 +4,6 @@ import apiUrl from '../../res/apiUrl';
 import LocalStorage from '../../module/LocalStorage';
 
 class LoginModule {
-  constructor() {
-  }
-
   encrypt(data) {
     let key = new NodeRSA({b: 512});
     var encrypted = key.encrypt(data, 'base64');
@@ -30,4 +27,4 @@ class LoginModule {
   }
 }
 
-export default new LoginModule;
+export default new LoginModule();

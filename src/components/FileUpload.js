@@ -16,7 +16,7 @@ class FileStore {
   }
 }
 
-const fileStore = new FileStore;
+const fileStore = new FileStore();
 
 export default class FileUploader extends Component {
   constructor(props) {
@@ -46,20 +46,17 @@ export default class FileUploader extends Component {
   getImagePreview(index = 0) {
     let reader = new FileReader();
     let file =  fileStore.getFiles(index);
-    let loadStatus = new Promise( ( resolve, reject) => {
+    return new Promise( ( resolve, reject) => {
       reader.onloadend = () => {
         resolve(reader.result);
       };
-    });
 
-    if (file) {
-      reader.readAsDataURL(file);
-      return loadStatus;
-    } else {
-      return new Promise( ( resolve, reject) => {
-        resolve(null);
-      });
-    };
+      if (file) {
+        reader.readAsDataURL(file);
+      } else {
+        reject(null);
+      };
+    });
   }
   /**
    * 一次取得所有 Preview ( 非 Promise )
@@ -126,7 +123,8 @@ export default class FileUploader extends Component {
     };
 
     for (let i in this.props.style) {
-      styles[i] = this.props.style[i];
+      if (this.props.style.hasOwnProperty(i))
+        styles[i] = this.props.style[i];
     }
     
     if (this.state.isDragActive)

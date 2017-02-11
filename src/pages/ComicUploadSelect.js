@@ -14,10 +14,6 @@ import ComicElement from 'views/Comic/ComicElement';
 import styles from 'views/Comic/styles';
 
 class MenuList extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <Paper style={{ marginBottom: 15}}>

@@ -43,7 +43,7 @@ class ComicFavorite extends Component {
         .send()
         .then((data) => {
           this.setState({
-            favorite: (data.favorites.indexOf(this.props.comicId) != -1)? true: false
+            favorite: (data.favorites.indexOf(this.props.comicId) !== -1)? true: false
           });
         });
     }
