@@ -60,7 +60,7 @@ render() {
           </div>
           <div id="copyright" style={Styles.copyright}>
             <Container style={Styles.copyrightContainer}>
-              Powered By {process.env.WEBSITE_ENG_TITLE}
+              Powered By {process.env.REACT_APP_WEBSITE_ENG_TITLE}
             </Container>
           </div>
         </div>
