@@ -32,7 +32,6 @@ class Ajax {
     return xhr;
   }
 
-
 }
 
 export default Ajax;

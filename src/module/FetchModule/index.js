@@ -77,9 +77,12 @@ export default class FetchModule {
    */
   replaceVariable(data = {}) {
     let url = this._tempData.default_url;
+    
     for (let i in data) {
-      url = url.replace('{' + i + '}', data[i]);
-    }
+      if (data.hasOwnProperty(i))
+        url = url.replace('{' + i + '}', data[i]);
+    };
+   
     this._tempData.url = url;
     return this;
   }
@@ -96,7 +99,7 @@ export default class FetchModule {
       if (this._tempData.data[i])
         if (Array.isArray(this._tempData.data[i])) {
           let label = `${i}[]`;
-          this._tempData.data[i].map((val, i2) => {
+          this._tempData.data[i].forEach((val, i2) => {
             data.append(label, this._tempData.data[i][i2]);
           });
         } else {
@@ -147,30 +150,30 @@ export default class FetchModule {
    */
 
   consume(response, fileSize = 0) {
-    let progress = 0;
-    let pump = (reader) => {
-      reader.read().then(function (result) {
-        if (result.done) {
-          return;
-        }
-        // retrieve the multi-byte chunk of data
-        var chunk = result.value;
-        //var text = '';
-        // since the chunk can be multiple bytes, iterate through
-        // each byte while skipping the byte order mark
-        // (assuming UTF-8 with single-byte chars)
-        // for (var i = 3; i < chunk.byteLength; i++) {
-        //   text += String.fromCharCode(chunk[i]);
-        // }
-        // report our current progress
-        progress += chunk.byteLength;
-        //console.log(((progress / contentLength) * 100) + '%');
-        // go to next chunk via recursion
-        return pump(reader);
-      });
-    };
+    // let progress = 0;
+    // let pump = (reader) => {
+    //   reader.read().then(function (result) {
+    //     if (result.done) {
+    //       return;
+    //     }
+    //     // retrieve the multi-byte chunk of data
+    //     var chunk = result.value;
+    //     //var text = '';
+    //     // since the chunk can be multiple bytes, iterate through
+    //     // each byte while skipping the byte order mark
+    //     // (assuming UTF-8 with single-byte chars)
+    //     // for (var i = 3; i < chunk.byteLength; i++) {
+    //     //   text += String.fromCharCode(chunk[i]);
+    //     // }
+    //     // report our current progress
+    //     progress += chunk.byteLength;
+    //     //console.log(((progress / contentLength) * 100) + '%');
+    //     // go to next chunk via recursion
+    //     return pump(reader);
+    //   });
+    // };
 
-    return pump(response.body.getReader());
+    // return pump(response.body.getReader());
   }
 
   _fetch(url, init = {}, resolve = () => { }, reject = () => { }) {

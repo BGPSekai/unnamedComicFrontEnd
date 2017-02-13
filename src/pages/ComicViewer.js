@@ -139,7 +139,7 @@ class ComicViewer extends Component {
     let chatElementStyle = this.state.showToolBar?ComicViewerAni.chatElement:ComicViewerAni.chatElementHide;
     let imageStyle = (this.state.scrollReadMode)? imageScrollStyle: imageSwitchStyle;
     let props = this.props;
-    console.log(props);
+
     if (props.comicInfo.chapters && props.comicInfo.chapters.length) {
       let chapterInfo = this.props.comicInfo.chapters[this.state.chapterId - 1];
       if (chapterInfo)

@@ -25,14 +25,20 @@ class PreLoader extends Component {
     let imageCache;
     // 判斷單張圖切換
     if (this.props.showOne) {
-      for (let i in this.state.imageCache) {
-        imageCache = this.state.imageCache[i];
+      this.imageCache.forEach((ele, i) => {
+        imageCache = ele;
         cache[i] = Object.assign(imageCache,{
           imgElement: React.cloneElement(this.props.children, 
-            {key: i, preload: true, show:(i === this.state.show)? true: false, style: imageStyle, ref: (data) => {this.image[i] = data}}
+            { key: i, 
+              preload: true, 
+              show:(i === this.state.show)? true: false, 
+              style: imageStyle, 
+              ref: (data) => {this.image[i] = data}
+            }
           )
         });
-      }
+      });
+    
       this.setState({imageCache: cache});
     }
   }
@@ -58,23 +64,25 @@ class PreLoader extends Component {
   catchData(func) {
     let cache = [];
     let imageStyle = this.props.children.props.style;
-
-    for (let i in this.props.urls) {
-      cache[i] = Object.assign(
-        { finish: 0, loadPercent: 0, url: '', index: i,
-          imgElement: React.cloneElement(this.props.children, {key: i, preload: true, style: imageStyle, ref: (data) => {this.image[i] = data}})
-        },
-        {url: this.props.urls[i]}
-      );
-    }
+    
+    this.props.urls.forEach((url, i) => {
+       cache[i] = Object.assign(
+          { finish: 0, loadPercent: 0, url: '', index: i,
+            imgElement: React.cloneElement(this.props.children, {key: i, preload: true, style: imageStyle, ref: (data) => {this.image[i] = data}})
+          },
+          {url: url}
+        );
+    });
+  
     this.setState({imageCache: cache}, this.resolvePreload.bind(this));
   }
 
 
   *imageLoader() {
-    for (let i in this.state.imageCache) {
-      yield this.state.imageCache[i];
-    }
+    // for (let i in this.state.imageCache) {
+    //   yield this.state.imageCache[i];
+    // }
+    yield* this.state.imageCache;
   }
 
   onLoad(e) {
@@ -208,9 +216,10 @@ class Img extends Component {
           </div>
         }
         <img
-        className={this.props.className || ''}
-        style={style}
-        src={((this.state.finish === 1)?this.state.url:this.props.src)}
+          className={this.props.className || ''}
+          style={style}
+          src={((this.state.finish === 1)?this.state.url:this.props.src)}
+          alt=""
         />
       </div>
     );

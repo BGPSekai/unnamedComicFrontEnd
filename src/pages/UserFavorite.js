@@ -55,9 +55,9 @@ class UserFavorite extends Component {
       .then((data) => {
         let tempComic = Object.assign(this.state.comics, {});
         
-        for (let i in data.infos) {
-          tempComic[ Number(i) + index ] = data.infos[i]; //取代資訊
-        };
+        data.infos.forEach((info, i) => {
+           tempComic[ Number(i) + index ] = info; //取代資訊
+        });
         
         this.setState({
           comics: tempComic

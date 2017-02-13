@@ -17,9 +17,10 @@ export default class Container extends Component {
       position: 'relative'
     };
 
-    for (let i in this.props.style) {
-      styles[i] = this.props.style[i];
-    }
+    for (let i in this.props.style) { 
+      if (this.props.style.hasOwnProperty(i))
+        styles[i] = this.props.style[i]; 
+    };
 
     return (
       <Grid style={styles} fluid>
