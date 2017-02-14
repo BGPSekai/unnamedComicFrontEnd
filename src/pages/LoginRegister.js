@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { signInUser, signInUserSuccess, signInUserFailure } from 'actions/user'
+import { signInUser, signInUserSuccess, signInUserFailure, signUpUser, signUpUserSuccess, signUpUserFailure } from 'actions/user'
 import UserModule from 'module/UserModule'
 import LoginRegister from 'views/LoginRegister'
 
@@ -30,6 +30,17 @@ const mapDispatchToProps = (dispatch) => {
 					else
 						dispatch(signInUserFailure(response.message))
 				})
+		},
+		signUpUser: (formValues) => {
+			dispatch(signUpUser(formValues)).payload
+			.then((response) => {
+				if (response.status === 'success') {
+					dispatch(signUpUserSuccess())
+				}
+				else {
+					dispatch(signUpUserFailure(response.message))
+				}
+			})
 		}
 	}
 }

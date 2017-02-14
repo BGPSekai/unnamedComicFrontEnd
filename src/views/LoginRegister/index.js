@@ -46,31 +46,6 @@ class LoginRegister extends Component {
 			this.props.history.goBack();
 	}
 
-	getRegisterRequestData(response) {
-		if (response.status === 'error') {
-			this.setState({
-				loading: false,
-				registerButtonColor: styles.warrningColor,
-				msg: response.message,
-				warrning: true
-			});
-		} else {
-			this.setState({
-				loading: false,
-				registerButtonColor: styles.defaultColor,
-				msg: '註冊成功',
-				warrning: false
-			});
-			for (let i in this.state.register) {
-				if(this.state.register.hasOwnProperty(i))
-				  this.state.register[i] = '';
-			}
-			this.setState({
-				register: this.state.register
-			});
-		};
-	}
-
 	_handleEnterClick(e, ref) {
 		if (e.keyCode === 13) {
 			// if (ele.constructor.name === 'Checkbox') {
@@ -115,19 +90,13 @@ class LoginRegister extends Component {
 			}
 		};
 
-
 		this.setState({ loading: true });
 
 		if (type === 'login.') {
       tempUserData['remeber'] = this.refs.remeber.isChecked();
 			this.props.signInUser(tempUserData);
 		} else {
-			// this.setState({
-			// 	register: tempUserData
-			// });
-			RegisterModule
-				.postData(tempUserData)
-				.then(this.getRegisterRequestData.bind(this))
+			this.props.signUpUser(tempUserData);
 		};
 	}
 
@@ -137,7 +106,8 @@ class LoginRegister extends Component {
 				msg: UserReducer.msg,
 				loading: UserReducer.loading,
 				warrning: UserReducer.status === false,
-				loginButtonColor: UserReducer.status === false ? styles.warrningColor : styles.defaultColor
+				loginButtonColor: UserReducer.status === false ? styles.warrningColor : styles.defaultColor,
+				registerButtonColor: UserReducer.status === false ? styles.warrningColor : styles.defaultColor
 			});
 		if (UserReducer.status === 'authenticated' && UserReducer.user) {
 			browserHistory.push('/');
