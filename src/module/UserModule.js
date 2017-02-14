@@ -75,7 +75,7 @@ class UserModule {
   checkHasExpired() {
     let userData = new UserData().getFromJson();
     let time = Math.floor(new Date().getTime()/1000);
-    if (this.checkIsLogin() && (time - userData.timeStamp) < process.env.REACT_APP_USER_EXPIRED * 60) {
+    if (this.checkIsLogin() && (time - userData.timeStamp) < Number(process.env.REACT_APP_USER_EXPIRED) * 60) {
       return false;
     };
     return true;

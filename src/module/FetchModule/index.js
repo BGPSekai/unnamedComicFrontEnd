@@ -73,7 +73,7 @@ export default class FetchModule {
   /**
    * 取代 {變數} 內容
    * @param Object
-   * @returns this class
+   * @return this class
    */
   replaceVariable(data = {}) {
     let url = this._tempData.default_url;
@@ -85,6 +85,21 @@ export default class FetchModule {
    
     this._tempData.url = url;
     return this;
+  }
+
+  /**
+   * 送出包含 auth 和 cors 的 post
+   * 降低重複編寫長度 
+   * @param String, Object
+   * @return this class
+   */
+  sendAuthPost(url, data = {}) {
+    this.setUrl(url);
+    this.setMethod('POST');
+    this.setType('json');
+    this.setCors('cors');
+    this.setData(data);
+    return this.send();
   }
 
   send() {
