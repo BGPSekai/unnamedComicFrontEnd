@@ -4,19 +4,16 @@ import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import TextField from 'material-ui/TextField';
 import LinearProgress from 'material-ui/LinearProgress';
 import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back';
 import Checkbox from 'material-ui/Checkbox';
 import GoogleLogin from 'react-google-login';
-import UserModule from 'module/UserModule';
 import ContextualBg from 'components/ContextualBg';
 import Container from 'components/Container';
+import TextInput from 'components/TextInput';
 import styles from './styles';
-import RegisterModule from './RegisterModule';
-import SocialLogin from './SocialLogin';
 
 class LoginRegister extends Component {
 	constructor(props) {
@@ -27,16 +24,10 @@ class LoginRegister extends Component {
 			loginButtonColor: styles.defaultColor,
 			loading: false,
 			msg: [],
-			warrning: false,
-			register: {}
+			warrning: false
 		};
-		this._checkIsLogin();
-	}
-
-	_checkIsLogin() {
-		if (UserModule.checkIsLogin()) {
-			browserHistory.push('/');
-		};
+		
+		this.responseGoogle = this.responseGoogle.bind(this);
 	}
 
 	handleBackAcation() {
@@ -73,12 +64,12 @@ class LoginRegister extends Component {
 	}
 
   //處理輸入更換事件
-	handleRegisterChange(e, refs) {
-    let registerData = this.state.register;
-		registerData[refs] = e.target.value;
-		this.setState({
-			register: registerData
-		});
+	handleRegisterClear() {
+    for (let i in this.refs) {
+			if (i.match('register')) {
+				 this.refs[i].clear();
+			}
+		};
 	}
 
 	onSubmit(type) {
@@ -90,7 +81,7 @@ class LoginRegister extends Component {
 			}
 		};
 
-		this.setState({ loading: true });
+		tempUserData['from'] = null;
 
 		if (type === 'login.') {
       tempUserData['remeber'] = this.refs.remeber.isChecked();
@@ -100,20 +91,50 @@ class LoginRegister extends Component {
 		};
 	}
 
-	componentWillReceiveProps(nextProps) {
-		let UserReducer = nextProps.UserReducer;
-			this.setState({
-				msg: UserReducer.msg,
-				loading: UserReducer.loading,
-				warrning: UserReducer.status === false,
-				loginButtonColor: UserReducer.status === false ? styles.warrningColor : styles.defaultColor,
-				registerButtonColor: UserReducer.status === false ? styles.warrningColor : styles.defaultColor
-			});
+	componentWillMount() {
+		let UserReducer = this.props.UserReducer;
+		console.log(UserReducer)
 		if (UserReducer.status === 'authenticated' && UserReducer.user) {
 			browserHistory.push('/');
 		}
 	}
 	
+	componentWillReceiveProps(nextProps) {
+		let UserReducer = nextProps.UserReducer;
+
+		this.setState({
+			msg: UserReducer.msg,
+			loading: UserReducer.loading,
+			warrning: UserReducer.status === false,
+			loginButtonColor: UserReducer.status === false ? styles.warrningColor : styles.defaultColor,
+			registerButtonColor: UserReducer.status === false ? styles.warrningColor : styles.defaultColor
+		});
+
+		if (UserReducer.status === 'authenticated' && UserReducer.user) {
+			browserHistory.push('/');
+		}
+
+		if(UserReducer.status === 'registered') {
+			this.handleRegisterClear();
+		}
+	}
+
+	responseGoogle(response) {
+		let userData = {}, profileObj = response.profileObj;
+    
+		if (response.profileObj) {
+			//console.log('取得 user google 資訊');
+			userData = {
+				email: profileObj.email,
+				password: profileObj.googleId + profileObj.email,
+				password_confirmation: profileObj.googleId + profileObj.email,
+				name: profileObj.name,
+        from: 'Google'
+			};
+
+			this.props.signInUser(userData);
+		}
+	}
 
 	render() {
 		if (this.state.loading) {
@@ -137,14 +158,14 @@ class LoginRegister extends Component {
 							contentContainerStyle={styles.Tab}
 							>
 							<Tab label="登入">
-								<TextField
+								<TextInput
 									floatingLabelText="E-Mail"
 									ref="login.email"
 									hintText="填入您的電子郵件"
 									fullWidth
 									onKeyDown={(e) => this._handleEnterClick(e, 'login.password') }
 									/>
-								<TextField
+								<TextInput
 									floatingLabelText="密碼"
 									type="password"
 									ref="login.password"
@@ -172,8 +193,8 @@ class LoginRegister extends Component {
 									buttonText="Login with Google"
 									scope="profile"
 									fetchBasicProfile={true}
-									onSuccess={SocialLogin.responseGoogle}
-									onFailure={SocialLogin.responseGoogle}
+									onSuccess={this.responseGoogle}
+									onFailure={this.responseGoogle}
 									style={styles.GoogleLogin}
 									/>
 								<RaisedButton 
@@ -185,42 +206,34 @@ class LoginRegister extends Component {
 									/>
 							</Tab>
 							<Tab label="註冊">
-								<TextField
+								<TextInput
 									floatingLabelText="E-Mail"
 									ref="register.email"
 									hintText="填入您的電子郵件"
 									fullWidth
-									value={this.state.register.email || ''}
-									onChange={(e) => { this.handleRegisterChange(e, 'email') } }
 									onKeyDown={(e) => this._handleEnterClick(e, 'register.password') }
 									/>
-								<TextField
+								<TextInput
 									floatingLabelText="密碼"
 									type="password"
 									ref="register.password"
 									hintText="填入您的密碼"
 									fullWidth
-									value={this.state.register.password || ''}
-									onChange={(e) => { this.handleRegisterChange(e, 'password') } }
 									onKeyDown={(e) => this._handleEnterClick(e, 'register.password_confirmation') }
 									/>
-								<TextField
+								<TextInput
 									floatingLabelText="密碼確認"
 									type="password"
 									ref="register.password_confirmation"
 									hintText="確認您的密碼"
 									fullWidth
-									value={this.state.register.password_confirmation || ''}
-									onChange={(e) => { this.handleRegisterChange(e, 'password_confirmation') } }
 									onKeyDown={(e) => this._handleEnterClick(e, 'register.name') }
 									/>
-								<TextField
-									floatingLabelText="姓名"
+								<TextInput
+									floatingLabelText="名稱"
 									ref="register.name"
-									hintText="填入您的姓名"
+									hintText="填入您的名稱"
 									fullWidth
-									value={this.state.register.name || ''}
-									onChange={(e) => { this.handleRegisterChange(e, 'name') } }
 									onKeyDown={(e) => this._handleEnterClick(e, 'register') }
 									/>
 								<RaisedButton

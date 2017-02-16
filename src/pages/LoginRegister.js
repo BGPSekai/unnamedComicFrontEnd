@@ -10,15 +10,15 @@ const mapStateToProps = (state, stateProps = {}) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		signInUser: (formValues) => {
-				dispatch(signInUser(formValues)).payload
+				dispatch(signInUser(formValues))
 				.then((response) => {
-					if (response.status === 'success') {
+					let res = response.payload;
+					if (res.status === 'success') {
 
 						UserModule.setUserInfo(Object.assign({}, {
 							remeber: formValues.remeber,
 							timeStamp: Math.floor(new Date().getTime() / 1000),
-							jwt: response.token,
-							from: false,
+							jwt: res.token,
 							...formValues
 						}))
 
@@ -28,17 +28,18 @@ const mapDispatchToProps = (dispatch) => {
 
 					}
 					else
-						dispatch(signInUserFailure(response.message))
+						dispatch(signInUserFailure(res.message))
 				})
 		},
 		signUpUser: (formValues) => {
-			dispatch(signUpUser(formValues)).payload
+			dispatch(signUpUser(formValues))
 			.then((response) => {
-				if (response.status === 'success') {
+				let res = response.payload;
+				if (res.status === 'success') {
 					dispatch(signUpUserSuccess())
 				}
 				else {
-					dispatch(signUpUserFailure(response.message))
+					dispatch(signUpUserFailure(res.message))
 				}
 			})
 		}

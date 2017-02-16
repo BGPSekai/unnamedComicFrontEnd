@@ -5,7 +5,7 @@ class TextInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: props.default
+      text: props.default || ''
     };
 
     this.clear = this.clear.bind(this);
